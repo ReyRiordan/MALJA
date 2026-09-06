@@ -18,8 +18,7 @@ export function escapeHtml(s: string): string {
 function tagsFor(verdict: Verdict | null): Tag[] {
   if (!verdict) return [];
   const tags: Tag[] = [];
-  if (verdict.relevant === "unclear")
-    tags.push({ text: "may not be an internship", level: "warn" });
+  if (verdict.relevant === "unclear") tags.push({ text: "relevance unclear", level: "info" });
   if (verdict.degreeOk === "unclear") tags.push({ text: "eligibility unclear", level: "info" });
   if (verdict.workAuth === "no_sponsorship") tags.push({ text: "no sponsorship", level: "info" });
   if (verdict.workAuth === "citizen_only") tags.push({ text: "US citizens only", level: "warn" });

@@ -60,7 +60,7 @@ describe("toNotification", () => {
 
   it.each<[Partial<Verdict> | null, Tag[]]>([
     [{ degreeOk: "unclear" }, [{ text: "eligibility unclear", level: "info" }]],
-    [{ relevant: "unclear" }, [{ text: "may not be an internship", level: "warn" }]],
+    [{ relevant: "unclear" }, [{ text: "relevance unclear", level: "info" }]],
     [{ relevant: "no" }, []],
     [{ workAuth: "no_sponsorship" }, [{ text: "no sponsorship", level: "info" }]],
     [{ workAuth: "citizen_only" }, [{ text: "US citizens only", level: "warn" }]],

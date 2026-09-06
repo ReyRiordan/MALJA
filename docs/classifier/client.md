@@ -49,7 +49,7 @@ OpenRouter wraps upstream provider errors in a 200 body with an `error` object. 
 
 ## Failure yields unclear, never throws
 
-Any failure returns `{ relevant: "unclear", degreeOk: "unclear", workAuth: "unclear", reason: "classifier error: <cause>" }`. `relevant: unclear` sends the group with a `may not be an internship` tag, so an OpenRouter outage never suppresses a job. The cause is one of these fixed strings:
+Any failure returns `{ relevant: "unclear", degreeOk: "unclear", workAuth: "unclear", reason: "classifier error: <cause>" }`. `relevant: unclear` sends the group with a `relevance unclear` tag, so an OpenRouter outage never suppresses a job. The cause is one of these fixed strings:
 
 | Cause | Meaning |
 | --- | --- |
