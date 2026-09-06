@@ -48,7 +48,7 @@ Use the GitHub CLI (`gh`) for all GitHub-related tasks. Work is tracked as GitHu
 - **stale**: `skip` reason for a job whose detail timestamp is older than `recencySec`. Stored as seen, never sent.
 - **gone**: `skip` reason for a job whose detail fetch returned 404 or 410. Stored as seen, never sent.
 - **deferred**: an unseen id that got no detail fetch because the cycle budget ran out. Counted, not queued; it is found again next cycle.
-- **soft filter**: classifier verdict `relevant = no` or `degree_ok = no` suppresses a job; `degree_ok = unclear` sends it with a tag, `relevant = unclear` sends it untagged; missing description sends it untagged.
+- **soft filter**: classifier verdict `relevant = no` or `degree_ok = no` suppresses a job; `degree_ok = unclear` and `relevant = unclear` each send it with a tag; missing description sends it untagged.
 - **verdict**: the classifier's answer for one group: `relevant`, `degreeOk`, `workAuth`, and a one-sentence `reason`. `null` on a row means never classified; `unclear` means the model could not tell or the call failed.
 - **cycle_failed**: alert condition for a throw caught at the cycle boundary. The loop keeps running; `/health` reports `stale` until a cycle succeeds.
 - **notifier**: the delivery interface (start, isReady, send, sendAdmin, stop). Telegram is the first adapter.

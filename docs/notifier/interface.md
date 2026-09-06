@@ -33,7 +33,7 @@ The loop hands over plain data and each adapter owns its rendering. A WhatsApp a
 
 | Verdict field | Value | Tag | Level |
 | --- | --- | --- | --- |
-| `relevant` | `unclear` | none. The tags describe eligibility, not relevance. | |
+| `relevant` | `unclear` | `may not be an internship` | `warn` |
 | `relevant` | `no` | none. The loop suppresses the job; it never reaches the notifier. | |
 | `degreeOk` | `unclear` | `eligibility unclear` | `info` |
 | `degreeOk` | `no` | none. The loop suppresses the job; it never reaches the notifier. | |
@@ -42,7 +42,9 @@ The loop hands over plain data and each adapter owns its rendering. A WhatsApp a
 | `workAuth` | `none` or `unclear` | none | |
 | verdict | `null` | none | |
 
-`warn` is for the one tag that rules most of the group out. The level lives in the data so a second adapter gets the same split without reading the wording.
+`warn` is for a tag that rules most of the group out. `US citizens only` excludes the international students; `may not be an internship` excludes everyone if it is right. The level lives in the data so a second adapter gets the same split without reading the wording.
+
+`may not be an internship` is the only relevance tag. The guest search returns regular jobs that never say "full-time", and the model answers `unclear` on some of them, so a posting it could not confirm should not look identical to one it could. The tag also appears on every message sent while the classifier is down, because the fallback verdict is `unclear` on every field; that is honest, since nobody checked.
 
 Work-auth `unclear` is the default whenever the description does not say, so tagging it would make everyone ignore the tag line. `no sponsorship` and `US citizens only` stay separate because they exclude different people. A `null` verdict means the group was never classified, which is a group with no description anywhere. There is one verdict per group, so there is no merge rule.
 
