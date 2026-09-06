@@ -325,11 +325,13 @@ describe("Loop.runCycle", () => {
     expect(suppressedLines[0]?.[0]).toMatchObject({ field: "relevant", reason: "FT" });
   });
 
-  it("relevant unclear sends the group untagged", async () => {
+  it("relevant unclear sends the group with an info tag", async () => {
     const h = harness({ verdicts: () => ({ verdict: MAYBE_RELEVANT, error: null }) });
     const summary = await h.loop.runCycle();
     expect(summary).toMatchObject({ suppressed: 0, created: FIXTURE_KEYS, sent: FIXTURE_KEYS });
-    expect(h.sent.every((n) => n.tags.length === 0)).toBe(true);
+    expect(
+      h.sent.every((n) => n.tags.some((t) => t.text === "relevance unclear" && t.level === "info")),
+    ).toBe(true);
   });
 
   it("a group with no description gets no classify call and no tag", async () => {
