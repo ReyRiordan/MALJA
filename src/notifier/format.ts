@@ -14,14 +14,17 @@ export function escapeHtml(s: string): string {
   return s.replace(/[&<>"]/g, (c) => HTML_ESCAPES[c] ?? c);
 }
 
-/** Tags for a verdict. Wording and level are decided here, once; adapters print them. */
+/**
+ * Tags for a verdict. Wording and level are decided here, once; adapters print them.
+ * Ordered most exclusionary first: work auth, then eligibility, then relevance.
+ */
 function tagsFor(verdict: Verdict | null): Tag[] {
   if (!verdict) return [];
   const tags: Tag[] = [];
-  if (verdict.relevant === "unclear") tags.push({ text: "relevance unclear", level: "info" });
-  if (verdict.degreeOk === "unclear") tags.push({ text: "eligibility unclear", level: "info" });
-  if (verdict.workAuth === "no_sponsorship") tags.push({ text: "no sponsorship", level: "info" });
   if (verdict.workAuth === "citizen_only") tags.push({ text: "US citizens only", level: "warn" });
+  if (verdict.workAuth === "no_sponsorship") tags.push({ text: "no sponsorship", level: "info" });
+  if (verdict.degreeOk === "unclear") tags.push({ text: "eligibility unclear", level: "info" });
+  if (verdict.relevant === "unclear") tags.push({ text: "relevance unclear", level: "info" });
   return tags;
 }
 

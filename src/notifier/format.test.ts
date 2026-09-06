@@ -69,15 +69,23 @@ describe("toNotification", () => {
     [
       { degreeOk: "unclear", workAuth: "no_sponsorship" },
       [
-        { text: "eligibility unclear", level: "info" },
         { text: "no sponsorship", level: "info" },
+        { text: "eligibility unclear", level: "info" },
       ],
     ],
     [
       { degreeOk: "unclear", workAuth: "citizen_only" },
       [
-        { text: "eligibility unclear", level: "info" },
         { text: "US citizens only", level: "warn" },
+        { text: "eligibility unclear", level: "info" },
+      ],
+    ],
+    [
+      { relevant: "unclear", degreeOk: "unclear", workAuth: "citizen_only" },
+      [
+        { text: "US citizens only", level: "warn" },
+        { text: "eligibility unclear", level: "info" },
+        { text: "relevance unclear", level: "info" },
       ],
     ],
     [null, []],
@@ -116,8 +124,8 @@ describe("formatNotification", () => {
         { location: "Englewood, CO", url: "https://www.linkedin.com/jobs/view/222" },
       ],
       tags: [
-        { text: "eligibility unclear", level: "info" },
         { text: "no sponsorship", level: "info" },
+        { text: "eligibility unclear", level: "info" },
       ],
     };
     expect(formatNotification(n)).toBe(
@@ -125,7 +133,7 @@ describe("formatNotification", () => {
         "<b>Software Engineer Intern</b>",
         "<i>Spectrum</i>",
         '<a href="https://www.linkedin.com/jobs/view/111">Greenwood Village, CO</a> · <a href="https://www.linkedin.com/jobs/view/222">Englewood, CO</a>',
-        "ℹ️ eligibility unclear · no sponsorship",
+        "ℹ️ no sponsorship · eligibility unclear",
       ].join("\n"),
     );
   });
@@ -134,8 +142,8 @@ describe("formatNotification", () => {
     const n: Notification = {
       ...base,
       tags: [
-        { text: "eligibility unclear", level: "info" },
         { text: "US citizens only", level: "warn" },
+        { text: "eligibility unclear", level: "info" },
       ],
     };
     expect(formatNotification(n)).toBe(
@@ -143,7 +151,7 @@ describe("formatNotification", () => {
         "<b>Software Engineer Intern</b>",
         "<i>Spectrum</i>",
         '<a href="https://www.linkedin.com/jobs/view/111">Greenwood Village, CO</a>',
-        "⚠️ eligibility unclear · US citizens only",
+        "⚠️ US citizens only · eligibility unclear",
       ].join("\n"),
     );
   });

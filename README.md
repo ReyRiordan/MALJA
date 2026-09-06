@@ -11,11 +11,11 @@ One message per role. Each city links to its own posting. The last line only app
 > **Software Engineer Intern**
 > _Spectrum_
 > [Greenwood Village, CO](https://www.linkedin.com/jobs/view/111) · [Englewood, CO](https://www.linkedin.com/jobs/view/222)
-> ℹ️ eligibility unclear · no sponsorship
+> ℹ️ no sponsorship · eligibility unclear
 
 | Glyph | Meaning |
 | --- | --- |
-| ℹ️ | Degree eligibility unclear, or the posting says no visa sponsorship. |
+| ℹ️ | The posting says no visa sponsorship, degree eligibility is unclear, or the classifier could not confirm it is a relevant internship. |
 | ⚠️ | US citizens only. The one tag that rules most of the group out. |
 
 Postings the classifier marks as not relevant or not open to the configured degree are never sent. The admin chat gets a short line when something breaks (rate limited, blocked, classifier down, send failed, a cycle threw), at most once an hour per condition.

@@ -18,8 +18,8 @@ const sample: Notification = {
     { location: "Englewood, CO", url: "https://www.linkedin.com/jobs/view/4000000002" },
   ],
   tags: [
-    { text: "eligibility unclear", level: "info" },
     { text: "no sponsorship", level: "info" },
+    { text: "eligibility unclear", level: "info" },
   ],
 };
 
