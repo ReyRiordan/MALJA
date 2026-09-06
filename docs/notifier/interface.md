@@ -33,14 +33,16 @@ The loop hands over plain data and each adapter owns its rendering. A WhatsApp a
 
 | Verdict field | Value | Tag | Level |
 | --- | --- | --- | --- |
-| `relevant` | `unclear` | `relevance unclear` | `info` |
-| `relevant` | `no` | none. The loop suppresses the job; it never reaches the notifier. | |
+| `workAuth` | `citizen_only` | `US citizens only` | `warn` |
+| `workAuth` | `no_sponsorship` | `no sponsorship` | `info` |
+| `workAuth` | `none` or `unclear` | none | |
 | `degreeOk` | `unclear` | `eligibility unclear` | `info` |
 | `degreeOk` | `no` | none. The loop suppresses the job; it never reaches the notifier. | |
-| `workAuth` | `no_sponsorship` | `no sponsorship` | `info` |
-| `workAuth` | `citizen_only` | `US citizens only` | `warn` |
-| `workAuth` | `none` or `unclear` | none | |
+| `relevant` | `unclear` | `relevance unclear` | `info` |
+| `relevant` | `no` | none. The loop suppresses the job; it never reaches the notifier. | |
 | verdict | `null` | none | |
+
+Tags appear in the table's order, most exclusionary first: work auth, then eligibility, then relevance. A work-auth tag repeats a fact the posting states, the two `unclear` tags mean the model could not tell, so the reader hits the hardest blocker first.
 
 `warn` is for the one tag that rules most of the group out. The level lives in the data so a second adapter gets the same split without reading the wording.
 
