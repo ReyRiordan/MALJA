@@ -25,6 +25,7 @@ The system prompt opens by asking whether this is a `term` internship that `prog
 
 - "yes" only when all three hold: the posting is an internship or co-op, not a full-time, contract, new-grad, or rotational analyst role; it is for `term`, or names no term at all; and the work is in `fields`.
 - "no" when the posting states a mismatch on any of the three: it is a full-time, contract, new-grad, or rotational analyst role; it names a different term (for example fall, spring, or year-round only); or the work is in another field (for example mechanical, civil, chemistry, marketing, or finance), even if it mentions Python.
+- The title is the strongest signal. Employers put "intern", "internship", or "co-op" in the title of nearly every internship, so a title without any of those words (for example "Software Engineer", "AI/ML Engineer", "Junior Developer") is very likely a regular job: answer "no" unless the description itself says it is an internship or co-op.
 - "unclear" when the posting is silent or mixed on one of the three, for example a bare "Engineering Intern" with no field named.
 
 `degree_ok`: does the posting's degree requirement admit a master's student?
@@ -42,7 +43,9 @@ The system prompt opens by asking whether this is a `term` internship that `prog
 
 `reason`: one sentence quoting the phrase that decided each of the three answers, or saying that the posting is silent.
 
-The relevance rule is a model filter with no keyword gate on the card title. A title keyword nobody thought of (bank-style "Summer Analyst, Software Engineering") would lose a job silently, and off-title postings are rare enough that one detail fetch plus one classifier call each is cheap. `yes` needs all three tests and `no` needs a stated mismatch, so a posting that names no term still counts as a match, because many summer internships never say the year. The field test exists because a mechanics research internship is exactly the non-CS internship the search returns.
+The relevance rule is a model filter with no keyword gate on the card title in code. A title keyword nobody thought of (bank-style "Summer Analyst, Software Engineering") would lose a job silently, and off-title postings are rare enough that one detail fetch plus one classifier call each is cheap. `yes` needs all three tests and `no` needs a stated mismatch, so a posting that names no term still counts as a match, because many summer internships never say the year. The field test exists because a mechanics research internship is exactly the non-CS internship the search returns.
+
+The title rule exists because the guest search returns plenty of regular jobs that never say "full-time": a recruiter repost titled "Software Engineer" that asks for professional experience, or a contract "AI/ML Engineer" paid hourly. Without the rule the model read those as silent on the internship test and answered `unclear`, which goes out untagged. The rule is a prompt instruction rather than a code gate so the bank-style title still reaches the model, which can say `yes` when the description calls it an internship. LinkedIn's own employment type is not a substitute: real internships in the eval set are tagged Full-time or Volunteer as often as Internship.
 
 The degree rule leans permissive on purpose. Missing a job costs more than a tagged message, so bachelor's-only wording without exclusion language is `unclear`, not `no`. A stated graduation window is taken at its word.
 

@@ -1,0 +1,13 @@
+{
+  "id": "4464049157",
+  "title": "AI/ML Engineer",
+  "company": "Haystack",
+  "url": "https://www.linkedin.com/jobs/view/4464049157",
+  "description": "Working with a strategic advisory and technology firm that partners with companies on high-impact transformation and technology initiatives. They collaborate closely with executive and technology leaders to solve complex problems, identify opportunities, and turn strategy into working solutions, building production-grade AI systems for enterprises.\n\nThe Role\n\nDesign and build production-grade AI and machine learning systems\nDevelop RAG, semantic search, embeddings, retrieval, and knowledge systems\nIntegrate AI capabilities into existing enterprise applications and systems\nEvaluate models, architectures, and tooling based on business and technical requirements\nOptimize AI systems for reliability, latency, scalability, and cost\nOwn technical work from initial design through production delivery\n\nWhat You'll Need\n\nStrong professional software engineering experience with ownership of production engineering work\nDemonstrated experience building and shipping AI, LLM, or machine learning systems in production\nStrong Python development skills\nHands-on experience with leading LLMs and foundation model platforms\nExperience with RAG, embeddings, vector search, semantic retrieval, and context management\nExperience deploying and operating production workloads in AWS, Azure, or Google Cloud\n\nWhat's On Offer\n\nCompetitive hourly compensation based on experience\nRemote work within the United States\nWork on complex, production-grade enterprise AI initiatives\nCollaborate with experienced engineers, architects, and delivery leaders\n\nApply via Haystack today!",
+  "expected": {
+    "relevant": "no",
+    "degreeOk": "unclear",
+    "workAuth": "unclear"
+  },
+  "note": "Haystack: relevant no, title 'AI/ML Engineer' has no intern wording and the body asks for 'Strong professional software engineering experience' with 'Competitive hourly compensation', a contract role. No degree language, so degreeOk unclear; nothing on work auth."
+}
