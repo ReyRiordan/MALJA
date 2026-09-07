@@ -20,7 +20,7 @@ Pure JSON, no env interpolation. `CONFIG_PATH` selects an alternate file for dev
 | `classifier.program` | required | Who the students are, in prose. Goes into the prompt verbatim. See docs/classifier/prompt.md. |
 | `classifier.graduation` | required | Expected graduation, e.g. `"May 2028"`. Goes into the prompt verbatim. |
 | `classifier.term` | required | The internship term the searches target, e.g. `"summer 2027"`. Goes into the prompt verbatim; a posting naming a different term is suppressed. |
-| `classifier.fields` | required | The fields a posting must be in, in prose. Goes into the prompt verbatim; a posting in another field is suppressed. |
+| `classifier.fields` | required | The fields a posting must be in, in prose. Inserted verbatim into two rubric sentences ("is this a `term` internship in `fields`?" and "the work is in `fields`"), so the prose can carry carve-outs such as which kind of data science counts or what makes a product management role technical. A posting in another field is suppressed. |
 | `classifier.reasoningEffort` | `"low"` | OpenRouter `reasoning.effort`: `none`, `minimal`, `low`, `medium`, `high`, `xhigh`. See docs/classifier/client.md. |
 | `dedupe.windowDays` | 14 | |
 | `notifier` | `"telegram"` | Enum with the one value. |

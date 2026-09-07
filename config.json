@@ -14,7 +14,7 @@
     "program": "master's students in Carnegie Mellon University's M.S. in Artificial Intelligence and Innovation (MSAII), a mix of US citizens and F-1 international students",
     "graduation": "May 2028",
     "term": "summer 2027",
-    "fields": "software engineering, machine learning, AI, and data science, including research internships in those areas",
+    "fields": "software engineering, machine learning, AI, data science that builds or trains models rather than reports or dashboards, and technical product management, meaning product management for a software or AI product or one that asks for a computer science or engineering background, including research internships in those areas",
     "reasoningEffort": "low"
   },
   "dedupe": { "windowDays": 14 },

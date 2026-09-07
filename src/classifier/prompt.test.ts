@@ -30,6 +30,13 @@ describe("buildMessages", () => {
     expect(user?.content).toContain("Build things.");
   });
 
+  it("states the analyst-title rule and judges the field by the assigned work", () => {
+    const [system] = buildMessages(FACTS, INPUT);
+    expect(system?.content).toContain('A title containing "analyst" or "analytics"');
+    expect(system?.content).toContain("Judge the field by the work the description assigns");
+    expect(system?.content).toContain("business and data analytics such as BI reporting");
+  });
+
   it("truncates the description past the cap with a marker", () => {
     const long = "x".repeat(MAX_DESCRIPTION_CHARS + 500);
     const [, user] = buildMessages(FACTS, { ...INPUT, description: long });
