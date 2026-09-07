@@ -24,6 +24,9 @@ const UNCLEAR: Verdict = {
   reason: "classifier error: x",
 };
 
+const ids = (n: number, from = 0) =>
+  Array.from({ length: n }, (_, i) => ({ id: String(7_100_000 + from + i) }));
+
 /** Baseline: the captured search page yields 10 cards in 8 dedupe keys. */
 const FIXTURE_CARDS = parseCards(fixture("search-page0.html"));
 const FIXTURE_KEYS = 8;
@@ -66,6 +69,7 @@ interface HarnessOptions {
   details?: Record<string, Detail>;
   searches?: number;
   verdicts?: (input: ClassifyInput) => ClassifyResult;
+  cacheBustSeed?: number;
 }
 
 function config(searches: number): Config {
@@ -178,6 +182,7 @@ function harness(opts: HarnessOptions = {}) {
     classifier: { classify },
     alerter: new Alerter(notifier, { now: () => t, log }),
     now: () => t,
+    ...(opts.cacheBustSeed === undefined ? {} : { cacheBustSeed: opts.cacheBustSeed }),
     setTimeout,
     clearTimeout,
     log,
@@ -211,6 +216,13 @@ function harness(opts: HarnessOptions = {}) {
 const detailCalls = (h: ReturnType<typeof harness>) =>
   h.fetch.mock.calls.filter(([url]) => url.startsWith(JOB_VIEW_URL)).length;
 
+/** The `f_TPR` seconds sent on page 0 of each cycle, in order. */
+const tprs = (h: ReturnType<typeof harness>) =>
+  h.fetch.mock.calls
+    .map(([url]) => new URL(url))
+    .filter((u) => u.href.startsWith(SEARCH_URL) && u.searchParams.get("start") === "0")
+    .map((u) => Number(u.searchParams.get("f_TPR")?.slice(1)));
+
 describe("Loop.runCycle", () => {
   it("first run sends one message per key; second run sends nothing", async () => {
     const h = harness();
@@ -241,16 +253,83 @@ describe("Loop.runCycle", () => {
     expect(detailCalls(h)).toBe(10);
   });
 
-  it("uses firstCycleRecencySec on the first cycle and recencySec after", async () => {
+  it("uses firstCycleRecencySec on the first cycle and recencySec after, plus an offset", async () => {
     const h = harness();
     await h.loop.runCycle();
     await h.loop.runCycle();
-    const tprs = h.fetch.mock.calls
-      .map(([url]) => url)
-      .filter((u) => u.startsWith(SEARCH_URL))
-      .map((u) => new URL(u).searchParams.get("f_TPR"));
-    expect(tprs[0]).toBe("r600");
-    expect(tprs.at(-1)).toBe("r3600");
+    await h.loop.runCycle();
+    const [first, second, third] = tprs(h) as [number, number, number];
+    expect(first).toBeGreaterThanOrEqual(600);
+    expect(first).toBeLessThan(1200);
+    for (const t of [second, third]) {
+      expect(t).toBeGreaterThanOrEqual(3600);
+      expect(t).toBeLessThan(4200);
+    }
+    expect(second).not.toBe(third);
+  });
+
+  it("a fixed cacheBustSeed makes the f_TPR sequence deterministic", async () => {
+    const run = async () => {
+      const h = harness({ cacheBustSeed: 598 });
+      for (let i = 0; i < 3; i++) await h.loop.runCycle();
+      return tprs(h);
+    };
+    expect(await run()).toEqual([1198, 4199, 3600]);
+    expect(await run()).toEqual([1198, 4199, 3600]);
+    const first = harness({ cacheBustSeed: 598 });
+    await first.loop.runCycle();
+    expect(first.log.info).toHaveBeenCalledWith(
+      expect.objectContaining({ recencySec: 600, cacheBustSec: 598 }),
+      "cycle started",
+    );
+  });
+
+  it("fetches cards deferred by one cycle in the next even when page 0 has nothing new", async () => {
+    const pages = [page(ids(10)), page(ids(9, 10))];
+    const h = harness({ pages: { s0: pages } });
+    const first = await h.loop.runCycle();
+    // 2 search requests and 13 details spend the budget; 6 cards wait.
+    expect(first.searches[0]).toMatchObject({ jobs: 13, inserted: 13, deferred: 6 });
+    expect(detailCalls(h)).toBe(13);
+
+    h.advance(POLL_MS);
+    const second = await h.loop.runCycle();
+    expect(second.searches[0]).toMatchObject({ jobs: 6, inserted: 6, deferred: 0 });
+    expect(detailCalls(h)).toBe(19);
+    expect(h.sent).toHaveLength(19);
+
+    h.advance(POLL_MS);
+    const third = await h.loop.runCycle();
+    expect(third.searches[0]).toMatchObject({ jobs: 0, deferred: 0 });
+    expect(detailCalls(h)).toBe(19);
+  });
+
+  it("logs posted-to-seen and posted-to-sent lag", async () => {
+    const h = harness({
+      pages: { s0: [page([{ id: "8100001" }, { id: "8100002" }])] },
+      details: { "8100001": { age: 7 }, "8100002": { age: 60 } },
+    });
+    await h.loop.runCycle();
+    const seen = h.log.info.mock.calls.filter(([, msg]) => msg === "job seen").map(([o]) => o);
+    expect(seen).toEqual([
+      {
+        id: "8100001",
+        label: "s0",
+        postedAt: new Date(NOW - 7 * 60_000).toISOString(),
+        lagSec: 420,
+        skip: null,
+      },
+      {
+        id: "8100002",
+        label: "s0",
+        postedAt: new Date(NOW - 60 * 60_000).toISOString(),
+        lagSec: 3600,
+        skip: "stale",
+      },
+    ]);
+    const sent = h.log.info.mock.calls.filter(([, msg]) => msg === "notification sent");
+    expect(sent).toHaveLength(1);
+    expect(sent[0]?.[0]).toMatchObject({ lagSec: 420, retry: false });
   });
 
   it("stores stale and gone jobs as seen without sending them", async () => {

@@ -6,8 +6,8 @@ import type { Alerter } from "../notifier/alerts.ts";
 import { toNotification } from "../notifier/format.ts";
 import type { Notifier } from "../notifier/types.ts";
 import type { LinkedInClient } from "../scraper/http.ts";
-import { scrapeSearch } from "../scraper/search.ts";
-import type { Job } from "../scraper/types.ts";
+import { CACHE_BUST_RANGE_SEC, scrapeSearch } from "../scraper/search.ts";
+import type { Card, Job } from "../scraper/types.ts";
 import { type Group, groupByKey } from "./dedupe.ts";
 import type { Store } from "./store.ts";
 
@@ -29,6 +29,8 @@ export interface LoopOptions {
   alerter: Alerter;
   /** Epoch ms. */
   now?: () => number;
+  /** Start of the per-cycle `f_TPR` offset counter. Random per process unless injected. */
+  cacheBustSeed?: number;
   setTimeout?: typeof globalThis.setTimeout;
   clearTimeout?: typeof globalThis.clearTimeout;
   log?: Logger;
@@ -84,6 +86,10 @@ export class Loop {
   private readonly log: Logger;
 
   private readonly startedAt: number;
+  private readonly cacheBustSeed: number;
+  private cycleIndex = 0;
+  /** Cards deferred by the last cycle, by search label. Memory only, like backoff state. */
+  private readonly carried = new Map<string, Card[]>();
   private firstCycle = true;
   private stopping = false;
   private timer: ReturnType<typeof globalThis.setTimeout> | null = null;
@@ -101,6 +107,7 @@ export class Loop {
     this.classifier = opts.classifier;
     this.alerter = opts.alerter;
     this.now = opts.now ?? Date.now;
+    this.cacheBustSeed = opts.cacheBustSeed ?? Math.floor(Math.random() * CACHE_BUST_RANGE_SEC);
     this.setTimeout = opts.setTimeout ?? globalThis.setTimeout;
     this.clearTimeout = opts.clearTimeout ?? globalThis.clearTimeout;
     this.log = opts.log ?? rootLog.child({ component: "loop" });
@@ -164,9 +171,11 @@ export class Loop {
     };
     const recencySec = this.firstCycle ? this.config.firstCycleRecencySec : this.config.recencySec;
     this.firstCycle = false;
-    this.log.info({ recencySec, at: new Date(now).toISOString() }, "cycle started");
+    const cacheBustSec = (this.cacheBustSeed + this.cycleIndex) % CACHE_BUST_RANGE_SEC;
+    this.cycleIndex += 1;
+    this.log.info({ recencySec, cacheBustSec, at: new Date(now).toISOString() }, "cycle started");
     try {
-      await this.cycle(now, recencySec, summary);
+      await this.cycle(now, recencySec, cacheBustSec, summary);
       this.lastSuccessfulCycleAt = now;
       this.log.info({ ...summary, stopped: this.stopping }, "cycle finished");
     } catch (err) {
@@ -178,11 +187,16 @@ export class Loop {
     return summary;
   }
 
-  private async cycle(now: number, recencySec: number, summary: CycleSummary): Promise<void> {
+  private async cycle(
+    now: number,
+    recencySec: number,
+    cacheBustSec: number,
+    summary: CycleSummary,
+  ): Promise<void> {
     this.client.beginCycle();
     const fresh: Job[] = [];
     for (const search of this.config.searches) {
-      fresh.push(...(await this.scrape(search, recencySec, now, summary)));
+      fresh.push(...(await this.scrape(search, recencySec, cacheBustSec, now, summary)));
       if (this.stopping) return;
     }
 
@@ -208,17 +222,33 @@ export class Loop {
   private async scrape(
     search: Config["searches"][number],
     recencySec: number,
+    cacheBustSec: number,
     now: number,
     summary: CycleSummary,
   ): Promise<Job[]> {
     const result = await scrapeSearch(this.client, search, {
       recencySec,
+      cacheBustSec,
+      carried: this.carried.get(search.label),
       maxPages: this.config.maxPages,
       isSeen: (id) => this.store.hasJob(id),
       now: () => now,
     });
+    this.carried.set(search.label, result.deferredCards);
     const fresh = result.jobs.filter((job) => !this.store.hasJob(job.id));
     const inserted = this.store.insertJobs(result.jobs, now);
+    for (const job of fresh) {
+      this.log.info(
+        {
+          id: job.id,
+          label: search.label,
+          postedAt: job.postedAt?.toISOString() ?? null,
+          lagSec: lagSec(job.postedAt?.getTime() ?? 0, now),
+          skip: job.skip ?? null,
+        },
+        "job seen",
+      );
+    }
     const halted = result.halted?.signal ?? null;
     const line: SearchSummary = {
       label: search.label,
@@ -311,7 +341,13 @@ export class Loop {
       this.store.markSent([row.id], messageId, now);
       summary.sent += 1;
       this.log.info(
-        { id: row.id, key: row.key, messageId, retry: row.createdAt !== now },
+        {
+          id: row.id,
+          key: row.key,
+          messageId,
+          retry: row.createdAt !== now,
+          lagSec: lagSec(newestPostedAt(group), now),
+        },
         "notification sent",
       );
     }
@@ -340,6 +376,11 @@ function suppressedBy(verdict: Verdict): "relevant" | "degreeOk" | null {
   if (verdict.relevant === "no") return "relevant";
   if (verdict.degreeOk === "no") return "degreeOk";
   return null;
+}
+
+/** Whole seconds from `postedAt` to `now`, or null when the posting time is unknown. */
+function lagSec(postedAt: number, now: number): number | null {
+  return postedAt === 0 ? null : Math.round((now - postedAt) / 1000);
 }
 
 /** Newest `postedAt` in the group as epoch ms; groups with no timestamp sort first. */
