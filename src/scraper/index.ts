@@ -33,6 +33,7 @@ export {
 } from "./http.ts";
 export {
   buildSearchUrl,
+  CACHE_BUST_RANGE_SEC,
   PAGE_SIZE,
   parseCards,
   type ScrapeOpts,
