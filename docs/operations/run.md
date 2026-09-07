@@ -29,15 +29,16 @@ Every line has a `component`: `loop`, `scraper`, `classifier`, `notifier`, `aler
 | `config loaded` | Boot. Lists searches, intervals, model, `graduation`, `term`, `fields`, `dataDir`, `port`. |
 | `telegram bot ready` | `getMe` passed. |
 | `health server listening` | `/health` is up. Railway's healthcheck passes from here. |
-| `cycle started` | With `recencySec` in use, 600 on the first cycle by default. |
+| `cycle started` | With `recencySec` in use, 600 on the first cycle by default, and the `cacheBustSec` added to `f_TPR` this cycle. |
 | `linkedin request` | One per request: `url`, `status`, `elapsedMs`, `count` toward the 15 per cycle. |
-| `search scraped` | Per search: `jobs`, `inserted`, `deferred`, `cardsOnFirstPage`, `halted`, `skipped`. |
+| `job seen` | One per fresh job: `id`, `label`, `postedAt`, `lagSec` from posting to this cycle, `skip`. |
+| `search scraped` | Per search: `jobs`, `inserted`, `deferred` (carried to the next cycle), `cardsOnFirstPage`, `halted`, `skipped`. |
 | `search halted` | A transient scrape error ended the search early. |
 | `request skipped, backoff pause active` | Rate limited or blocked; nothing fetched until `pausedUntil`. |
 | `openrouter request` | One per classifier attempt, with tokens and the verdict. |
 | `group suppressed` | With `field`: `relevant` or `degreeOk` came back `no`. |
 | `no description in group; sending untagged` | No classifier call for this group. |
-| `notification sent` | With `messageId`, and `retry: true` when the row came from an earlier cycle. |
+| `notification sent` | With `messageId`, `lagSec` from the newest posting in the group to now, and `retry: true` when the row came from an earlier cycle. |
 | `send failed; row stays unsent` | Retried next cycle. |
 | `notifier not ready; unsent rows wait for a later cycle` | The bot lost the group. |
 | `alert throttled` | The same condition fired within the hour. |

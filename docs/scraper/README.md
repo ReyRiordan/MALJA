@@ -13,6 +13,7 @@ Fetching job postings from LinkedIn's logged-out guest endpoints: the throttled 
 ## Known limitations
 
 - The guest index is not the logged-in AI search. Result sets overlap heavily but do not match exactly.
+- LinkedIn caches search results server-side by query string. A URL repeated at the poll interval can be served one of several frozen result sets for half an hour or more, so a new posting is invisible to it while the same query with a never-seen `f_TPR` value is fresh. The scraper defeats this by changing `f_TPR` every cycle (search.md). A random token in `keywords` also busts the cache but changes the search; unknown params and param order do nothing.
 - `f_TPR` is approximate at the window edge. A posting slightly older than the window can still appear, which is why the detail timestamp is checked again.
 - Region-locked and Easy Apply postings can render an empty description on the guest pages. They are stored with `description: null`, never dropped.
 - Automated access is against LinkedIn's terms. At this volume, from public logged-out pages, the practical exposure is a temporary IP throttle rather than an account action, but it is not zero.
