@@ -9,6 +9,7 @@ import { loadConfig, parseEnv } from "../src/config.ts";
 import { log } from "../src/log.ts";
 import {
   buildSearchUrl,
+  CACHE_BUST_RANGE_SEC,
   type Fetch,
   JOB_FRAGMENT_URL,
   JOB_VIEW_URL,
@@ -92,8 +93,11 @@ const client = new LinkedInClient({
 });
 client.beginCycle();
 
+// A random offset keeps LinkedIn's result cache from replaying a stale set; see docs/scraper/search.md.
+const cacheBustSec = Math.floor(Math.random() * CACHE_BUST_RANGE_SEC);
 const result = await scrapeSearch(client, search, {
   recencySec,
+  cacheBustSec,
   maxPages,
   isSeen: () => false,
 });
@@ -116,6 +120,7 @@ log.info(
   {
     label: search.label,
     recencySec,
+    cacheBustSec,
     jobs: result.jobs.length,
     cardsOnFirstPage: result.cardsOnFirstPage,
     deferred: result.deferred,
@@ -154,7 +159,7 @@ if (saveFixtures) {
   client.beginCycle();
   try {
     if (firstCardId) await client.get(`${JOB_FRAGMENT_URL}${firstCardId}`);
-    await client.get(buildSearchUrl(search, recencySec, 990));
+    await client.get(buildSearchUrl(search, recencySec + cacheBustSec, 990));
   } catch (err) {
     log.error({ err }, "extra fixture request failed");
   }

@@ -13,8 +13,8 @@ Pure JSON, no env interpolation. `CONFIG_PATH` selects an alternate file for dev
 | `searches[].url` | required | A LinkedIn job search URL pasted from the browser. Parsed as below. |
 | `searches[].label` | keywords string | Shown in logs. |
 | `pollIntervalSec` | 300 | Floor of 60. |
-| `recencySec` | 3600 | Steady-state `f_TPR` window. |
-| `firstCycleRecencySec` | 600 | `f_TPR` window on the first cycle after boot. |
+| `recencySec` | 3600 | Steady-state detail window: a posting older than this is stored `stale`. |
+| `firstCycleRecencySec` | 600 | Detail window on the first cycle after boot. |
 | `maxPages` | 5 | Search pages fetched per search per cycle. |
 | `classifier.model` | required | OpenRouter model id. No default because it sets the cost. |
 | `classifier.program` | required | Who the students are, in prose. Goes into the prompt verbatim. See docs/classifier/prompt.md. |
@@ -25,7 +25,7 @@ Pure JSON, no env interpolation. `CONFIG_PATH` selects an alternate file for dev
 | `dedupe.windowDays` | 14 | |
 | `notifier` | `"telegram"` | Enum with the one value. |
 
-All integers must be positive. Recency belongs to config, not the URL. The scraper sets `f_TPR=r<n>` per request from `recencySec` or `firstCycleRecencySec`.
+All integers must be positive. Recency belongs to config, not the URL. The sent `f_TPR` is `recencySec` (or `firstCycleRecencySec`) plus a per-cycle offset under 600 s that keeps LinkedIn's result cache from replaying; see docs/scraper/search.md.
 
 ## Search URL parsing
 

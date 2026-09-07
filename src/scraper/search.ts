@@ -7,6 +7,8 @@ import type { Card, ScrapeResult } from "./types.ts";
 
 export const SEARCH_URL = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search";
 export const PAGE_SIZE = 10;
+/** Width of the per-cycle `f_TPR` offset that keeps LinkedIn's result cache from replaying. */
+export const CACHE_BUST_RANGE_SEC = 600;
 const ID_RE = /-(\d{6,})(?:[?/]|$)/;
 const DAY_MS = 24 * 60 * 60_000;
 
@@ -14,6 +16,10 @@ export interface ScrapeOpts {
   recencySec: number;
   maxPages: number;
   isSeen(id: string): boolean;
+  /** Added to `recencySec` in the request `f_TPR` only; the detail window stays `recencySec`. */
+  cacheBustSec?: number;
+  /** Cards deferred by an earlier cycle. Fetched after this cycle's page cards. */
+  carried?: Card[];
   /** Epoch ms. */
   now?(): number;
 }
@@ -64,8 +70,9 @@ function beforeWindow(card: Card, windowStart: number): boolean {
 }
 
 /**
- * Page through one search, fetch details for unseen cards, and return whatever was collected
- * before the budget ran out or the client threw. Assumes `client.beginCycle()` has been called.
+ * Page through one search, fetch details for unseen cards (this cycle's page cards first, then
+ * `carried`), and return whatever was collected before the budget ran out or the client threw.
+ * Assumes `client.beginCycle()` has been called.
  */
 export async function scrapeSearch(
   client: Pick<LinkedInClient, "get">,
@@ -74,13 +81,22 @@ export async function scrapeSearch(
 ): Promise<ScrapeResult> {
   const now = opts.now ?? Date.now;
   const windowStart = now() - opts.recencySec * 1000;
-  const result: ScrapeResult = { jobs: [], deferred: 0, cardsOnFirstPage: 0 };
+  const urlRecencySec = opts.recencySec + (opts.cacheBustSec ?? 0);
+  const result: ScrapeResult = { jobs: [], deferred: 0, deferredCards: [], cardsOnFirstPage: 0 };
   const unseen: Card[] = [];
   const ids = new Set<string>();
 
+  const collect = (card: Card): boolean => {
+    if (ids.has(card.id) || opts.isSeen(card.id) || beforeWindow(card, windowStart)) return false;
+    ids.add(card.id);
+    unseen.push(card);
+    return true;
+  };
+
   const halt = (err: unknown, fetched: number) => {
     if (!(err instanceof ScrapeError)) throw err;
-    result.deferred = unseen.length - fetched;
+    result.deferredCards = unseen.slice(fetched);
+    result.deferred = result.deferredCards.length;
     if (!(err instanceof BudgetExhaustedError)) result.halted = err;
     return result;
   };
@@ -88,22 +104,20 @@ export async function scrapeSearch(
   try {
     for (let page = 0; page < opts.maxPages; page++) {
       const cards = parseCards(
-        await client.get(buildSearchUrl(search, opts.recencySec, page * PAGE_SIZE)),
+        await client.get(buildSearchUrl(search, urlRecencySec, page * PAGE_SIZE)),
       );
       if (page === 0) result.cardsOnFirstPage = cards.length;
       let added = 0;
-      for (const card of cards) {
-        if (ids.has(card.id) || opts.isSeen(card.id) || beforeWindow(card, windowStart)) continue;
-        ids.add(card.id);
-        unseen.push(card);
-        added += 1;
-      }
+      for (const card of cards) if (collect(card)) added += 1;
       // A short page is the last one; a page with nothing new means nothing older is new either.
       if (cards.length < PAGE_SIZE || added === 0) break;
     }
   } catch (err) {
+    for (const card of opts.carried ?? []) collect(card);
     return halt(err, 0);
   }
+  // Carried cards queue behind this cycle's page cards so the freshest postings go first.
+  for (const card of opts.carried ?? []) collect(card);
 
   const detailOpts = { recencySec: opts.recencySec, searchLabel: search.label, now };
   for (const card of unseen) {

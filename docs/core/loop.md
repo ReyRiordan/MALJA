@@ -3,7 +3,7 @@
 Code: `src/core/loop.ts`. Composed in `src/index.ts`.
 
 ```ts
-new Loop({ config, store, client, notifier, classifier, alerter, now?, setTimeout?, clearTimeout?, log? })
+new Loop({ config, store, client, notifier, classifier, alerter, now?, cacheBustSeed?, setTimeout?, clearTimeout?, log? })
 loop.start()                       // first cycle now, then the setTimeout chain
 await loop.stop()                  // stop flag, clear timer, wait for the in-flight cycle
 loop.status(): LoopStatus          // what /health reports
@@ -16,18 +16,18 @@ One process, one cycle at a time. Every collaborator is injected, so `loop.test.
 
 ## Scheduling
 
-`start()` runs the first cycle immediately with `firstCycleRecencySec`; every later cycle uses `recencySec`. Nothing posted before boot is recovered. After each cycle the next one is scheduled with one `setTimeout` at the later of `now + pollIntervalSec` and `client.pausedUntil()`, so a backoff pause pushes the whole cycle back rather than running it to fail on the first request. Cycles never overlap.
+`start()` runs the first cycle immediately with `firstCycleRecencySec`; every later cycle uses `recencySec`. Nothing posted before boot is recovered. Every cycle also gets a `cacheBustSec` of `(cacheBustSeed + cycleIndex) % CACHE_BUST_RANGE_SEC`, added to the `f_TPR` the scraper sends so LinkedIn's result cache cannot replay (docs/scraper/search.md). The seed is random per process, so a restart does not replay the first keys; tests inject it. The offset is unique for 600 consecutive cycles and is logged on `cycle started`. After each cycle the next one is scheduled with one `setTimeout` at the later of `now + pollIntervalSec` and `client.pausedUntil()`, so a backoff pause pushes the whole cycle back rather than running it to fail on the first request. Cycles never overlap.
 
 ## Cycle
 
 `runCycle(now)` runs these steps with the same `now` throughout:
 
 1. `client.beginCycle()`.
-2. For each search in config order: `scrapeSearch`, then `store.insertJobs` on everything it returned, skipped jobs included. Jobs already in the store are not collected. A posting that matches two searches is `isSeen` by the second and costs one detail fetch. `deferred` is logged and nothing else; the ids come back next cycle. `halted.signal` maps to a `rate_limited` or `blocked` alert; a transient halt is a warning.
+2. For each search in config order: `scrapeSearch` with `cacheBustSec` and the cards it deferred last cycle as `carried`, then `store.insertJobs` on everything it returned, skipped jobs included. `deferredCards` replaces the carried list for that label; the map is memory only, like backoff state. Jobs already in the store are not collected. A posting that matches two searches is `isSeen` by the second and costs one detail fetch. One `job seen` line per fresh job carries `postedAt`, `lagSec` (posted to now, rounded, null without a timestamp), and `skip`. `halted.signal` maps to a `rate_limited` or `blocked` alert; a transient halt is a warning.
 3. `groupByKey` over every fresh job without `skip`, then drop each group whose key has a `notifications` row in the last `dedupe.windowDays`. A covered key never reaches the classifier.
 4. Per group, classify the first job that has a description and store the verdict on that row only. Other clones keep a null verdict. A group with no description anywhere skips the classifier and goes out untagged. `relevant === "no"` or `degreeOk === "no"` suppresses the group, which creates no row, so a later clone of the same key is not blocked. The `group suppressed` log line carries `field: "relevant" | "degreeOk"`, relevance first. `relevant: unclear` goes out with a `relevance unclear` tag; see docs/notifier/interface.md.
 5. Sort the surviving groups by the newest `postedAt` among their jobs, ascending, groups with no timestamp first, then `createNotifications` in one transaction. Row ids therefore ascend in posting order across searches and the newest posting is the last message in the chat.
-6. Drain. If `notifier.isReady()` is false the rows wait. Otherwise every `unsentNotifications()` row goes out in id order, so a row left over from a crash or a failed send is sent before this cycle's rows, through the same code. The group is rebuilt with `groupByKey(row.jobs)` and the verdict is taken from whichever job has one. Each success is followed by `markSent` for that one row. A `send` that throws leaves its row unsent, alerts `send_failed`, and the drain moves on. A readiness flip to false mid-drain stops it.
+6. Drain. If `notifier.isReady()` is false the rows wait. Otherwise every `unsentNotifications()` row goes out in id order, so a row left over from a crash or a failed send is sent before this cycle's rows, through the same code. The group is rebuilt with `groupByKey(row.jobs)` and the verdict is taken from whichever job has one. Each success is followed by `markSent` for that one row and a `notification sent` line whose `lagSec` is posted to now for the newest job in the group, so the two lag numbers separate LinkedIn index lag plus poll wait from what the group experiences. A `send` that throws leaves its row unsent, alerts `send_failed`, and the drain moves on. A readiness flip to false mid-drain stops it.
 7. Record `lastCycleAt`, and `lastSuccessfulCycleAt` when nothing threw. Log the `CycleSummary`.
 
 ## Failure

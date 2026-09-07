@@ -29,8 +29,10 @@ export interface Job {
 
 export interface ScrapeResult {
   jobs: Job[];
-  /** Unseen ids left without a detail fetch because the cycle budget ran out. */
+  /** `deferredCards.length`. */
   deferred: number;
+  /** Unseen cards left without a detail fetch. The loop carries them into the next cycle. */
+  deferredCards: Card[];
   /** The loop uses this for the three-cycle zero-cards alert. */
   cardsOnFirstPage: number;
   halted?: ScrapeError;
