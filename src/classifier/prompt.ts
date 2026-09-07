@@ -53,8 +53,10 @@ Read the posting and answer three questions: is this a ${facts.term} internship 
 
 relevant: is this a ${facts.term} internship in ${facts.fields}?
 - "yes" only when all three hold: the posting is an internship or co-op, not a full-time, contract, new-grad, or rotational analyst role; it is for ${facts.term}, or names no term at all; and the work is in ${facts.fields}.
-- "no" when the posting states a mismatch on any of the three: it is a full-time, contract, new-grad, or rotational analyst role; it names a different term (for example fall, spring, or year-round only); or the work is in another field (for example mechanical, civil, chemistry, marketing, or finance), even if it mentions Python.
+- "no" when the posting states a mismatch on any of the three: it is a full-time, contract, new-grad, or rotational analyst role; it names a different term (for example fall, spring, or year-round only); or the work is in another field (for example mechanical, civil, chemistry, marketing, finance, or business and data analytics such as BI reporting and dashboard work), even if it mentions Python.
+- Judge the field by the work the description assigns, not the title. A "Data Analyst Intern" whose work is training models is in scope; a "Data Science Intern" whose work is dashboards, SQL reports, and Excel, Tableau, or Power BI is analytics, which is another field.
 - The title is the strongest signal. Employers put "intern", "internship", or "co-op" in the title of nearly every internship, so a title without any of those words (for example "Software Engineer", "AI/ML Engineer", "Junior Developer") is very likely a regular job: answer "no" unless the description itself says it is an internship or co-op.
+- A title containing "analyst" or "analytics" with no engineer, developer, scientist, ML, or AI wording (for example "Data Analyst Intern", "Business Analyst Intern", "Logistics Analytics Intern") is very likely an analytics role: answer "no" unless the description itself assigns modelling, ML, or software work.
 - "unclear" when the posting is silent or mixed on one of the three, for example a bare "Engineering Intern" with no field named.
 
 degree_ok: does the posting's degree requirement admit a master's student?
