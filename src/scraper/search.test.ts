@@ -206,6 +206,7 @@ describe("scrapeSearch", () => {
     const result = await scrapeSearch(client, search, baseOpts);
     expect(result.jobs).toHaveLength(2);
     expect(result.deferred).toBe(3);
+    expect(result.deferredCards.map((c) => c.id)).toEqual(["1000002", "1000003", "1000004"]);
     expect(result.halted).toBeUndefined();
   });
 
@@ -227,6 +228,65 @@ describe("scrapeSearch", () => {
     expect(result.jobs).toEqual([]);
     expect(result.deferred).toBe(10);
     expect(result.halted).toBe(err);
+  });
+
+  it("adds cacheBustSec to f_TPR on every page but not to the stale check", async () => {
+    const client = fakeClient([page(ids(10)), page(ids(3, 10))]);
+    client.get.mockImplementation(async (url: string) => {
+      if (url.startsWith(SEARCH_URL)) {
+        const start = Number(new URL(url).searchParams.get("start"));
+        return start === 0 ? page(ids(10)) : page([{ id: "1000010" }]);
+      }
+      const id = url.slice(JOB_VIEW_URL.length);
+      const posting = {
+        "@type": "JobPosting",
+        title: `Detail ${id}`,
+        datePosted: new Date(NOW - (id === "1000010" ? 3610 : 60) * 1000).toISOString(),
+        description: "<p>Desc</p>",
+      };
+      return `<script type="application/ld+json">${JSON.stringify(posting)}</script>`;
+    });
+    const result = await scrapeSearch(client, search, { ...baseOpts, cacheBustSec: 37 });
+    const tprs = urls(client)
+      .filter((u) => u.startsWith(SEARCH_URL))
+      .map((u) => new URL(u).searchParams.get("f_TPR"));
+    expect(tprs).toEqual(["r3637", "r3637"]);
+    expect(result.jobs.find((j) => j.id === "1000010")?.skip).toBe("stale");
+  });
+
+  it("fetches carried cards after page cards and drops seen or out-of-window ones", async () => {
+    const carried = [
+      ...parseCards(page([{ id: "2000001" }, { id: "2000002" }])),
+      ...parseCards(page([{ id: "2000003", date: "2026-09-01" }])),
+      ...parseCards(page([{ id: "1000000" }])),
+    ];
+    const client = fakeClient([page(ids(2))]);
+    const result = await scrapeSearch(client, search, {
+      ...baseOpts,
+      carried,
+      isSeen: (id) => id === "2000002",
+    });
+    expect(result.jobs.map((j) => j.id)).toEqual(["1000000", "1000001", "2000001"]);
+    expect(result.deferredCards).toEqual([]);
+  });
+
+  it("re-defers a carried card the budget could not reach", async () => {
+    const carried = parseCards(page([{ id: "2000001" }, { id: "2000002" }]));
+    const url = `${JOB_VIEW_URL}2000002`;
+    const client = fakeClient([page(ids(1))], { [url]: new BudgetExhaustedError(url) });
+    const result = await scrapeSearch(client, search, { ...baseOpts, carried });
+    expect(result.jobs.map((j) => j.id)).toEqual(["1000000", "2000001"]);
+    expect(result.deferred).toBe(1);
+    expect(result.deferredCards.map((c) => c.id)).toEqual(["2000002"]);
+  });
+
+  it("keeps carried cards deferred when the search page itself halts", async () => {
+    const carried = parseCards(page([{ id: "2000001" }]));
+    const err = new RateLimitError("x", 429);
+    const client = fakeClient([], { "start=0": err });
+    const result = await scrapeSearch(client, search, { ...baseOpts, carried });
+    expect(result.halted).toBe(err);
+    expect(result.deferredCards.map((c) => c.id)).toEqual(["2000001"]);
   });
 
   it("rethrows non-scrape errors", async () => {
