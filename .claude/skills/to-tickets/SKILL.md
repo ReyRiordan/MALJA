@@ -7,7 +7,7 @@ disable-model-invocation: true
 Write the plan we just settled into GitHub issue(s) that /implement can execute without asking questions.
 
 Where to write it:
-- If a stub issue for this work exists (label `needs-grill`), rewrite its body with `gh issue edit`, remove `needs-grill`, keep the component label.
+- If we started with an existing issue, rewrite its body with `gh issue edit`. Otherwise `gh issue create`.
 - Create new issues only if the plan needs splitting. Split at a module boundary another ticket depends on, and only if one PR would otherwise be too big to review in one sitting. Never split for its own sake.
 - If you split, cross-link the issues with depends on / blocks so the order is recoverable from the tickets alone.
 
