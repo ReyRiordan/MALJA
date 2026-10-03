@@ -174,7 +174,8 @@ function runsOf(variant: string): number[] {
   const dir = new URL(`${variant}/`, RESULTS_DIR);
   return existsSync(dir)
     ? readdirSync(dir)
-        .map((r) => Number(r.replace("run", "")))
+        .filter((f) => /^run\d+\.jsonl$/.test(f))
+        .map((f) => Number(f.slice(3, -6)))
         .sort()
     : [];
 }

@@ -2,7 +2,7 @@
  * Experiment only (jev-experiment branch). Shared pieces for the Jev vs LLM bake-off:
  * eval file loading, the Jev Decisions transport, raw-result caching.
  */
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from "node:fs";
 import { z } from "zod";
 import { truncateDescription } from "../../src/classifier/prompt.ts";
 
@@ -99,17 +99,39 @@ export async function callJev(
   }
 }
 
-export function resultPath(variant: string, run: number, id: string): URL {
-  return new URL(`${variant}/run${run}/${id}.json`, RESULTS_DIR);
+/**
+ * Results are packed one JSONL file per variant and run, `results/<variant>/run<n>.jsonl`, each
+ * line `{ "id": ..., ...value }`. Files are read once and cached; writes append a line.
+ */
+export function resultFile(variant: string, run: number): URL {
+  return new URL(`${variant}/run${run}.jsonl`, RESULTS_DIR);
+}
+const loaded = new Map<string, Map<string, unknown>>();
+function runResults(variant: string, run: number): Map<string, unknown> {
+  const key = `${variant}/${run}`;
+  let m = loaded.get(key);
+  if (!m) {
+    m = new Map();
+    const p = resultFile(variant, run);
+    if (existsSync(p)) {
+      for (const line of readFileSync(p, "utf8").split("\n")) {
+        if (!line) continue;
+        const { id, ...value } = JSON.parse(line) as { id: string };
+        m.set(id, value);
+      }
+    }
+    loaded.set(key, m);
+  }
+  return m;
 }
 export function readResult<T>(variant: string, run: number, id: string): T | null {
-  const p = resultPath(variant, run, id);
-  return existsSync(p) ? (JSON.parse(readFileSync(p, "utf8")) as T) : null;
+  return (runResults(variant, run).get(id) as T | undefined) ?? null;
 }
-export function writeResult(variant: string, run: number, id: string, value: unknown): void {
-  const p = resultPath(variant, run, id);
+export function writeResult(variant: string, run: number, id: string, value: object): void {
+  const p = resultFile(variant, run);
   mkdirSync(new URL(".", p), { recursive: true });
-  writeFileSync(p, JSON.stringify(value, null, 1));
+  appendFileSync(p, `${JSON.stringify({ id, ...value })}\n`);
+  runResults(variant, run).set(id, value);
 }
 
 /** Runs `fn` over `items` with at most `n` in flight. */

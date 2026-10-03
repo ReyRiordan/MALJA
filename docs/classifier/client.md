@@ -26,15 +26,15 @@ Plain `fetch`, no SDK. One POST per `classify`. Headers: `Authorization: Bearer`
 
 ## Reasoning effort and MAX_TOKENS
 
-`classifier.reasoningEffort` in config.json is OpenRouter's unified `reasoning.effort` (`none`, `minimal`, `low`, `medium`, `high`, `xhigh`); the schema default is `low` and config.json sets `medium`. Reasoning tokens count against `max_tokens`. Observed on `openai/gpt-6-luna` over the 221-posting eval set, two runs each:
+`classifier.reasoningEffort` in config.json is OpenRouter's unified `reasoning.effort` (`none`, `minimal`, `low`, `medium`, `high`, `xhigh`); the schema default is `low` and config.json sets `medium`. Reasoning tokens count against `max_tokens`. Observed on `openai/gpt-6-luna` over the 199-posting eval set:
 
-| Effort | Completion tokens (avg / max) | p50 latency | Wrongly suppressed (of 201 unique) | Verdicts that changed between runs |
-| --- | --- | --- | --- | --- |
-| `none` | 97 / 154 | 1.7 s | 5 to 7 | 10 |
-| `low` | 137 / 538 | 1.9 s | 7 | 29 |
-| `medium` | 248 / 888 | 3.0 s | 2, both borderline labels | 19 |
+| Effort | Runs | Completion tokens (avg / max) | p50 latency | Wrongly suppressed per run | Postings whose verdict changed between runs |
+| --- | --- | --- | --- | --- | --- |
+| `none` | 4 | 97 / 154 | 1.7 s | 5 to 9 | 24 |
+| `low` | 2 | 137 / 538 | 1.9 s | 7 | 29 |
+| `medium` | 4 | 247 / 888 | 3.0 s | 2, both on borderline labels | 30 |
 
-`medium` is the setting because a wrongly suppressed posting is the failure that matters (eval.md). `MAX_TOKENS` is 2000, about twice the largest observed spend at `medium`. Raise it before raising the effort.
+`medium` is the setting because a wrongly suppressed posting is the failure that matters (eval.md); `none` repeatedly misread degree wording such as "expecting to graduate within 12 months". scripts/jev/README.md on the `jev-experiment` branch has the full comparison. `MAX_TOKENS` is 2000, about twice the largest observed spend at `medium`. Raise it before raising the effort.
 
 ## Timeout and retry
 
