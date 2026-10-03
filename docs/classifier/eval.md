@@ -18,7 +18,7 @@ Code: `scripts/eval.ts`, the `--save-eval` flag in `scripts/scrape.ts`. Files li
 
 `expected` fields are null until someone labels them. A file with any field null is unlabelled: counted, skipped. Labels follow the rubric in prompt.md, quoting the deciding phrase in `note`; scripts/jev/LABELING.md holds the rubric as a labelling guide plus the precedents for wording the rubric does not name. A note starting `BORDERLINE:` marks a posting where either neighbouring answer is defensible. Files may carry an optional `source` naming the search that captured them.
 
-The set has 199 postings. LinkedIn clones (the same description under another id, or the same company and title) are kept once, as the dedupe key would. 59 come from the production search (`source: "prod"`), the rest from deliberately off-target searches (analytics, other engineering, new grad, other terms, PhD-only, undergrad-only, clearance, business and PM roles) so every kind of `no` is represented.
+The set has 198 postings. LinkedIn clones (the same description under another id, or the same company and title) are kept once, as the dedupe key would. 59 come from the production search (`source: "prod"`), the rest from deliberately off-target searches (analytics, other engineering, new grad, other terms, PhD-only, undergrad-only, clearance, business and PM roles) so every kind of `no` is represented.
 
 ## Capturing postings
 

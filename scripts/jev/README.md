@@ -41,8 +41,8 @@ Thresholds for composing Jev answers: `no` is the probability mass needed to sup
 
 ## Method
 
-- 199 labelled postings, every LinkedIn clone removed. 59 from the production search, 140 from searches aimed at each kind of `no` (the `source` field on each file).
-- Deterministic split by id hash: dev (107) for tuning Jev thresholds, B2, and prompt v2; test (92) held out.
+- 198 labelled postings, every LinkedIn clone removed. 59 from the production search, 139 from searches aimed at each kind of `no` (the `source` field on each file).
+- Deterministic split by id hash: dev (106) for tuning Jev thresholds, B2, and prompt v2; test (92) held out.
 - Jev runs 3 times, the LLM 2 to 4 times, to measure run-to-run change.
 - `wrongSuppress`: the label sends the job (neither relevant nor degreeOk is `no`) and the prediction suppresses it. The failure that matters. `missedNo`: the label suppresses and the prediction sends. `exact`: all three fields match. `flips`: postings whose verdict differs between any two runs; it grows with the number of runs.
 
@@ -63,29 +63,29 @@ Test split, n=92. Ranges are across runs.
 | Cascade B2 → Luna `medium` v2 | 2 | 1–2 | 1 | 80.5 | 87.5 | 86.0 | 89.0 |
 | Veto B2 + Luna `medium` | 3 | 0 | 4–6 | 75.7 | 86.0 | 82.7 | 88.0 |
 
-All 199. B2 and prompt v2 were tuned on the dev half, which flatters them here; the LLM with the current prompt and A, B, C were not tuned on any of it.
+All 198. B2 and prompt v2 were tuned on the dev half, which flatters them here; the LLM with the current prompt and A, B, C were not tuned on any of it.
 
 | System | Runs | wrongSuppress | missedNo | exact | flips |
 | --- | --- | --- | --- | --- | --- |
-| Jev B2-decomposed | 3 | 3–4 | 4 | 170.0 | 3 |
-| Luna `none` | 4 | 5–9 | 4–7 | 161.8 | 24 |
-| Luna `low` | 2 | 7 | 10 | 157.0 | 29 |
-| **Luna `medium`** | 4 | **2** | 10–13 | 163.8 | 30 |
-| Luna `medium`, prompt v2 | 2 | 4–8 | 3 | 171.5 | 19 |
-| Veto B2 + Luna `medium` | 3 | 1–2 | 13 | 163.0 | 7 |
+| Jev B2-decomposed | 3 | 2–3 | 4 | 169.0 | 3 |
+| Luna `none` | 4 | 3–7 | 4–7 | 161.8 | 24 |
+| Luna `low` | 2 | 5 | 10 | 157.5 | 29 |
+| **Luna `medium`** | 4 | **0–1** | 10–13 | 164.8 | 29 |
+| Luna `medium`, prompt v2 | 2 | 2–6 | 3 | 171.5 | 19 |
+| Veto B2 + Luna `medium` | 3 | 0–1 | 13 | 162.0 | 7 |
 
-Luna `medium`'s two wrong suppressions in every run are BNY's program-management internship and Iridium's mixed operations/software internship, both labelled `BORDERLINE`. Luna `none` adds clear misreads that repeat across runs: "expecting to graduate within 12 months" read as excluding May 2028 (TikTok, 4 of 4 runs), "junior standing or higher" read as excluding master's students (Optiver, 3 of 4), and Brevan Howard (3 of 4).
+Luna `medium`'s only wrong suppression is Mastercard's product-management internship on degree wording, in 1 of 4 runs, a posting labelled `BORDERLINE`. Luna `none` adds clear misreads that repeat across runs: "expecting to graduate within 12 months" read as excluding May 2028 (TikTok, 4 of 4 runs), "junior standing or higher" read as excluding master's students (Optiver, 3 of 4), and Brevan Howard (3 of 4).
 
-Jev B2 suppress threshold on all 199, run 1:
+Jev B2 suppress threshold on all 198, run 1:
 
 | `no` threshold | wrongSuppress | missedNo | exact |
 | --- | --- | --- | --- |
-| 0.5 | 20 | 1 | 153 |
-| 0.8 | 14 | 2 | 161 |
-| 0.9 | 9 | 3 | 169 |
-| 0.95 | 6 | 4 | 170 |
-| 0.98 | 4 | 4 | 169 |
-| 0.995 | 1 | 9 | 164 |
+| 0.5 | 18 | 1 | 153 |
+| 0.8 | 12 | 2 | 161 |
+| 0.9 | 7 | 3 | 169 |
+| 0.95 | 4 | 4 | 170 |
+| 0.98 | 3 | 4 | 168 |
+| 0.995 | 0 | 9 | 164 |
 
 ## Cost and latency
 
