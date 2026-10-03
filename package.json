@@ -18,7 +18,8 @@
     "format": "biome format --write .",
     "scrape": "f() { node --env-file-if-exists=.env scripts/scrape.ts \"$@\" | pino-pretty; }; f",
     "notify:test": "node --env-file-if-exists=.env scripts/notify.ts | pino-pretty",
-    "eval:classifier": "node --env-file-if-exists=.env scripts/eval.ts | pino-pretty"
+    "eval:classifier": "node --env-file-if-exists=.env scripts/eval.ts | pino-pretty",
+    "harvest:eval": "f() { node --env-file-if-exists=.env scripts/harvest-eval.ts \"$@\" | pino-pretty; }; f"
   },
   "dependencies": {
     "@grammyjs/auto-retry": "^2.0.2",

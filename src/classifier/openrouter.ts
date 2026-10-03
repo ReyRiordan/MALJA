@@ -8,7 +8,7 @@ export const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 export const REQUEST_TIMEOUT_MS = 30_000;
 export const RETRY_DELAY_MS = 2_000;
 /** Output cap. The model reasons before answering and those tokens count, so this is well above the ~60-token answer. */
-export const MAX_TOKENS = 1_500;
+export const MAX_TOKENS = 2_000;
 
 /** The parts of a fetch Response the client reads. Tests build these directly. */
 export type FetchResponse = Pick<Response, "status" | "text">;

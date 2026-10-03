@@ -6,4 +6,5 @@ The LLM relevance and eligibility check. One call per new dedupe-key group with 
 
 - [prompt.md](prompt.md) - program facts from config, all three rubrics word for word, the JSON schema, truncation, `null` versus `unclear`.
 - [client.md](client.md) - the OpenRouter transport, reasoning effort, timeout and retry, failure causes, the `ClassifyResult` contract, logging, the factory.
-- [eval.md](eval.md) - the labelled eval set, `--save-eval`, `pnpm eval:classifier`, the pass bar, when to re-run.
+- [eval.md](eval.md) - the labelled eval set, `--save-eval` and `pnpm harvest:eval`, `pnpm eval:classifier`, the pass bar, when to re-run.
+- [labeling.md](labeling.md) - how to label an eval file: the rubric for a labeller, plus precedents for wording the rubric does not name.

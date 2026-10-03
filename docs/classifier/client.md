@@ -6,7 +6,7 @@ Code: `src/classifier/openrouter.ts`, `src/classifier/index.ts` (factory).
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 REQUEST_TIMEOUT_MS = 30_000
 RETRY_DELAY_MS = 2_000
-MAX_TOKENS = 1_000
+MAX_TOKENS = 2_000
 
 interface OpenRouterClassifierOptions {
   apiKey: string; model: string; program: string; graduation: string; term: string; fields: string;
@@ -26,14 +26,15 @@ Plain `fetch`, no SDK. One POST per `classify`. Headers: `Authorization: Bearer`
 
 ## Reasoning effort and MAX_TOKENS
 
-`classifier.reasoningEffort` in config.json is OpenRouter's unified `reasoning.effort` (`none`, `minimal`, `low`, `medium`, `high`, `xhigh`), default `low`. Reasoning tokens count against `max_tokens`. Observed on `openai/gpt-5.6-luna` with the eval set:
+`classifier.reasoningEffort` in config.json is OpenRouter's unified `reasoning.effort` (`none`, `minimal`, `low`, `medium`, `high`, `xhigh`); the schema default is `low` and config.json sets `medium`. Reasoning tokens count against `max_tokens`. Observed on `openai/gpt-6-luna` over the 198-posting eval set:
 
-| Effort | Reasoning tokens | Total completion tokens | Result |
-| --- | --- | --- | --- |
-| default (unset) | 100 to 300+ | up to the cap | one posting hit `finish_reason: length` at a 300 cap with no content |
-| `low` | 0 to 101 | 47 to 171 | every answered call parsed |
+| Effort | Runs | Completion tokens (avg / max) | p50 latency | Wrongly suppressed per run | Postings whose verdict changed between runs |
+| --- | --- | --- | --- | --- | --- |
+| `none` | 4 | 97 / 154 | 1.7 s | 3 to 7 | 24 |
+| `low` | 2 | 137 / 538 | 1.9 s | 5 | 29 |
+| `medium` | 4 | 247 / 888 | 3.0 s | 0 to 1, on a borderline label | 29 |
 
-`MAX_TOKENS` is 1000, several times the largest observed spend at `low`. Raise it before raising the effort.
+`medium` is the setting because a wrongly suppressed posting is the failure that matters (eval.md); `none` repeatedly misread degree wording such as "expecting to graduate within 12 months". `MAX_TOKENS` is 2000, about twice the largest observed spend at `medium`. Raise it before raising the effort.
 
 ## Timeout and retry
 
