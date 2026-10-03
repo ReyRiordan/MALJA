@@ -1,0 +1,56 @@
+{
+  "searches": [
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20(SWE%20OR%20%22software%20engineer%22%20OR%20%22machine%20learning%22%20OR%20AI)%20(%22intern%22%20OR%20%22internship%22)&geoId=103644278&sortBy=DD",
+      "label": "prod"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(%22data%20analyst%22%20OR%20analytics%20OR%20%22business%20analyst%22)&geoId=103644278&sortBy=DD",
+      "label": "analytics"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(mechanical%20OR%20civil%20OR%20chemical%20OR%20electrical)&geoId=103644278&sortBy=DD",
+      "label": "other-eng"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%222027%22%20(%22new%20grad%22%20OR%20%22new%20graduate%22%20OR%20%22entry%20level%22)%20(%22software%20engineer%22%20OR%20%22machine%20learning%22)&geoId=103644278&sortBy=DD",
+      "label": "new-grad"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=(%22fall%202027%22%20OR%20%22spring%202027%22%20OR%20%22fall%202026%22%20OR%20co-op)%20intern%20(software%20OR%20%22machine%20learning%22)&geoId=103644278&sortBy=DD",
+      "label": "other-term"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(PhD%20OR%20%22doctoral%22)%20(%22machine%20learning%22%20OR%20research%20OR%20AI)&geoId=103644278&sortBy=DD",
+      "label": "phd"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(%22undergraduate%22%20OR%20%22rising%20senior%22%20OR%20%22rising%20junior%22)%20software&geoId=103644278&sortBy=DD",
+      "label": "undergrad"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(clearance%20OR%20%22US%20citizen%22%20OR%20ITAR)%20software&geoId=103644278&sortBy=DD",
+      "label": "clearance"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(%22product%20manager%22%20OR%20%22product%20management%22%20OR%20marketing%20OR%20finance)&geoId=103644278&sortBy=DD",
+      "label": "pm-biz"
+    }
+  ],
+  "pollIntervalSec": 300,
+  "recencySec": 3600,
+  "firstCycleRecencySec": 600,
+  "maxPages": 5,
+  "classifier": {
+    "model": "openai/gpt-5.6-luna",
+    "program": "master's students in Carnegie Mellon University's M.S. in Artificial Intelligence and Innovation (MSAII), a mix of US citizens and F-1 international students",
+    "graduation": "May 2028",
+    "term": "summer 2027",
+    "fields": "software engineering, machine learning, AI, data science that builds or trains models rather than reports or dashboards, and technical product management, meaning product management for a software or AI product or one that asks for a computer science or engineering background, including research internships in those areas",
+    "reasoningEffort": "low"
+  },
+  "dedupe": {
+    "windowDays": 14
+  },
+  "notifier": "telegram"
+}

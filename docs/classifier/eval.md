@@ -16,7 +16,9 @@ Code: `scripts/eval.ts`, the `--save-eval` flag in `scripts/scrape.ts`. Files li
 }
 ```
 
-`expected` fields are null until someone labels them. A file with any field null is unlabelled: counted, skipped. Labels follow the rubric in prompt.md, quoting the deciding phrase in `note`.
+`expected` fields are null until someone labels them. A file with any field null is unlabelled: counted, skipped. Labels follow the rubric in prompt.md, quoting the deciding phrase in `note`; scripts/jev/LABELING.md holds the rubric as a labelling guide plus the precedents for wording the rubric does not name. A note starting `BORDERLINE:` marks a posting where either neighbouring answer is defensible. Files may carry an optional `source` naming the search that captured them.
+
+The set has 221 postings (201 unique descriptions; LinkedIn clones share one). About half come from the production search, the rest from deliberately off-target searches (analytics, other engineering, new grad, other terms, PhD-only, undergrad-only, clearance, business and PM roles) so every kind of `no` is represented.
 
 ## Capturing postings
 
@@ -24,7 +26,7 @@ Code: `scripts/eval.ts`, the `--save-eval` flag in `scripts/scrape.ts`. Files li
 pnpm scrape --save-eval --recency 86400 --pages 2
 ```
 
-Writes one unlabelled file per scraped job that has a description. An existing file is never overwritten, so hand labels survive a re-run and a second run for the same ids adds nothing. Descriptions are real LinkedIn text, which is the point: a hand-written set would not have the wording the prompt has to handle.
+Writes one unlabelled file per scraped job that has a description. `scripts/jev/harvest.ts` does the same across the searches in `scripts/jev/harvest-config.json`, skipping ids that already have a file and carrying deferred cards across budget cycles, for growing the set in bulk. An existing file is never overwritten, so hand labels survive a re-run and a second run for the same ids adds nothing. Descriptions are real LinkedIn text, which is the point: a hand-written set would not have the wording the prompt has to handle.
 
 ## Running
 

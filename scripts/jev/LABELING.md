@@ -1,0 +1,49 @@
+# Labelling guide for test/eval/eligibility/
+
+Labels are ground truth for a classifier bake-off. Label what the rubric says the answer SHOULD be for this posting, not what a model would probably say. Read the whole description before labelling.
+
+Students: master's students in Carnegie Mellon's M.S. in Artificial Intelligence and Innovation, a mix of US citizens and F-1 international students. They graduate in **May 2028** and want **summer 2027** internships. In-scope fields: software engineering, machine learning, AI, data science that builds or trains models rather than reports or dashboards, and technical product management (PM for a software or AI product, or one that asks for a CS or engineering background), including research internships in those areas.
+
+## relevant: is this a summer 2027 internship in the fields above?
+
+- "yes" only when all three hold: the posting is an internship or co-op, not a full-time, contract, new-grad, or rotational analyst role; it is for summer 2027, or names no term at all (a summer program with no year counts; "this summer" counts); and the work is in the fields.
+- "no" when the posting states a mismatch on any of the three: full-time, contract, new-grad, or rotational analyst role; a different term (fall, spring, year-round only, or summer 2026); or the work is in another field (mechanical, civil, chemistry, marketing, finance, or business/data analytics such as BI reporting and dashboard work), even if it mentions Python.
+- Judge the field by the work the description assigns, not the title. A "Data Analyst Intern" whose work is training models is in scope; a "Data Science Intern" whose work is dashboards, SQL reports, and Excel/Tableau/Power BI is analytics, which is another field.
+- A title without "intern", "internship", or "co-op" (e.g. "Software Engineer", "AI/ML Engineer") is a regular job: "no" unless the description itself says it is an internship or co-op. Bank-style "Summer Analyst, Software Engineering" programs are internships.
+- A title with "analyst"/"analytics" and no engineer/developer/scientist/ML/AI wording is "no" unless the description assigns modelling, ML, or software work.
+- "unclear" when the posting is silent or genuinely mixed on one of the three, e.g. a bare "Engineering Intern" with no field named, or a role split evenly between in-scope and out-of-scope work.
+- Electrical/hardware/embedded: embedded software or firmware work counts as software engineering; circuit design, PCB, or test-bench hardware work is other engineering.
+
+## degreeOk: does the degree requirement admit a master's student graduating May 2028?
+
+- "yes" when it explicitly accepts master's or graduate students, lists levels that include master's (BS/MS; bachelor's, master's, or PhD), or only says "pursuing a degree" with no level.
+- "no" only when the text excludes master's students outright with words like "only", "must be", "not eligible": undergraduate/bachelor's only, rising juniors or seniors only ("must be a rising senior"), PhD students only, MBA students only, or a required graduation date/window that May 2028 misses (e.g. "graduating December 2027", "graduating between Dec 2028 and June 2029").
+- "unclear" for everything else, including "pursuing a bachelor's degree", "currently pursuing a Bachelor's degree in Computer Science", "enrolled in a bachelor's degree program" with no exclusion language. A graduation window stated next to a bachelor's degree is bachelor's wording, not an exclusion: if the window includes May 2028, answer "unclear".
+- "Rising junior or senior pursuing a bachelor's degree" stated as the requirement for an "undergraduate ... intern" role reads as exclusion: "no". A bare "pursuing a bachelor's degree" is "unclear".
+- No degree language at all (common in regular jobs): "unclear". A completed degree for an experienced hire ("bachelor's degree in CS required, master's preferred"): label what it says ("master's preferred" includes master's -> "yes"; "bachelor's degree required" -> "unclear").
+- "PhD preferred" or "MS/PhD preferred" alongside acceptance of others is not exclusion.
+
+## workAuth: what work-authorisation constraint does the posting state?
+
+- "citizen_only": requires US citizenship, a security clearance (or ability to obtain one), or ITAR/export-control "US person" status.
+- "no_sponsorship": sponsorship not available now or in the future, or must be authorised to work "without sponsorship".
+- "none": explicitly says sponsorship is available or international students are welcome.
+- "unclear": says nothing, a bare "must be authorized to work in the US", or citizenship mentioned only as a protected class in an EEO statement. If both citizen_only and no_sponsorship apply, choose citizen_only.
+
+## Writing the label
+
+Edit the JSON file in place. Set `expected` to all three values and write `note` as one or two sentences quoting the deciding phrase for each field, in the style:
+
+"Acme: relevant yes, 'Software Engineer Intern, Summer 2027', backend Go work. degreeOk unclear, 'pursuing a Bachelor's degree in CS' with no exclusion. workAuth no_sponsorship, 'will not sponsor now or in the future'."
+
+Keep every other field unchanged. Keep the file as 2-space-indented JSON with a trailing newline. If a posting is truly ambiguous even under these rules, pick the best label and start the note with "BORDERLINE:".
+
+## Precedents set while labelling (follow these)
+
+- workAuth "no_sponsorship" also for: "must have permanent / indefinite work authorization", "right to work in the U.S. without restriction", "F-1 OPT/CPT not eligible". A US-person list that admits permanent residents plus explicit no-sponsorship wording is "no_sponsorship", not "citizen_only".
+- workAuth "unclear" for hedged export-control text ("non-U.S. persons may require an export license"), "US based applicants only" (a location rule), and sponsorship "at our sole discretion".
+- workAuth "citizen_only" for "must be able to obtain a security clearance" or clearance as a condition of employment.
+- degreeOk "no" for "must be currently enrolled in a BS/BA program", "must be a rising junior or senior", "PhD students only / working towards a PhD" as the only level, and a required graduation window May 2028 misses even when phrased "you're graduating in Spring 2027". A window only under "Preferred qualifications" is not a requirement.
+- degreeOk "unclear" for bare undergraduate/bachelor's wording without "must"/"only" ("Undergrad enrolled in CS", "current undergraduate pursuing a degree").
+- relevant: a full-time new-grad or early-career role is "no" even when the work is in scope. A multi-role posting dominated by out-of-scope roles is "no".
+- Duplicated descriptions (LinkedIn clones) get identical labels.
