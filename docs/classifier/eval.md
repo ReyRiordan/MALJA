@@ -1,6 +1,6 @@
 # Eval set
 
-Code: `scripts/eval.ts`, the `--save-eval` flag in `scripts/scrape.ts`. Files live in `test/eval/eligibility/`, one per posting, named `<id>.json`. Biome ignores the directory.
+Code: `scripts/eval.ts`, `scripts/harvest-eval.ts`, the `--save-eval` flag in `scripts/scrape.ts`. Files live in `test/eval/eligibility/`, one per posting, named `<id>.json`. Biome ignores the directory.
 
 ## File format
 
@@ -10,21 +10,25 @@ Code: `scripts/eval.ts`, the `--save-eval` flag in `scripts/scrape.ts`. Files li
   "title": "Software Engineer Intern",
   "company": "PayPal",
   "url": "https://www.linkedin.com/jobs/view/4463646787",
+  "source": "prod",
   "description": "...",
   "expected": { "relevant": "yes", "degreeOk": "yes", "workAuth": "no_sponsorship" },
   "note": "why the label is what it is, quoting the posting"
 }
 ```
 
-`expected` fields are null until someone labels them. A file with any field null is unlabelled: counted, skipped. Labels follow the rubric in prompt.md, quoting the deciding phrase in `note`.
+`expected` fields are null until someone labels them. A file with any field null is unlabelled: counted, skipped. Labels follow [labeling.md](labeling.md), quoting the deciding phrase in `note`. A note starting `BORDERLINE:` marks a posting where either neighbouring answer is defensible; the pass bar gives those slack. `source` is optional and names the search that captured the posting: `prod` for a config.json search, otherwise a label from `scripts/harvest-eval.json`. It lets the production slice be read on its own, since the off-target searches are not real traffic.
+
+The set has 198 postings. LinkedIn clones (the same description under another id, or the same company and title) are kept once, as the dedupe key would. 59 come from the production search (`source: "prod"`), the rest from deliberately off-target searches (analytics, other engineering, new grad, other terms, PhD-only, undergrad-only, clearance, business and PM roles) so every kind of `no` is represented.
 
 ## Capturing postings
 
 ```
 pnpm scrape --save-eval --recency 86400 --pages 2
+pnpm harvest:eval --search analytics --max 20
 ```
 
-Writes one unlabelled file per scraped job that has a description. An existing file is never overwritten, so hand labels survive a re-run and a second run for the same ids adds nothing. Descriptions are real LinkedIn text, which is the point: a hand-written set would not have the wording the prompt has to handle.
+`--save-eval` writes one unlabelled file per scraped job that has a description, from one cycle's budget. `harvest:eval` is for growing the set in bulk: it skips ids that already have a file, carries deferred cards across budget cycles until `--max` files are written (default 40, recency default 14 days), and records `source`. Its searches are config.json's plus the off-target ones in `scripts/harvest-eval.json`, each aimed at one kind of `no`. Delete clones after a harvest: a file whose description matches another file's, or with the same company and title, is kept once. An existing file is never overwritten, so hand labels survive a re-run and a second run for the same ids adds nothing. Descriptions are real LinkedIn text, which is the point: a hand-written set would not have the wording the prompt has to handle.
 
 ## Running
 
@@ -32,11 +36,13 @@ Writes one unlabelled file per scraped job that has a description. An existing f
 pnpm eval:classifier
 ```
 
-Runs every labelled file sequentially against real OpenRouter with the configured model and reasoning effort. It is not in CI: it needs the key and spends money per run. Output goes through pino-pretty: one line per call, a `mismatch` or `FALSE NO` warning with expected, actual, and the model's reason for every miss, a confusion matrix per field (rows expected, columns actual), and a summary with `mismatches`, `falseNo`, and `errors`.
+Runs every labelled file against real OpenRouter with the configured model and reasoning effort, 6 calls at a time, then reports in file order. It is not in CI: it needs the key and spends money per run, about $0.05 and 2 to 3 minutes for the current set. Output goes through pino-pretty: the classifier's line per call, then a `mismatch`, `WRONGLY SUPPRESSED`, or `WRONGLY SUPPRESSED (borderline)` warning with expected, actual, and the model's reason for every miss, a confusion matrix per field (rows expected, columns actual), and a summary with `mismatches`, `falseNo`, `wrongSuppress`, `borderlineSuppress`, and `errors`.
 
 ## Pass bar
 
-Exit 1 on any false `no` for `relevant` or `degreeOk` (label `yes` or `unclear`, actual `no`) or any non-null `error`. A suppressed good internship is the same failure as a suppressed eligible one. Everything else is reported, not gating. An `unclear` where the label is decisive is a mismatch to look at, not a failure, because failing on it would push the prompt toward `no`, and a suppressed eligible posting is the one outcome the students never see.
+A job is wrongly suppressed when its label would send it (neither `relevant` nor `degreeOk` is `no`) and the verdict suppresses it. That is the one outcome the students never see, so it is what gates. Exit 1 on any non-null `error`, on any wrongly suppressed job whose label is not borderline, or on more than one wrongly suppressed borderline job (`BORDERLINE_SLACK`).
+
+Everything else is reported, not gating. `falseNo` counts a `no` on either field where the label is `yes` or `unclear`, including jobs the other field suppresses anyway; it is worth reading but not a failure. A job sent when the label suppresses it is noise in the group, which costs less than a missed internship. An `unclear` where the label is decisive is a mismatch to look at, not a failure, because failing on it would push the prompt toward `no`.
 
 An `error` is almost always OpenRouter or a provider, not the prompt. Read the cause: `http 502` or `http 429` on some calls and clean answers on the rest means a provider route is down. Re-run later rather than changing code.
 
