@@ -21,7 +21,7 @@ GET https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search
 
 | Param | Source | Notes |
 | --- | --- | --- |
-| `keywords` | config | Boolean syntax (quotes, parentheses, `OR`, `AND`, `NOT`) is honoured. |
+| `keywords` | config | Boolean syntax (quotes, parentheses, `OR`, `AND`, `NOT`) is accepted but matched loosely; see [README.md](README.md). |
 | `sortBy` | forced `DD` | Newest first. Every stop rule below depends on it. |
 | `geoId`, `location`, `f_E`, `f_JT`, `f_WT`, ... | config passthrough | The scraper does not interpret them. |
 | `f_TPR` | `recencySec + cacheBustSec` | `r` + seconds. `cacheBustSec` defaults to 0; the loop passes a value under `CACHE_BUST_RANGE_SEC` that changes every cycle, because LinkedIn caches result sets by query string and replays a frozen set for a URL it has seen recently (see [README.md](README.md)). Only the URL widens; `beforeWindow` and the detail `stale` check use `recencySec` alone. |
