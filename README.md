@@ -1,6 +1,6 @@
 # MALJA
 
-Messaging App LinkedIn Job Alerts. A bot that watches LinkedIn's public job search for new internship postings, screens each one with an LLM, collapses per-city clones of the same role, and posts every new match to a Telegram group. No LinkedIn login, no cookies. One Node process, one SQLite file, hosted on Railway.
+Messaging App LinkedIn Job Alerts. A bot that watches LinkedIn's public job search for new internship postings, screens each one with an LLM, collapses per-city clones of the same role, and posts every new match to a Telegram group, plus a Telegram channel per job category when one is configured. No LinkedIn login, no cookies. One Node process, one SQLite file, hosted on Railway.
 
 Telegram is the first adapter behind a small notifier interface, so a WhatsApp or Discord adapter is an implementation away. The classifier is written for internships (it asks about a term, a graduation date, and a program); retargeting it to other roles is a prompt change, see [Make it yours](#make-it-yours).
 
@@ -17,6 +17,8 @@ One message per role. Each city links to its own posting. The last line only app
 | --- | --- |
 | ℹ️ | The posting says no visa sponsorship, degree eligibility is unclear, or the classifier could not confirm it is a relevant internship. |
 | ⚠️ | US citizens only. The one tag that rules most of the group out. |
+
+The group gets every message. Each category with a channel configured (`swe`, `ml`, `data`, ...) also gets the messages tagged with it, so a reader can follow just the kinds of roles they want. A role the classifier could not place goes to the group only.
 
 Postings the classifier marks as not relevant or not open to the configured degree are never sent. The admin chat gets a short line when something breaks (rate limited, blocked, classifier down, send failed, a cycle threw), at most once an hour per condition.
 
@@ -64,6 +66,7 @@ Needs Node 24 and pnpm 10.
 | `TELEGRAM_BOT_TOKEN` | yes | From BotFather. |
 | `TELEGRAM_GROUP_CHAT_ID` | yes | Where notifications go. Supergroups use a `-100` prefixed id. |
 | `TELEGRAM_ADMIN_CHAT_ID` | yes | Your DM with the bot, for alerts. |
+| `TELEGRAM_CHANNEL_<ID>` | no | One per category, e.g. `TELEGRAM_CHANNEL_ML`. The channel's `-100` id; the bot must be a channel admin that can post. Unset means no channel for that category. |
 | `OPENROUTER_API_KEY` | yes | Put a monthly limit on the key; that is the spend cap. |
 | `DATA_DIR` | no | Where `malja.db` lives. Default `./data`. |
 | `CONFIG_PATH` | no | Alternate config.json for dev. Default `./config.json`. |

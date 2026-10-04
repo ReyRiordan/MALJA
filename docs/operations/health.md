@@ -16,7 +16,7 @@ Plain `node:http` on `PORT`, started after the notifier and before the first cyc
   "lastCycleAt": "2026-09-05T12:00:00.000Z",
   "lastSuccessfulCycleAt": "2026-09-05T12:00:00.000Z",
   "pausedUntil": null,
-  "notifierReady": true,
+  "notifierReady": { "all": true, "ml": false },
   "uptimeSec": 3612
 }
 ```
@@ -27,7 +27,7 @@ Plain `node:http` on `PORT`, started after the notifier and before the first cyc
 | `lastCycleAt` | Start of the last cycle, whether or not it succeeded. Null before the first. |
 | `lastSuccessfulCycleAt` | Start of the last cycle that threw nothing. Null until one has. |
 | `pausedUntil` | End of the LinkedIn backoff pause, or null. |
-| `notifierReady` | `notifier.isReady()`. |
+| `notifierReady` | `notifier.isReady(dest)` for each configured destination, `all` first. |
 | `uptimeSec` | `process.uptime()`, rounded. |
 
 ## Status rules
@@ -36,7 +36,7 @@ Checked in this order; the first match wins.
 
 | `status` | When |
 | --- | --- |
-| `notifier_down` | `isReady()` is false: the bot lost the group and the probe has not passed yet. Rows pile up unsent. |
+| `notifier_down` | `isReady` is false for at least one destination: the bot lost that chat and its probe has not passed yet. That destination's deliveries pile up unsent; `notifierReady` says which, and the others keep sending. |
 | `paused` | `pausedUntil` is in the future. Cycles are deferred until then. |
 | `stale` | No successful cycle for more than 3 poll intervals (15 min at the default), measured from boot when none has succeeded yet. A repeating `cycle_failed` shows up here. |
 | `ok` | Otherwise. |

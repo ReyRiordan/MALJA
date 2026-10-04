@@ -5,7 +5,7 @@ Code: `src/index.ts`. Scripts in `package.json`.
 ## Setup
 
 1. `pnpm install`.
-2. Copy `.env.example` to `.env`. Point `TELEGRAM_GROUP_CHAT_ID` at a private test group and `TELEGRAM_ADMIN_CHAT_ID` at your own chat with the bot. The bot never polls Telegram, so a dev instance and the Railway instance can share one token without conflict; only the chat ids keep dev messages out of the real group.
+2. Copy `.env.example` to `.env`. Point `TELEGRAM_GROUP_CHAT_ID` at a private test group, any `TELEGRAM_CHANNEL_<ID>` you set at private test channels, and `TELEGRAM_ADMIN_CHAT_ID` at your own chat with the bot. The bot never polls Telegram, so a dev instance and the Railway instance can share one token without conflict; only the chat ids keep dev messages out of the real group.
 3. Optionally `CONFIG_PATH=./config.dev.json` for a config with fewer searches. `DATA_DIR` defaults to the gitignored `./data`, so the dev store is separate from anything deployed.
 
 There is no dry-run flag and no console notifier. A dev run is a real run against LinkedIn and a real Telegram group; the env is what makes it safe.
@@ -18,7 +18,7 @@ Runs `src/index.ts` under `node --watch` with `.env` loaded, piped through pino-
 
 ## Stopping
 
-Ctrl-C (SIGINT) or SIGTERM sets the stop flag, clears the pending cycle timer, and waits for the running cycle to return at its next step boundary (after a search, before a classify, before a send). Then the health server closes, the notifier stops, the store closes, and the process exits 0. If that takes longer than 10 s the process exits 1. A second signal exits 1 immediately. Exiting mid-cycle is safe: a notification row that was created but not marked sent is retried on the next boot, at worst as a duplicate message.
+Ctrl-C (SIGINT) or SIGTERM sets the stop flag, clears the pending cycle timer, and waits for the running cycle to return at its next step boundary (after a search, before a classify, before a send). Then the health server closes, the notifier stops, the store closes, and the process exits 0. If that takes longer than 10 s the process exits 1. A second signal exits 1 immediately. Exiting mid-cycle is safe: a delivery that was created but not marked sent is retried on the next boot, at worst as a duplicate message.
 
 ## Reading the log
 
@@ -27,7 +27,7 @@ Every line has a `component`: `loop`, `scraper`, `classifier`, `notifier`, `aler
 | Line | Meaning |
 | --- | --- |
 | `config loaded` | Boot. Lists searches, intervals, model, `graduation`, `term`, `fields`, `dataDir`, `port`. |
-| `telegram bot ready` | `getMe` passed. |
+| `telegram bot ready` | `getMe` passed. Lists the configured `destinations`. |
 | `health server listening` | `/health` is up. Railway's healthcheck passes from here. |
 | `cycle started` | With `recencySec` in use, 600 on the first cycle by default, and the `cacheBustSec` added to `f_TPR` this cycle. |
 | `linkedin request` | One per request: `url`, `status`, `elapsedMs`, `count` toward the 15 per cycle. |
@@ -38,9 +38,10 @@ Every line has a `component`: `loop`, `scraper`, `classifier`, `notifier`, `aler
 | `openrouter request` | One per classifier attempt, with tokens and the verdict. |
 | `group suppressed` | With `field`: `relevant` or `degreeOk` came back `no`. |
 | `no description in group; sending untagged` | No classifier call for this group. |
-| `notification sent` | With `messageId`, `lagSec` from the newest posting in the group to now, and `retry: true` when the row came from an earlier cycle. |
-| `send failed; row stays unsent` | Retried next cycle. |
-| `notifier not ready; unsent rows wait for a later cycle` | The bot lost the group. |
+| `notification sent` | With `destination`, `messageId`, `lagSec` from the newest posting in the group to now, and `retry: true` when the row came from an earlier cycle. |
+| `send failed; row stays unsent` | With `destination`. That delivery is retried next cycle. |
+| `notifier not ready; unsent rows wait for a later cycle` | With `destination`: the bot lost that chat. Once per destination per cycle. |
+| `bot lost the chat; sends to it paused` / `bot can see the chat again; sends resumed` | Per destination, from the notifier. |
 | `alert throttled` | The same condition fired within the hour. |
 | `cycle finished` | The `CycleSummary` (docs/core/loop.md). |
 | `cycle failed` | A throw caught at the cycle boundary. The admin gets `[cycle_failed]`. |

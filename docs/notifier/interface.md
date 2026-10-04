@@ -12,10 +12,13 @@ interface Notification {
   tags: { text: string; level: "info" | "warn" }[]; // pre-worded, may be empty
 }
 
+type Destination = "all" | Category;
+
 interface Notifier {
   start(): Promise<void>;
-  isReady(): boolean;
-  send(n: Notification): Promise<{ messageId: string }>;
+  destinations(): Destination[];                    // configured ones, `all` first
+  isReady(dest: Destination): boolean;
+  send(n: Notification, dest: Destination): Promise<{ messageId: string }>;
   sendAdmin(text: string): Promise<void>;
   stop(): Promise<void>;
 }
@@ -24,7 +27,13 @@ toNotification(group: Group, verdict: Verdict | null): Notification
 createNotifier(config: Config, env: Env): Notifier
 ```
 
-There is no digest. Each dedupe key is one `Notification`, one message, and one `notifications` row. Send order is the loop's business; see docs/core/loop.md.
+There is no digest. Each dedupe key is one `Notification` and one `notifications` row, sent as one message to each of its destinations, each tracked by its own `deliveries` row. Send order is the loop's business; see docs/core/loop.md.
+
+## Destinations
+
+`all` is the group that gets every notification. Each category can also have a channel. Destinations are names, not chat ids: the loop picks them and only the adapter maps them to chats, so `src/core` never reads env and another adapter keeps the same interface. `destinations()` lists the configured ones, `all` first and then categories in `CATEGORIES` order. `all` is always configured.
+
+A notification goes to `all` plus each of its verdict's categories that is configured, with the same text and tags in every chat. A job with `categories: []` (no description, a failed classifier call, or an unplaced role) reaches the group only. Every job, including `relevance unclear` and `eligibility unclear` ones, still reaches the group, so a wrong or missing category never hides a posting from everyone. The destinations are fixed when the loop creates the notification row; a channel configured later does not backfill older rows.
 
 ## Notification
 
@@ -54,11 +63,12 @@ Work-auth `unclear` is the default whenever the description does not say, so tag
 ## Methods
 
 - `start()` verifies credentials once and throws on failure, so a bad token is a boot error. It does not start receiving updates.
-- `isReady()` is a stored boolean, not a live probe. True after `start()`. False when a group send fails because the bot lost the group. True again when a timed probe succeeds. While it is false the loop keeps scraping and storing, and skips sending.
-- `send(n)` delivers one notification to the group and returns the adapter's message id as a string. It throws when it cannot. The loop leaves that row unsent and retries it next cycle through `unsentNotifications`.
+- `destinations()` is fixed at construction.
+- `isReady(dest)` is a stored boolean per destination, not a live probe. True for every configured destination after `start()`, false for an unconfigured one. False when a send to that destination fails because the bot lost its chat. True again when that destination's timed probe succeeds. While one destination is not ready the loop keeps scraping, storing, and sending to the others, and skips only that one.
+- `send(n, dest)` delivers one notification to one destination and returns the adapter's message id as a string. It throws when it cannot, including for an unconfigured destination. The loop leaves that delivery unsent and retries it next cycle through `unsentDeliveries`, without resending to the other destinations.
 - `sendAdmin(text)` sends plain text to the admin. It never throws: an alert about a failure must not become a failure. It logs and swallows.
 - `stop()` releases any held connection. A no-op for Telegram.
 
 ## Factory
 
-`createNotifier(config, env)` switches on `config.notifier`, which is an enum with the one value `telegram`. The Telegram adapter takes its token and both chat ids from env.
+`createNotifier(config, env)` switches on `config.notifier`, which is an enum with the one value `telegram`. The Telegram adapter takes its token, the group and admin chat ids, and each set `TELEGRAM_CHANNEL_<ID>` from env (docs/core/config.md).

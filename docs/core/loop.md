@@ -26,8 +26,8 @@ One process, one cycle at a time. Every collaborator is injected, so `loop.test.
 2. For each search in config order: `scrapeSearch` with `cacheBustSec` and the cards it deferred last cycle as `carried`, then `store.insertJobs` on everything it returned, skipped jobs included. `deferredCards` replaces the carried list for that label; the map is memory only, like backoff state. Jobs already in the store are not collected. A posting that matches two searches is `isSeen` by the second and costs one detail fetch. One `job seen` line per fresh job carries `postedAt`, `lagSec` (posted to now, rounded, null without a timestamp), and `skip`. `halted.signal` maps to a `rate_limited` or `blocked` alert; a transient halt is a warning.
 3. `groupByKey` over every fresh job without `skip`, then drop each group whose key has a `notifications` row in the last `dedupe.windowDays`. A covered key never reaches the classifier.
 4. Per group, classify the first job that has a description and store the verdict on that row only. Other clones keep a null verdict. A group with no description anywhere skips the classifier and goes out untagged. `relevant === "no"` or `degreeOk === "no"` suppresses the group, which creates no row, so a later clone of the same key is not blocked. The `group suppressed` log line carries `field: "relevant" | "degreeOk"`, relevance first. `relevant: unclear` goes out with a `relevance unclear` tag; see docs/notifier/interface.md.
-5. Sort the surviving groups by the newest `postedAt` among their jobs, ascending, groups with no timestamp first, then `createNotifications` in one transaction. Row ids therefore ascend in posting order across searches and the newest posting is the last message in the chat.
-6. Drain. If `notifier.isReady()` is false the rows wait. Otherwise every `unsentNotifications()` row goes out in id order, so a row left over from a crash or a failed send is sent before this cycle's rows, through the same code. The group is rebuilt with `groupByKey(row.jobs)` and the verdict is taken from whichever job has one. Each success is followed by `markSent` for that one row and a `notification sent` line whose `lagSec` is posted to now for the newest job in the group, so the two lag numbers separate LinkedIn index lag plus poll wait from what the group experiences. A `send` that throws leaves its row unsent, alerts `send_failed`, and the drain moves on. A readiness flip to false mid-drain stops it.
+5. Pick each surviving group's destinations: `all` plus the verdict's categories, kept only where `notifier.destinations()` lists them (docs/notifier/interface.md). A group without a verdict, or with `categories: []`, gets `all` only. Sort the groups by the newest `postedAt` among their jobs, ascending, groups with no timestamp first, then `createNotifications` writes every notification and delivery row in one transaction. Row ids therefore ascend in posting order across searches and the newest posting is the last message in each chat.
+6. Drain. Every `unsentDeliveries()` row goes out, oldest notification first and then in destination order, so a delivery left over from a crash or a failed send is sent before this cycle's, through the same code. A delivery whose destination is not `isReady` is skipped and waits; the first skip per destination per cycle logs one warning. The group is rebuilt with `groupByKey(row.jobs)` and the verdict is taken from whichever job has one. Each success is followed by `markDelivered` for that one delivery and a `notification sent` line with the `destination` and a `lagSec` that is posted to now for the newest job in the group, so the two lag numbers separate LinkedIn index lag plus poll wait from what the chat experiences. A `send` that throws leaves that delivery unsent, alerts `send_failed` with the destination, and the drain moves on; the notification's other destinations are unaffected. A readiness flip to false mid-drain skips the rest of that destination's deliveries only.
 7. Record `lastCycleAt`, and `lastSuccessfulCycleAt` when nothing threw. Log the `CycleSummary`.
 
 ## Failure
@@ -43,16 +43,16 @@ The `Alerter` only throttles (docs/notifier/alerts.md). The counters live here.
 | `no_cards` | One search reports `cardsOnFirstPage === 0` for 3 consecutive cycles that did not halt. One counter per search, reset by any cycle with cards. A halted cycle neither counts nor resets. Fires every cycle past the third; the hourly throttle caps that at one message. A genuinely quiet hour can trip it; the text names the search. |
 | `classifier_down` | 3 consecutive `ClassifyResult.error !== null` across groups and cycles, reset by any clean answer. |
 | `rate_limited`, `blocked` | Mapped straight from `halted.signal`, once per search per cycle. |
-| `send_failed` | Any `send` that threw. |
+| `send_failed` | Any `send` that threw, to any destination. |
 | `cycle_failed` | The caught cycle error above. |
 
 ## Shutdown
 
-`stop()` sets a stopping flag and clears the pending timer. The running cycle checks the flag after each search, before each classify, and before each send, and returns at the first one it finds set; the one in-flight await finishes naturally. `stop()` resolves when that cycle returns. Every store write is one transaction and an unsent row is retried on the next boot, so returning between steps loses nothing. The 10 s deadline and the exit codes are in `src/index.ts`; see docs/operations/run.md.
+`stop()` sets a stopping flag and clears the pending timer. The running cycle checks the flag after each search, before each classify, and before each send, and returns at the first one it finds set; the one in-flight await finishes naturally. `stop()` resolves when that cycle returns. Every store write is one transaction and an unsent delivery is retried on the next boot, so returning between steps loses nothing. The 10 s deadline and the exit codes are in `src/index.ts`; see docs/operations/run.md.
 
 ## Status
 
-`status()` feeds `/health` (docs/operations/health.md). `status` is `notifier_down` when `isReady()` is false, else `paused` when `pausedUntil` is in the future, else `stale` when the last successful cycle, or boot when there is none yet, is more than `STALE_INTERVALS * pollIntervalSec` ago, else `ok`.
+`status()` feeds `/health` (docs/operations/health.md). `status` is `notifier_down` when `isReady` is false for any configured destination, `notifierReady` maps each destination to its readiness, else `paused` when `pausedUntil` is in the future, else `stale` when the last successful cycle, or boot when there is none yet, is more than `STALE_INTERVALS * pollIntervalSec` ago, else `ok`.
 
 ## CycleSummary
 
@@ -64,5 +64,5 @@ Logged at info as `cycle finished`, with `stopped: true` when the cycle returned
 | `groups` | Groups that passed the window. |
 | `suppressed` | Groups dropped on `relevant === "no"` or `degreeOk === "no"`. |
 | `created` | Notification rows created this cycle. |
-| `sent` | Rows sent this cycle, retries included. |
-| `failed` | Sends that threw. Their rows stay unsent. |
+| `sent` | Deliveries sent this cycle, one per destination, retries included. |
+| `failed` | Sends that threw. Their deliveries stay unsent. |

@@ -20,7 +20,7 @@ Detection stays in the loop, which has the cross-cycle counters (docs/core/loop.
 | --- | --- | --- |
 | `rate_limited`, `blocked` | The scraper's `ScrapeError` signal. The names match so the loop maps `halted.signal` straight through. | Every halted search. |
 | `no_cards` | `cardsOnFirstPage` at zero for one search. | 3 consecutive unhalted cycles, per search. |
-| `send_failed` | A `send` that threw after auto-retry gave up. | Every throw. |
+| `send_failed` | A `send` that threw after auto-retry gave up. The text starts with the destination, then the key. | Every throw. |
 | `classifier_down` | `ClassifyResult.error` not null. | 3 consecutive. |
 | `cycle_failed` | A throw caught at the cycle boundary. The loop continues; `/health` goes stale. | Every cycle that throws. |
 

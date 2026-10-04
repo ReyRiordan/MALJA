@@ -29,6 +29,7 @@ Railway mounts the volume owned by root while the Dockerfile switches to the `no
 | `TELEGRAM_BOT_TOKEN` | Secret. |
 | `TELEGRAM_GROUP_CHAT_ID` | The real group. Changes to a `-100` id if the group becomes a supergroup. |
 | `TELEGRAM_ADMIN_CHAT_ID` | The admin's chat with the bot. |
+| `TELEGRAM_CHANNEL_<ID>` | Optional, one per category (`TELEGRAM_CHANNEL_SWE` ... `TELEGRAM_CHANNEL_PM`; list in docs/core/config.md). The channel's `-100`-prefixed id. The bot must be an admin of the channel with the right to post messages. Unset means that category has no channel, so channels can be added one at a time. A channel added later gets only notifications created after the redeploy. |
 | `OPENROUTER_API_KEY` | Secret. Put a monthly limit on the key; that is the spend cap. |
 | `DATA_DIR` | `/data`. |
 | `RAILWAY_RUN_UID` | `0`. Runs the container as root so the volume is writable; see Volume above. |
@@ -42,7 +43,7 @@ Railway mounts the volume owned by root while the Dockerfile switches to the `no
 
 Every boot runs a first cycle with `firstCycleRecencySec` (10 min by default), so a deploy during a quiet period costs one search page per search and nothing else. A boot after a longer outage misses anything older than that window; there is no cold-start catch-up. Backoff state is in memory, so a redeploy during a pause forgets it and makes one request that re-enters backoff if LinkedIn is still refusing.
 
-On SIGTERM the process finishes its current step, closes the store, and exits 0 within 10 s. A notification row created but not marked sent before the kill is sent on the next boot.
+On SIGTERM the process finishes its current step, closes the store, and exits 0 within 10 s. A delivery created but not marked sent before the kill is sent on the next boot.
 
 ## Pausing
 
@@ -52,5 +53,5 @@ Stop the service in the dashboard. Nothing else is needed: the store keeps the s
 
 1. Healthcheck green and `/health` returns `status: "ok"` after the first cycle.
 2. Deploy log shows the store opening under `/data` with no `EACCES`.
-3. The group receives one message per new key on the first cycle, nothing on a redeploy.
+3. The group receives one message per new key on the first cycle, nothing on a redeploy. Each configured channel receives the subset in its category.
 4. A few days with no `[rate_limited]` or `[blocked]` admin alert. If they keep coming, set `PROXY_URL`.
