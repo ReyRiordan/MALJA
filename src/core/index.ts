@@ -12,7 +12,7 @@ export {
 export {
   MIGRATIONS,
   openStore,
-  type PendingNotification,
+  type PendingDelivery,
   Store,
   type StoredJob,
 } from "./store.ts";

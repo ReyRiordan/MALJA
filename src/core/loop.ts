@@ -54,9 +54,9 @@ export interface CycleSummary {
   suppressed: number;
   /** Notification rows created this cycle. */
   created: number;
-  /** Rows sent this cycle, including retries from earlier cycles. */
+  /** Deliveries sent this cycle, one per destination, including retries from earlier cycles. */
   sent: number;
-  /** Sends that threw. Their rows stay unsent. */
+  /** Sends that threw. Their deliveries stay unsent. */
   failed: number;
 }
 
@@ -71,8 +71,9 @@ export interface LoopStatus {
 
 /**
  * The poll loop. One cycle at a time on a `setTimeout` chain: scrape every search, group new
- * jobs by dedupe key, classify one job per group, create notification rows, then drain every
- * unsent row in id order. Every collaborator is injected so tests run against fakes.
+ * jobs by dedupe key, classify one job per group, create notification rows with one delivery
+ * per destination, then drain every unsent delivery, oldest notification first. Every
+ * collaborator is injected so tests run against fakes.
  */
 export class Loop {
   private readonly config: Config;
@@ -209,14 +210,20 @@ export class Loop {
     );
     summary.groups = groups.length;
 
-    const passing: Group[] = [];
+    const configured = this.notifier.destinations();
+    const passing: { group: Group; destinations: Destination[] }[] = [];
     for (const group of groups) {
       if (this.stopping) return;
-      if (await this.classify(group, now)) passing.push(group);
-      else summary.suppressed += 1;
+      const outcome = await this.classify(group, now);
+      if (outcome.suppressed) {
+        summary.suppressed += 1;
+        continue;
+      }
+      const wanted: Destination[] = ["all", ...(outcome.verdict?.categories ?? [])];
+      passing.push({ group, destinations: wanted.filter((d) => configured.includes(d)) });
     }
 
-    passing.sort((a, b) => newestPostedAt(a) - newestPostedAt(b));
+    passing.sort((a, b) => newestPostedAt(a.group) - newestPostedAt(b.group));
     summary.created = this.store.createNotifications(passing, now).length;
 
     await this.drain(now, summary);
@@ -286,12 +293,15 @@ export class Loop {
     return fresh.filter((job) => !job.skip);
   }
 
-  /** Classifies the first job with a description. False when the group is suppressed. */
-  private async classify(group: Group, now: number): Promise<boolean> {
+  /** Classifies the first job with a description. `verdict` is null when there is none. */
+  private async classify(
+    group: Group,
+    now: number,
+  ): Promise<{ suppressed: boolean; verdict: Verdict | null }> {
     const job = group.jobs.find((j) => j.description !== null);
     if (!job || job.description === null) {
       this.log.info({ key: group.key }, "no description in group; sending untagged");
-      return true;
+      return { suppressed: false, verdict: null };
     }
     const result = await this.classifier.classify({
       title: job.title,
@@ -313,40 +323,58 @@ export class Loop {
     const field = suppressedBy(result.verdict);
     if (field !== null) {
       this.log.info({ key: group.key, field, reason: result.verdict.reason }, "group suppressed");
-      return false;
+      return { suppressed: true, verdict: result.verdict };
     }
-    return true;
+    return { suppressed: false, verdict: result.verdict };
   }
 
-  /** Sends every unsent row in id order, so retries from earlier cycles go out first. */
+  /**
+   * Sends every unsent delivery, oldest notification first, so retries from earlier cycles go
+   * out first. A destination that is not ready is skipped and its deliveries wait.
+   */
   private async drain(now: number, summary: CycleSummary): Promise<void> {
-    if (!this.notifier.isReady("all")) {
-      this.log.warn("notifier not ready; unsent rows wait for a later cycle");
-      return;
-    }
-    for (const row of this.store.unsentNotifications()) {
-      if (this.stopping || !this.notifier.isReady("all")) return;
+    const waiting = new Set<Destination>();
+    for (const row of this.store.unsentDeliveries()) {
+      if (this.stopping) return;
+      const { destination } = row;
+      if (!this.notifier.isReady(destination)) {
+        if (!waiting.has(destination)) {
+          waiting.add(destination);
+          this.log.warn({ destination }, "notifier not ready; unsent rows wait for a later cycle");
+        }
+        continue;
+      }
       const group = groupByKey(row.jobs)[0];
       if (!group) {
-        this.log.error({ id: row.id, key: row.key }, "notification row has no jobs; skipped");
+        this.log.error(
+          { id: row.notificationId, key: row.key, destination },
+          "notification row has no jobs; skipped",
+        );
         continue;
       }
       const verdict: Verdict | null = row.jobs.find((j) => j.verdict !== null)?.verdict ?? null;
       let messageId: string;
       try {
-        ({ messageId } = await this.notifier.send(toNotification(group, verdict), "all"));
+        ({ messageId } = await this.notifier.send(toNotification(group, verdict), destination));
       } catch (err) {
         summary.failed += 1;
-        this.log.error({ err, id: row.id, key: row.key }, "send failed; row stays unsent");
-        await this.alerter.alert("send_failed", `${row.key}: ${(err as Error).message}`);
+        this.log.error(
+          { err, id: row.notificationId, key: row.key, destination },
+          "send failed; row stays unsent",
+        );
+        await this.alerter.alert(
+          "send_failed",
+          `${destination} ${row.key}: ${(err as Error).message}`,
+        );
         continue;
       }
-      this.store.markSent([row.id], messageId, now);
+      this.store.markDelivered(row.id, messageId, now);
       summary.sent += 1;
       this.log.info(
         {
-          id: row.id,
+          id: row.notificationId,
           key: row.key,
+          destination,
           messageId,
           retry: row.createdAt !== now,
           lagSec: lagSec(newestPostedAt(group), now),

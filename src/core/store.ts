@@ -9,6 +9,7 @@ import {
   type Verdict,
   type WorkAuth,
 } from "../classifier/types.ts";
+import type { Destination } from "../notifier/types.ts";
 import type { Job } from "../scraper/types.ts";
 import { dedupeKey, type Group } from "./dedupe.ts";
 
@@ -18,9 +19,11 @@ export interface StoredJob extends Job {
   verdict: Verdict | null;
 }
 
-/** A notification row whose message has not been confirmed sent. */
-export interface PendingNotification {
+/** One destination of one notification whose message has not been confirmed sent. */
+export interface PendingDelivery {
   id: number;
+  notificationId: number;
+  destination: Destination;
   key: string;
   createdAt: number;
   jobs: StoredJob[];
@@ -61,7 +64,20 @@ export const MIGRATIONS: string[] = [
   CREATE INDEX notifications_key_created ON notifications(dedupe_key, created_at);`,
   "ALTER TABLE jobs ADD COLUMN relevant TEXT",
   "ALTER TABLE jobs ADD COLUMN categories TEXT",
+  `CREATE TABLE deliveries (
+    id              INTEGER PRIMARY KEY,
+    notification_id INTEGER NOT NULL REFERENCES notifications(id),
+    destination     TEXT NOT NULL,
+    sent_at         INTEGER,
+    message_id      TEXT,
+    UNIQUE(notification_id, destination)
+  );
+  CREATE INDEX deliveries_sent_at ON deliveries(sent_at);
+  INSERT INTO deliveries (notification_id, destination, sent_at, message_id)
+    SELECT id, 'all', sent_at, message_id FROM notifications ORDER BY id;`,
 ];
+
+const DESTINATIONS: readonly string[] = ["all", ...CATEGORIES];
 
 interface JobRow {
   linkedin_id: string;
@@ -83,8 +99,10 @@ interface JobRow {
   classifier_reason: string | null;
 }
 
-interface NotificationRow {
+interface DeliveryRow {
   id: number;
+  notification_id: number;
+  destination: string;
   dedupe_key: string;
   linkedin_ids: string;
   created_at: number;
@@ -122,7 +140,8 @@ export class Store {
   readonly #setVerdict: StatementSync;
   readonly #keyNotifiedSince: StatementSync;
   readonly #insertNotification: StatementSync;
-  readonly #markSent: StatementSync;
+  readonly #insertDelivery: StatementSync;
+  readonly #markDelivered: StatementSync;
   readonly #unsent: StatementSync;
 
   constructor(db: DatabaseSync) {
@@ -145,11 +164,16 @@ export class Store {
     this.#insertNotification = db.prepare(
       "INSERT INTO notifications (dedupe_key, linkedin_ids, created_at) VALUES (?, ?, ?)",
     );
-    this.#markSent = db.prepare(
-      "UPDATE notifications SET sent_at = ?, message_id = ? WHERE id = ?",
+    this.#insertDelivery = db.prepare(
+      "INSERT INTO deliveries (notification_id, destination) VALUES (?, ?)",
+    );
+    this.#markDelivered = db.prepare(
+      "UPDATE deliveries SET sent_at = ?, message_id = ? WHERE id = ?",
     );
     this.#unsent = db.prepare(
-      "SELECT id, dedupe_key, linkedin_ids, created_at FROM notifications WHERE sent_at IS NULL ORDER BY id",
+      `SELECT d.id, d.notification_id, d.destination, n.dedupe_key, n.linkedin_ids, n.created_at
+       FROM deliveries d JOIN notifications n ON n.id = d.notification_id
+       WHERE d.sent_at IS NULL ORDER BY n.id, d.id`,
     );
   }
 
@@ -221,32 +245,51 @@ export class Store {
     return this.#keyNotifiedSince.get(key, sinceMs) !== undefined;
   }
 
-  /** One row per group in one transaction. Returns the new row ids in input order. */
-  createNotifications(groups: Group[], now: number): number[] {
+  /**
+   * One notification row per entry plus one delivery row per destination, all in one
+   * transaction. Returns the notification ids in input order.
+   */
+  createNotifications(
+    entries: { group: Group; destinations: Destination[] }[],
+    now: number,
+  ): number[] {
     return this.#transaction(() =>
-      groups.map((group) => {
+      entries.map(({ group, destinations }) => {
         const ids = JSON.stringify(group.jobs.map((job) => job.id));
-        return Number(this.#insertNotification.run(group.key, ids, now).lastInsertRowid);
+        const id = Number(this.#insertNotification.run(group.key, ids, now).lastInsertRowid);
+        for (const destination of destinations) this.#insertDelivery.run(id, destination);
+        return id;
       }),
     );
   }
 
-  /** Stamps `sent_at` and the shared `message_id` on every id in one transaction. */
-  markSent(ids: number[], messageId: string, now: number): void {
-    this.#transaction(() => {
-      for (const id of ids) this.#markSent.run(now, messageId, id);
-    });
+  /** Stamps `sent_at` and that destination's own `message_id` on one delivery. */
+  markDelivered(deliveryId: number, messageId: string, now: number): void {
+    this.#markDelivered.run(now, messageId, deliveryId);
   }
 
-  /** Every row with `sent_at IS NULL`, oldest first, with its jobs rehydrated. */
-  unsentNotifications(): PendingNotification[] {
-    const rows = this.#unsent.all() as unknown as NotificationRow[];
-    return rows.map((row) => ({
-      id: row.id,
-      key: row.dedupe_key,
-      createdAt: row.created_at,
-      jobs: this.getJobs(parseIds(row)),
-    }));
+  /**
+   * Every delivery with `sent_at IS NULL`, oldest notification first, then in the order its
+   * destinations were created, with the notification's jobs rehydrated.
+   */
+  unsentDeliveries(): PendingDelivery[] {
+    const rows = this.#unsent.all() as unknown as DeliveryRow[];
+    const jobs = new Map<number, StoredJob[]>();
+    return rows.map((row) => {
+      let rowJobs = jobs.get(row.notification_id);
+      if (!rowJobs) {
+        rowJobs = this.getJobs(parseIds(row));
+        jobs.set(row.notification_id, rowJobs);
+      }
+      return {
+        id: row.id,
+        notificationId: row.notification_id,
+        destination: parseDestination(row),
+        key: row.dedupe_key,
+        createdAt: row.created_at,
+        jobs: rowJobs,
+      };
+    });
   }
 
   close(): void {
@@ -292,10 +335,18 @@ function parseCategories(row: JobRow): Category[] {
 }
 
 /** A row whose JSON is not a string array is corruption, not something to skip. */
-function parseIds(row: NotificationRow): string[] {
+function parseIds(row: DeliveryRow): string[] {
   const parsed: unknown = JSON.parse(row.linkedin_ids);
   if (!Array.isArray(parsed) || !parsed.every((id) => typeof id === "string")) {
-    throw new Error(`notifications row ${row.id}: linkedin_ids is not a string array`);
+    throw new Error(`notifications row ${row.notification_id}: linkedin_ids is not a string array`);
   }
   return parsed;
+}
+
+/** An unknown destination is corruption, like an unknown category id. */
+function parseDestination(row: DeliveryRow): Destination {
+  if (!DESTINATIONS.includes(row.destination)) {
+    throw new Error(`deliveries row ${row.id}: unknown destination ${row.destination}`);
+  }
+  return row.destination as Destination;
 }
