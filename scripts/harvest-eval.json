@@ -59,6 +59,14 @@
     {
       "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(%22research%20scientist%22%20OR%20%22research%20engineer%22%20OR%20%22research%20intern%22)%20(%22machine%20learning%22%20OR%20AI)&geoId=103644278&sortBy=DD",
       "label": "research"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(%22solutions%20engineer%22%20OR%20%22solutions%20architect%22%20OR%20%22sales%20engineer%22%20OR%20%22forward%20deployed%22%20OR%20%22customer%20engineer%22%20OR%20%22GTM%20engineer%22%20OR%20%22technical%20account%22%20OR%20%22implementation%20engineer%22)&geoId=103644278&sortBy=DD",
+      "label": "solutions"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(%22account%20executive%22%20OR%20%22sales%20development%22%20OR%20%22business%20development%22%20OR%20%22go-to-market%22)&geoId=103644278&sortBy=DD",
+      "label": "sales-gtm"
     }
   ]
 }

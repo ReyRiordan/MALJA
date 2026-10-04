@@ -4,16 +4,17 @@ How to label a file in `test/eval/eligibility/` (format in eval.md). It restates
 
 The student facts below are the `classifier` values in config.json. When the cohort changes, update them here and relabel postings whose answer depends on them.
 
-Students: master's students in Carnegie Mellon's M.S. in Artificial Intelligence and Innovation, a mix of US citizens and F-1 international students. They graduate in **May 2028** and want **summer 2027** internships. In-scope fields: software engineering, machine learning, AI, data science that builds or trains models rather than reports or dashboards, and technical product management (PM for a software or AI product, or one that asks for a CS or engineering background), including research internships in those areas.
+Students: master's students in Carnegie Mellon's M.S. in Artificial Intelligence and Innovation, a mix of US citizens and F-1 international students. They graduate in **May 2028** and want **summer 2027** internships. In-scope fields: software engineering, machine learning, AI, data science that builds or trains models rather than reports or dashboards, and technical product management (PM for a software or AI product, or one that asks for a CS or engineering background), including research internships in those areas, and technical customer-facing engineering (solutions engineering, solutions architecture, sales engineering, forward deployed engineering) for roles that ask for a CS or engineering background or assign technical work.
 
 ## relevant: is this a summer 2027 internship in the fields above?
 
 - "yes" only when all three hold: the posting is an internship or co-op, not a full-time, contract, new-grad, or rotational analyst role; it is for summer 2027, or names no term at all (a summer program with no year counts; "this summer" counts); and the work is in the fields.
-- "no" when the posting states a mismatch on any of the three: full-time, contract, new-grad, or rotational analyst role; a different term (fall, spring, year-round only, or summer 2026); or the work is in another field (mechanical, civil, chemistry, marketing, finance, or business/data analytics such as BI reporting and dashboard work), even if it mentions Python.
+- "no" when the posting states a mismatch on any of the three: full-time, contract, new-grad, or rotational analyst role; a different term (fall, spring, year-round only, or summer 2026); or the work is in another field (mechanical, civil, chemistry, marketing, sales such as account executive or sales/business development, go-to-market strategy, finance, or business/data analytics such as BI reporting and dashboard work), even if it mentions Python.
 - Judge the field by the work the description assigns, not the title. A "Data Analyst Intern" whose work is training models is in scope; a "Data Science Intern" whose work is dashboards, SQL reports, and Excel/Tableau/Power BI is analytics, which is another field.
 - A title without "intern", "internship", or "co-op" (e.g. "Software Engineer", "AI/ML Engineer") is a regular job: "no" unless the description itself says it is an internship or co-op. Bank-style "Summer Analyst, Software Engineering" programs are internships.
 - A title with "analyst"/"analytics" and no engineer/developer/scientist/ML/AI wording is "no" unless the description assigns modelling, ML, or software work.
 - "unclear" when the posting is silent or genuinely mixed on one of the three, e.g. a bare "Engineering Intern" with no field named, or a role split evenly between in-scope and out-of-scope work.
+- Customer-facing roles: solutions engineer, solutions architect, sales engineer, forward deployed engineer, customer engineer, GTM engineer (builds sales automation and CRM/enrichment integrations), technical account manager, and implementation or onboarding engineer are in the fields when the work is demos, POCs, integrations, or deploying the product with customers and the posting asks for a CS/engineering background or assigns technical work. The same title without either (selling industrial equipment, chemicals, or building systems) is another field. Quota-carrying sales (account executive, SDR/BDR, business development), GTM strategy or operations, technical support or helpdesk, and consulting-firm technology analyst programs are "no".
 - Electrical/hardware/embedded: embedded software or firmware work counts as software engineering; circuit design, PCB, or test-bench hardware work is other engineering.
 
 ## categories: what kinds of work does the role do?
@@ -32,12 +33,15 @@ Label categories only on files the label sends (neither `relevant` nor `degreeOk
 - `embedded`: embedded software, firmware, flight software, robotics and autonomy software.
 - `research`: the role is mainly research (publishing, novel methods, a research lab or team). Always next to a domain id, never alone.
 - `pm`: technical product management.
+- `solutions`: technical customer-facing work: solutions and sales engineering, solutions architecture, forward deployed engineering, customer and implementation engineering, GTM engineering, technical account management.
 
 Rules:
 
 - Judge by the work the description assigns, not the title.
-- `infra`, `security`, `qa`, and `embedded` are carved out of `swe`: a role that is mainly that work gets the carve-out instead of `swe`. For `infra`, `security`, and `qa`, when the role also does substantial general software work, `swe` goes in `categoriesAlso`.
+- `infra`, `security`, `qa`, `embedded`, and `solutions` are carved out of `swe`: a role that is mainly that work gets the carve-out instead of `swe`. For `infra`, `security`, and `qa`, when the role also does substantial general software work, `swe` goes in `categoriesAlso`.
 - For `embedded` the test is the skills asked for, because embedded roles ask for C/C++, RTOS, microcontrollers, and firmware rather than web, backend, cloud, and SQL. A mainly embedded, flight, or autonomy software role gets `embedded` alone, with `swe` not acceptable. A role that asks for both skill sets (an embedded lab that also wants backend services and SQL) gets both required.
+- `solutions` next to a domain id: when the customer work builds something in a domain, that id is required too (building RAG or agent POCs for customers -> `ai` required). When the role only sells or demos a product in that domain, the id goes in `categoriesAlso`.
+- Forward deployed engineer: `solutions` required, `swe` in `categoriesAlso`.
 - `ai` versus `ml`: building on top of LLMs (prompting, agents, RAG, LLM-backed product features) is `ai`; training, fine-tuning, or optimising models is `ml`. A role that does both gets both. A generic "AI/ML" posting with no detail gets the one the work leans to in `categories` and the other in `categoriesAlso`.
 - A generic software internship that lists several possible teams (backend, ML, infra, ...) is `swe`, with the team ids named prominently in `categoriesAlso`.
 - `research` is required only when research is the main job ("Research Intern", "Research Scientist Intern", a lab doing publishable work). An engineering role on a research team gets `research` in `categoriesAlso`.
