@@ -11,11 +11,11 @@
       "swe"
     ],
     "categoriesAlso": [
-      "ai",
+      "aiml",
       "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Harvey: relevant yes, 'Software Engineering Intern (Summer 2027)' building AI products across frontend, backend, infra and applied AI. degreeOk yes, 'Currently enrolled in a Bachelor's or Master's program' with 'a graduation date of December 2027 or later', which includes May 2028. workAuth unclear, nothing on sponsorship. categories swe, 'Own a project end-to-end from coding and testing to deploying it to production' across 'Frontend, Backend, Full-Stack'; also ai, 'retrieval over large document collections', 'enterprise agents' and 'evaluate frontier models alongside senior engineers', and infra, 'multi-region compute infrastructure'."
+  "note": "Harvey: relevant yes, 'Software Engineering Intern (Summer 2027)' building AI products across frontend, backend, infra and applied AI. degreeOk yes, 'Currently enrolled in a Bachelor's or Master's program' with 'a graduation date of December 2027 or later', which includes May 2028. workAuth unclear, nothing on sponsorship. categories swe, 'Own a project end-to-end from coding and testing to deploying it to production' across 'Frontend, Backend, Full-Stack'; also aiml, 'retrieval over large document collections', 'enterprise agents' and 'evaluate frontier models alongside senior engineers', and infra, 'multi-region compute infrastructure'."
 }

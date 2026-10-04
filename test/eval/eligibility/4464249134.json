@@ -8,7 +8,7 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai"
+      "aiml"
     ],
     "categoriesAlso": [
       "infra"
@@ -16,5 +16,5 @@
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "BORDERLINE: Corteva: relevant yes, 'AI Engineering Intern for our 2027 Summer Internship Program' building AI agents, LLM and MCP work. degreeOk yes, 'Pursuing a Master's, or Ph.D. degree in Computer Science'. workAuth no_sponsorship, 'Have the right to work in the U.S. without restriction' goes beyond a bare authorisation line and excludes anyone needing employer support, though it never names sponsorship. categories ai, 'expanding the use of AI agents, large language models (LLMs), and agentic workflows' with 'evaluating and optimizing LLM token consumption'; also infra, 'deployment, configuration, and maintenance of AI agents and supporting infrastructure' including 'MCP server deployments'."
+  "note": "BORDERLINE: Corteva: relevant yes, 'AI Engineering Intern for our 2027 Summer Internship Program' building AI agents, LLM and MCP work. degreeOk yes, 'Pursuing a Master's, or Ph.D. degree in Computer Science'. workAuth no_sponsorship, 'Have the right to work in the U.S. without restriction' goes beyond a bare authorisation line and excludes anyone needing employer support, though it never names sponsorship. categories aiml, 'expanding the use of AI agents, large language models (LLMs), and agentic workflows' with 'evaluating and optimizing LLM token consumption' and 'testing, evaluation, and continuous improvement of AI agents'; also infra, 'deployment, configuration, and maintenance of AI agents and supporting infrastructure' including 'MCP server deployments'."
 }

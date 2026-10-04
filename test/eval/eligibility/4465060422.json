@@ -13,11 +13,10 @@
     ],
     "categoriesAlso": [
       "swe",
-      "pm",
-      "qa"
+      "pm"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Paramify: relevant yes, the title has no 'intern' but the description says 'As a Security Solution Engineer (intern)', names no term, and the work is forward-deployed security engineering on a compliance-automation platform. degreeOk yes, 'Currently pursuing or recently graduated with a degree in Cybersecurity, IT, Information Systems, Computer Science' names no level and no exclusion. workAuth unclear, nothing stated. categories solutions, 'Forward Deployed Engineer: Work directly with customers ... and build custom integrations or solutions', plus security, the domain the customer work is built in, 'risk management, compliance validation, and evidence mapping for audits, leveraging your technical knowledge to improve our platform's security posture'; also swe per the forward-deployed precedent, pm, 'Help manage the product roadmap', and qa, 'Design and execute test cases for new features'."
+  "note": "Paramify: relevant yes, the title has no 'intern' but the description says 'As a Security Solution Engineer (intern)', names no term, and the work is forward-deployed security engineering on a compliance-automation platform. degreeOk yes, 'Currently pursuing or recently graduated with a degree in Cybersecurity, IT, Information Systems, Computer Science' names no level and no exclusion. workAuth unclear, nothing stated. categories solutions, 'Forward Deployed Engineer: Work directly with customers ... and build custom integrations or solutions', plus security, the skillset the customer work needs, 'risk management, compliance validation, and evidence mapping for audits, leveraging your technical knowledge to improve our platform's security posture' with 'Strong foundational knowledge of security principles'; also swe per the forward-deployed precedent and 'Design and execute test cases for new features', and pm, 'Help manage the product roadmap'."
 }

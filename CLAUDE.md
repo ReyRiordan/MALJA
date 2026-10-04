@@ -51,7 +51,7 @@ Use the GitHub CLI (`gh`) for all GitHub-related tasks. Work is tracked as GitHu
 - **gone**: `skip` reason for a job whose detail fetch returned 404 or 410. Stored as seen, never sent.
 - **deferred**: an unseen card that got no detail fetch because the cycle budget ran out. Carried in memory and fetched next cycle after that cycle's page cards; lost on restart.
 - **soft filter**: classifier verdict `relevant = no` or `degree_ok = no` suppresses a job; `degree_ok = unclear` and `relevant = unclear` each send it with a tag; missing description sends it untagged.
-- **category**: one of eleven kinds of work a role can be (`swe`, `infra`, `security`, `qa`, `ai`, `ml`, `data`, `embedded`, `research`, `pm`, `solutions`), defined in `src/classifier/prompt.ts`. A verdict carries zero or more; each message shows them as hashtags.
+- **category**: one of nine skillsets a role can require (`swe`, `aiml`, `infra`, `data`, `security`, `perf`, `embedded`, `solutions`, `pm`), defined in `src/classifier/prompt.ts`. A verdict carries zero or more, more than one only when the posting requires more than one skillset; each message shows them as hashtags.
 - **verdict**: the classifier's answer for one group: `relevant`, `categories`, `degreeOk`, `workAuth`, and a one-sentence `reason`. `null` on a row means never classified; `unclear` means the model could not tell or the call failed. `categories: []` means unplaced or the call failed.
 - **cycle_failed**: alert condition for a throw caught at the cycle boundary. The loop keeps running; `/health` reports `stale` until a cycle succeeds.
 - **notifier**: the delivery interface (start, destinations, isReady, send, sendAdmin, stop), per destination. Telegram is the first adapter.

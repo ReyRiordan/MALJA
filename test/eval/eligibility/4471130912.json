@@ -8,13 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "qa"
-    ],
-    "categoriesAlso": [
       "swe"
     ],
+    "categoriesAlso": [],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "ARAG Legal Insurance: relevant yes, 'ARAG is looking for a Test Automation Specialist Intern for summer 2027'. degreeOk unclear, 'Must have or must be pursuing a four-year college level education' is bachelor's wording with no exclusion. workAuth unclear, nothing on sponsorship. categories qa, 'develops, modifies, and executes automated tests using Selenium and C#'; also swe, 'Reviews and refactors initialization logic and identifies and removes duplicate, unused, or outdated code'."
+  "note": "ARAG Legal Insurance: relevant yes, 'ARAG is looking for a Test Automation Specialist Intern for summer 2027'. degreeOk unclear, 'Must have or must be pursuing a four-year college level education' is bachelor's wording with no exclusion. workAuth unclear, nothing on sponsorship. categories swe, software test automation, 'develops, modifies, and executes automated tests using Selenium and C#' and 'Reviews and refactors initialization logic'."
 }

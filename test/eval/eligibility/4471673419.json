@@ -11,11 +11,10 @@
       "swe"
     ],
     "categoriesAlso": [
-      "qa",
       "embedded"
     ],
     "degreeOk": "yes",
     "workAuth": "none"
   },
-  "note": "Motorola Solutions: relevant yes, 'CPE SW E2E Triage Intern - Summer 2027' with 'object-oriented software development C++' and Android work. degreeOk yes, 'Pursuing a Bachelor's Degree or Master's Degree' and 'Graduation date must occur on or after December 2026' includes May 2028. workAuth none, 'Must be a US Citizen, permanent resident or be an MS student with work authorization (F1 Visa on CPT accepted only for masters-level students)' explicitly admits F-1 master's students. categories swe, 'Analyzes, develops, designs, and maintains software for the organization's products and systems'; also qa + embedded, 'analyzes and resolves SW issues related to the products in the field' and 'Performs system integration of software and hardware'."
+  "note": "Motorola Solutions: relevant yes, 'CPE SW E2E Triage Intern - Summer 2027' with 'object-oriented software development C++' and Android work. degreeOk yes, 'Pursuing a Bachelor's Degree or Master's Degree' and 'Graduation date must occur on or after December 2026' includes May 2028. workAuth none, 'Must be a US Citizen, permanent resident or be an MS student with work authorization (F1 Visa on CPT accepted only for masters-level students)' explicitly admits F-1 master's students. categories swe, 'Analyzes, develops, designs, and maintains software for the organization's products and systems' in C++/Android; also embedded, 'Performs system integration of software and hardware'."
 }

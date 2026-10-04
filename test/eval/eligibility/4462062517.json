@@ -8,13 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "qa"
-    ],
-    "categoriesAlso": [
       "swe"
     ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "US Foods: relevant yes, 'Intern - Automation Quality Engineer' in a summer program with no year named. degreeOk yes, 'Currently pursuing a Bachelor's degree or Master's degree in Computer Science'. workAuth no_sponsorship, 'unable to provide internships to students that require sponsorship for employment visa status ... now or in the future'. categories qa, 'QA Automation Test design' and 'Defect identification through test execution utilizing QA automation tools such as Selenium, Playwright and Cypress'; also swe, 'development and implementation of online web and mobile applications'."
+  "note": "US Foods: relevant yes, 'Intern - Automation Quality Engineer' in a summer program with no year named. degreeOk yes, 'Currently pursuing a Bachelor's degree or Master's degree in Computer Science'. workAuth no_sponsorship, 'unable to provide internships to students that require sponsorship for employment visa status ... now or in the future'. categories swe, software test automation: 'QA Automation Test design' and 'Defect identification through test execution utilizing QA automation tools such as Selenium, Playwright and Cypress'."
 }

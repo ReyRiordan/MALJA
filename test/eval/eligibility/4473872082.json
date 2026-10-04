@@ -8,17 +8,16 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml",
-      "infra"
+      "perf"
     ],
     "categoriesAlso": [
-      "ai",
+      "infra",
+      "aiml",
       "swe",
-      "security",
-      "qa"
+      "security"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Qualcomm Modular: relevant yes, 'Modular Engineering Internship - Summer 2027' on AI inference, compilers, GPU kernels and software tooling. degreeOk yes, 'Currently enrolled in a bachelor's, master's, or Ph.D. degree program' with 'Expected graduation date of November 2027 or later'. workAuth unclear, the export notice says 'This role may require an export license for candidates with citizenship in certain countries' but never requires US citizenship or US-person status, so it is not citizen_only. categories ml + infra, 'AI Inference performance and optimization' with 'GPU kernels and accelerator optimization', 'scale distributed AI systems, develop AI infrastructure and model-serving platforms'; also ai + swe + security + qa, 'compiler development, the Mojo programming language, ... security, quality engineering, or software development tooling'."
+  "note": "BORDERLINE: Qualcomm Modular: relevant yes, 'Modular Engineering Internship - Summer 2027' on AI inference, compilers, GPU kernels and software tooling. degreeOk yes, 'Currently enrolled in a bachelor's, master's, or Ph.D. degree program' with 'Expected graduation date of November 2027 or later'. workAuth unclear, the export notice says 'This role may require an export license for candidates with citizenship in certain countries' but never requires US citizenship or US-person status, so it is not citizen_only. categories perf, the track centres on 'AI Inference performance and optimization', 'GPU kernels and accelerator optimization' and 'compiler development'; also infra, 'scale distributed AI systems, develop AI infrastructure and model-serving platforms', aiml, 'AI/ML model bring up' and 'AI Quality, Evaluation & Reliability' projects, swe, 'Software Development & Full-Stack Engineering', and security, 'Security Engineering'."
 }

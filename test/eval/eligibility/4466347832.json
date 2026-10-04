@@ -10,11 +10,9 @@
     "categories": [
       "embedded"
     ],
-    "categoriesAlso": [
-      "qa"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "CNH: relevant yes, 'Embedded Software Engineer Intern', 'Summer interns work full-time (40 hours per week) from May through August' with no year named. degreeOk yes, 'Currently pursuing a degree in Computer Engineering, Electrical Engineering, Software Engineering, or Computer Science' names no level. workAuth unclear, nothing on sponsorship. categories embedded, 'Developing, maintaining, and testing of C++ code running in an embedded RTOS environment'; also qa, 'Unit testing or other test automation'."
+  "note": "CNH: relevant yes, 'Embedded Software Engineer Intern', 'Summer interns work full-time (40 hours per week) from May through August' with no year named. degreeOk yes, 'Currently pursuing a degree in Computer Engineering, Electrical Engineering, Software Engineering, or Computer Science' names no level. workAuth unclear, nothing on sponsorship. categories embedded, 'Developing, maintaining, and testing of C++ code running in an embedded RTOS environment'; a mainly firmware role, so swe is not acceptable."
 }

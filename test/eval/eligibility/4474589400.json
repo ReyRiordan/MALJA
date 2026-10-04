@@ -17,5 +17,5 @@
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "General Motors: relevant yes, '2027 Summer Intern - Software Engineer, Autonomous Vehicle: Simulation'. degreeOk yes, required is a bachelor's and preferred is 'Currently pursuing a master's degree in computer science', which admits master's students. workAuth unclear, citizenship appears only in the EEO statement. categories swe, 'Develop, test, and deploy production-ready code across components of our simulation infrastructure'; also embedded, 'intuitive user experiences for robotics and AI engineers' on AV simulation, and infra, 'our common simulation platform'."
+  "note": "BORDERLINE: General Motors: relevant yes, '2027 Summer Intern - Software Engineer, Autonomous Vehicle: Simulation'. degreeOk yes, required is a bachelor's and preferred is 'Currently pursuing a master's degree in computer science', which admits master's students. workAuth unclear, citizenship appears only in the EEO statement. categories swe, 'Develop, test, and deploy production-ready code across components of our simulation infrastructure' with only 'Experience coding in Python or C++' required; also embedded, AV simulation for 'robotics and AI engineers' with 'robotics, ROS, game engines such as Unreal' preferred, and infra, 'our common simulation platform'."
 }

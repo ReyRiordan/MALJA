@@ -8,15 +8,13 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml",
-      "research"
+      "aiml"
     ],
     "categoriesAlso": [
-      "ai",
       "data"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Two Sigma: relevant yes, 'AI Research Scientist - Intern [2027 Summer]', deep learning, LLM and RL techniques on financial data. degreeOk yes, 'only open to MS with work experience and PhDs, both in their penultimate year of study' admits master's students. workAuth unclear, silent. categories ml + research, 'run experiments' and 'develop techniques' with Deep Learning and Reinforcement Learning 'in our research environment'; also ai, 'Large Language Models', and data, 'data pipelines to handle large amounts of noisy data'."
+  "note": "Two Sigma: relevant yes, 'AI Research Scientist - Intern [2027 Summer]', deep learning, LLM and RL techniques on financial data. degreeOk yes, 'only open to MS with work experience and PhDs, both in their penultimate year of study' admits master's students. workAuth unclear, silent. categories aiml, 'run experiments' with 'Deep Learning, LLMs and/or Reinforcement Learning' 'in our research environment'; also data, 'data pipelines to handle large amounts of noisy data'."
 }

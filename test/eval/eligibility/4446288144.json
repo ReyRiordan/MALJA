@@ -8,14 +8,13 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "qa"
+      "swe"
     ],
     "categoriesAlso": [
-      "swe",
-      "ai"
+      "aiml"
     ],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "TikTok: relevant yes, 'Software Development Engineer Intern (Global E-Commerce - Quality Platform & AI Test Automation) - 2027 Summer'. degreeOk unclear, 'Currently pursuing a Bachelor's degree in Computer Science' with no exclusion. workAuth unclear, nothing on sponsorship. categories qa, 'Build and maintain automation solutions for functional, regression, integration, and performance testing'; also swe, 'Develop reusable tools, scripts, and frameworks', and ai, 'Support AI testing initiatives, including validating AI-enabled features'."
+  "note": "TikTok: relevant yes, 'Software Development Engineer Intern (Global E-Commerce - Quality Platform & AI Test Automation) - 2027 Summer'. degreeOk unclear, 'Currently pursuing a Bachelor's degree in Computer Science' with no exclusion. workAuth unclear, nothing on sponsorship. categories swe, software test automation, 'Build and maintain automation solutions for functional, regression, integration, and performance testing' and 'Develop reusable tools, scripts, and frameworks'; also aiml, 'Support AI testing initiatives, including validating AI-enabled features'."
 }

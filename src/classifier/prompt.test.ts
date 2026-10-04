@@ -42,7 +42,7 @@ describe("buildMessages", () => {
     const [system] = buildMessages(FACTS, INPUT);
     for (const id of CATEGORIES) expect(system?.content).toContain(`- "${id}": `);
     expect(system?.content).toContain('instead of "swe"');
-    expect(system?.content).toContain("never alone");
+    expect(system?.content).toContain('An ML context alone does not add "aiml"');
     expect(system?.content).toContain("they never decide relevant");
   });
 
@@ -85,14 +85,14 @@ describe("VERDICT_JSON_SCHEMA", () => {
 describe("parseVerdict", () => {
   const good = {
     relevant: "yes",
-    categories: ["ml", "research"],
+    categories: ["aiml", "perf"],
     degree_ok: "yes",
     work_auth: "no_sponsorship",
     reason: "Says BS/MS.",
   };
   const expected = {
     relevant: "yes",
-    categories: ["ml", "research"],
+    categories: ["aiml", "perf"],
     degreeOk: "yes",
     workAuth: "no_sponsorship",
     reason: "Says BS/MS.",
@@ -122,16 +122,16 @@ describe("parseVerdict", () => {
   });
 
   it("removes duplicate categories, keeping first-seen order", () => {
-    const categories = ["ml", "research", "ml"];
+    const categories = ["aiml", "perf", "aiml"];
     expect(parseVerdict(JSON.stringify({ ...good, categories }))?.categories).toEqual([
-      "ml",
-      "research",
+      "aiml",
+      "perf",
     ]);
   });
 
   it("rejects an unknown category id", () => {
-    expect(parseVerdict(JSON.stringify({ ...good, categories: ["ml", "web3"] }))).toBeNull();
-    expect(parseVerdict(JSON.stringify({ ...good, categories: "ml" }))).toBeNull();
+    expect(parseVerdict(JSON.stringify({ ...good, categories: ["aiml", "web3"] }))).toBeNull();
+    expect(parseVerdict(JSON.stringify({ ...good, categories: "aiml" }))).toBeNull();
   });
 
   it("rejects a missing key", () => {

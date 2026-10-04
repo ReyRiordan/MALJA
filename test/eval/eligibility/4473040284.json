@@ -8,7 +8,7 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "aiml"
     ],
     "categoriesAlso": [
       "swe"
@@ -16,5 +16,5 @@
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "GE Vernova: relevant yes, 'Machine Learning Software Intern - Summer 2027' designing and validating time-series ML algorithms with scikit-learn/TensorFlow/PyTorch, not reporting. degreeOk yes, 'Enrollment in a Bachelors, Masters, or PhD program'. workAuth unclear, 'will only employ those who are legally authorized to work in the United States' is a bare authorisation statement. categories ml, 'design, implementation, and validation of algorithms that improve software alert relevance' with 'temporal pattern recognition, time-series analysis, or related ML techniques' and 'Python and ML libraries (e.g., scikit-learn, TensorFlow, PyTorch)'; also swe, 'Integrate algorithmic solutions with existing equipment monitoring platforms'."
+  "note": "GE Vernova: relevant yes, 'Machine Learning Software Intern - Summer 2027' designing and validating time-series ML algorithms with scikit-learn/TensorFlow/PyTorch, not reporting. degreeOk yes, 'Enrollment in a Bachelors, Masters, or PhD program'. workAuth unclear, 'will only employ those who are legally authorized to work in the United States' is a bare authorisation statement. categories aiml, 'design, implementation, and validation of algorithms that improve software alert relevance' with 'temporal pattern recognition, time-series analysis, or related ML techniques' and 'Python and ML libraries (e.g., scikit-learn, TensorFlow, PyTorch)'; also swe, 'Integrate algorithmic solutions with existing equipment monitoring platforms'."
 }

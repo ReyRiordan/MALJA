@@ -12,7 +12,7 @@ grammY's `Api` class, used for sends only. There is no `Bot` and no long polling
 <b>Software Engineer Intern</b>
 <i>Spectrum</i>
 <a href="https://www.linkedin.com/jobs/view/111">Greenwood Village, CO</a> · <a href="https://www.linkedin.com/jobs/view/222">Englewood, CO</a>
-#ml #research
+#aiml #perf
 ℹ️ no sponsorship · eligibility unclear
 ```
 
@@ -34,7 +34,7 @@ Readiness is per destination. A send that fails with 403 "bot was kicked" or 400
 
 ## Chat ids
 
-`TelegramNotifierOptions.chats` maps each destination to a chat id: `all` is required and comes from `TELEGRAM_GROUP_CHAT_ID`, and each category comes from its optional `TELEGRAM_CHANNEL_<ID>` (`TELEGRAM_CHANNEL_SWE`, `TELEGRAM_CHANNEL_ML`, ...). A category with no chat id is not a destination. `TELEGRAM_ADMIN_CHAT_ID` is the admin chat. There is no discovery script and no runtime auto-discovery, which would guess wrong with a test group and a real group both present. Upgrading the group to a supergroup changes its id to a `-100`-prefixed one, and the env must follow. Channel ids are always `-100`-prefixed, and the bot must be an admin of each channel with the right to post messages.
+`TelegramNotifierOptions.chats` maps each destination to a chat id: `all` is required and comes from `TELEGRAM_GROUP_CHAT_ID`, and each category comes from its optional `TELEGRAM_CHANNEL_<ID>` (`TELEGRAM_CHANNEL_SWE`, `TELEGRAM_CHANNEL_AIML`, ...). A category with no chat id is not a destination. `TELEGRAM_ADMIN_CHAT_ID` is the admin chat. There is no discovery script and no runtime auto-discovery, which would guess wrong with a test group and a real group both present. Upgrading the group to a supergroup changes its id to a `-100`-prefixed one, and the env must follow. Channel ids are always `-100`-prefixed, and the bot must be an admin of each channel with the right to post messages.
 
 ## Testing
 

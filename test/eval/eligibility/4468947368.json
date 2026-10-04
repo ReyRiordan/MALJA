@@ -8,15 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai",
+      "aiml",
       "swe"
     ],
     "categoriesAlso": [
-      "infra",
-      "qa"
+      "infra"
     ],
     "degreeOk": "unclear",
     "workAuth": "no_sponsorship"
   },
-  "note": "Keysight: relevant yes, 'R&D Software Engineer (AI Developer Tooling), Intern' for 'a summer internship in Colorado Springs' with no year, building MCP servers and agent workflows. degreeOk unclear, 'Pursuing a BS in Computer Science ... with an expected graduation date between December 2027 and June 2028' is bachelor's wording whose window includes May 2028. workAuth no_sponsorship, 'Authorized to work in the United States without the need for employer-sponsored work authorization now or in the future'. categories ai + swe, 'MCP servers and agent workflows for engineering tasks', 'design, implementation, and testing of internal tooling'; also infra + qa, 'AI assistance integrated into our IDEs and CI/CD pipelines' and 'Writing automated tests ... test data sets, regression suites'."
+  "note": "Keysight: relevant yes, 'R&D Software Engineer (AI Developer Tooling), Intern' for 'a summer internship in Colorado Springs' with no year, building MCP servers and agent workflows. degreeOk unclear, 'Pursuing a BS in Computer Science ... with an expected graduation date between December 2027 and June 2028' is bachelor's wording whose window includes May 2028. workAuth no_sponsorship, 'Authorized to work in the United States without the need for employer-sponsored work authorization now or in the future'. categories aiml + swe, 'MCP servers and agent workflows', 'prompt engineering, retrieval-augmented generation (RAG)' and 'evaluation criteria' alongside 'design, implementation, and testing of internal tooling'; also infra, 'AI assistance integrated into our IDEs and CI/CD pipelines'."
 }

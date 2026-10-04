@@ -8,13 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "qa"
-    ],
-    "categoriesAlso": [
       "swe"
     ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "TikTok: relevant yes, 'Software Development Engineer in Test Intern ... 2027 Summer' with 'Able to commit to working for 12 weeks during Summer 2027'. degreeOk yes, 'Currently pursuing an Undergraduate/Master in Computer Science'. workAuth unclear, no sponsorship or citizenship language. categories qa, 'functional testing, automation, performance testing' and 'implement innovative testing methods such as automation'; also swe, 'Develop tools or platforms to enhance development efficiency'."
+  "note": "TikTok: relevant yes, 'Software Development Engineer in Test Intern ... 2027 Summer' with 'Able to commit to working for 12 weeks during Summer 2027'. degreeOk yes, 'Currently pursuing an Undergraduate/Master in Computer Science'. workAuth unclear, no sponsorship or citizenship language. categories swe, software test automation, 'functional testing, automation, performance testing' and 'Develop tools or platforms to enhance development efficiency'."
 }

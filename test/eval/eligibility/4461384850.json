@@ -8,8 +8,7 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml",
-      "research"
+      "aiml"
     ],
     "categoriesAlso": [
       "embedded"
@@ -17,5 +16,5 @@
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Shure: relevant yes, 'SUMMER 2027' research internship, 'Designing, training, and evaluating deep learning models for audio applications'. degreeOk yes, 'Currently pursuing a PhD or advanced Master's degree'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories ml and research, 'Conducting research and developing machine learning solutions for challenging audio problems' on the 'Signal Processing and Applied Research Science team'; also embedded, 'Optimizing and adapting models for deployment across a variety of hardware'."
+  "note": "Shure: relevant yes, 'SUMMER 2027' research internship, 'Designing, training, and evaluating deep learning models for audio applications'. degreeOk yes, 'Currently pursuing a PhD or advanced Master's degree'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories aiml, 'Designing, training, and evaluating deep learning models for audio applications'; also embedded, 'Optimizing and adapting models for deployment across a variety of hardware'."
 }

@@ -11,10 +11,10 @@
       "embedded"
     ],
     "categoriesAlso": [
-      "ml"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Zipline: relevant yes, 'Droid Autonomy Intern (Summer 2027)'. degreeOk yes, 'Currently pursuing a Master's in CS, EE, Robotics'. workAuth unclear, only an EEO statement. categories embedded, 'identify what it takes to improve motion planning in difficult and uncertain environments' across 'the entire autonomy stack'; also ml, 'Apply data analysis, statistics, and machine learning techniques'."
+  "note": "Zipline: relevant yes, 'Droid Autonomy Intern (Summer 2027)'. degreeOk yes, 'Currently pursuing a Master's in CS, EE, Robotics'. workAuth unclear, only an EEO statement. categories embedded, 'identify what it takes to improve motion planning in difficult and uncertain environments' across 'the entire autonomy stack'; also aiml, 'Apply data analysis, statistics, and machine learning techniques' and 'familiarity with learning-based planning methods', since the assigned work is validating planning rather than training models."
 }

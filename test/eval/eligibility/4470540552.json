@@ -8,13 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai",
-      "ml",
-      "research"
+      "aiml"
     ],
     "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "Johns Hopkins APL: relevant yes, a 2027 'Summer Internship with JHU/APL's AI Group'. degreeOk yes, 'Are pursuing a Bachelor's, Master's, or PhD degree'. workAuth citizen_only, 'Are able to obtain a Secret level clearance ... Eligibility requirements include U.S. citizenship'. categories ai, ml and research, 'helping us train and evaluate frontier AI models and applications' on a team in the 'Research and Exploratory Development Department' whose programs cover 'Training multimodal foundation models' and 'agentic AI'."
+  "note": "Johns Hopkins APL: relevant yes, a 2027 'Summer Internship with JHU/APL's AI Group'. degreeOk yes, 'Are pursuing a Bachelor's, Master's, or PhD degree'. workAuth citizen_only, 'Are able to obtain a Secret level clearance ... Eligibility requirements include U.S. citizenship'. categories aiml, 'helping us train and evaluate frontier AI models and applications' on programs covering 'Training multimodal foundation models' and 'agentic AI'."
 }

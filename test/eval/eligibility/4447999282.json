@@ -8,14 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "aiml"
     ],
-    "categoriesAlso": [
-      "ai",
-      "research"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "TikTok Business Integrity: relevant yes, 'Research Engineer Intern ... 2027 Summer' training and deploying moderation models, an in-field research internship. degreeOk yes, 'Currently pursuing a Master's degree in Computer Science ... (completed, or expecting to graduate within 12 months)' explicitly accepts master's and a May 2028 graduate is within a year of the summer 2027 internship. Nothing on work authorisation, so workAuth unclear. categories ai + ml, 'build highly scalable machine learning models' for moderation, 'fundamentals of large language models (e.g. pre-training, fine-tuning, prompting, inference and deployment)'; also research, a 'Research Engineer Intern' building a 'next-generation content understanding system' rather than publishing. Per the LLM training precedent, pre-training and fine-tuning LLMs is ml, so ai is acceptable rather than required."
+  "note": "TikTok Business Integrity: relevant yes, 'Research Engineer Intern ... 2027 Summer' training and deploying moderation models, an in-field research internship. degreeOk yes, 'Currently pursuing a Master's degree in Computer Science ... (completed, or expecting to graduate within 12 months)' explicitly accepts master's and a May 2028 graduate is within a year of the summer 2027 internship. Nothing on work authorisation, so workAuth unclear. categories aiml, 'build highly scalable machine learning models' for moderation and 'fundamentals of large language models (e.g. pre-training, fine-tuning, prompting, inference and deployment)'."
 }

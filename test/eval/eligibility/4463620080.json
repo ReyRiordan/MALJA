@@ -11,13 +11,12 @@
       "swe"
     ],
     "categoriesAlso": [
-      "ai",
-      "ml",
+      "aiml",
       "data",
       "infra"
     ],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "Scale AI: 'graduation date in Fall 2027 or Spring 2028 with a Bachelor's degree (or equivalent)', bachelor's wording without exclusion; window fits; EEO line mentions citizenship only as a protected class. 'Software Engineering Intern (Summer 2027)', 'Available for a Summer 2027 internship', agentic AI and infrastructure work: relevant yes. categories swe, 'Product engineering experience such as building web apps full-stack' on a multi-team generic SWE internship; also ai, 'Ship agentic AI applications and the tooling that makes them observable, testable, and safe to deploy', ml, 'Build reinforcement learning and post-training data pipelines', data, 'systems that process large volumes of data', and infra, 'Develop new AI infrastructure products'."
+  "note": "Scale AI: 'graduation date in Fall 2027 or Spring 2028 with a Bachelor's degree (or equivalent)', bachelor's wording without exclusion; window fits; EEO line mentions citizenship only as a protected class. 'Software Engineering Intern (Summer 2027)', 'Available for a Summer 2027 internship', agentic AI and infrastructure work: relevant yes. categories swe, 'Product engineering experience such as building web apps full-stack' on a multi-team generic SWE internship; also aiml, 'Ship agentic AI applications' and 'Build reinforcement learning and post-training data pipelines', data, 'systems that process large volumes of data', and infra, 'Develop new AI infrastructure products'."
 }

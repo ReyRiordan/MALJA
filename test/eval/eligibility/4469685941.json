@@ -12,12 +12,11 @@
     ],
     "categoriesAlso": [
       "infra",
-      "ai",
-      "ml",
+      "aiml",
       "data"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "ModMed: relevant yes, 'Software Engineer Intern' in the \"Summer 2027 Internship Program\" doing frontend, backend and mobile engineering. degreeOk yes, 'currently enrolled in a Computer Science program (or a related field) or pursuing your Masters of PhD'. workAuth unclear, the posting is silent. categories swe, 'making contributions to the frontend, backend, and/or mobile development efforts'; also infra, ai, ml and data, the hiring teams 'Architecture & Platform - Core frameworks, scalability, and AWS infrastructure', 'Data & Analytics - Data pipelines', 'AI & ML Engineering - Machine learning and AI-driven product innovation'."
+  "note": "ModMed: relevant yes, 'Software Engineer Intern' in the \"Summer 2027 Internship Program\" doing frontend, backend and mobile engineering. degreeOk yes, 'currently enrolled in a Computer Science program (or a related field) or pursuing your Masters of PhD'. workAuth unclear, the posting is silent. categories swe, 'making contributions to the frontend, backend, and/or mobile development efforts'; also infra, aiml and data, the hiring teams 'Architecture & Platform - Core frameworks, scalability, and AWS infrastructure', 'AI & ML Engineering - Machine learning and AI-driven product innovation', 'Data & Analytics - Data pipelines'."
 }

@@ -11,11 +11,10 @@
       "solutions"
     ],
     "categoriesAlso": [
-      "qa",
       "swe"
     ],
     "degreeOk": "unclear",
     "workAuth": "no_sponsorship"
   },
-  "note": "Transcard: relevant yes, '2027 - Software Implementation Intern' is a paid internship with technical delivery work, 'Support configuration of platform components under supervision including account structures, API settings, and webhook setups in test and sandbox environments' and 'Help coordinate and track file-based and API-driven integration tasks between client systems and platform services', asking 'Basic familiarity with APIs, webhooks, or system integrations'; no term is named beyond 2027. degreeOk unclear, 'Completed or currently working towards a Bachelor's degree in Computer Science, Information Systems, Business Administration' with no exclusion language. workAuth no_sponsorship, 'We are unable to offer visa sponsorship'. categories solutions, 'supporting client onboarding and the technical delivery of our cloud-based payment and digital disbursement solutions'; also qa, 'Support user acceptance testing (UAT) by executing test scripts', and swe for the API and integration configuration."
+  "note": "Transcard: relevant yes, '2027 - Software Implementation Intern' is a paid internship with technical delivery work, 'Support configuration of platform components under supervision including account structures, API settings, and webhook setups in test and sandbox environments' and 'Help coordinate and track file-based and API-driven integration tasks between client systems and platform services', asking 'Basic familiarity with APIs, webhooks, or system integrations'; no term is named beyond 2027. degreeOk unclear, 'Completed or currently working towards a Bachelor's degree in Computer Science, Information Systems, Business Administration' with no exclusion language. workAuth no_sponsorship, 'We are unable to offer visa sponsorship'. categories solutions, 'supporting client onboarding and the technical delivery of our cloud-based payment and digital disbursement solutions'; also swe, 'Support configuration of platform components under supervision including account structures, API settings, and webhook setups'."
 }

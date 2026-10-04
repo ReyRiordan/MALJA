@@ -485,7 +485,7 @@ describe("Loop.runCycle", () => {
     const [scaleAi] = FIXTURE_CARDS.filter((c) => c.company === "Scale AI");
     if (!scaleAi) throw new Error("fixture changed");
     const h = harness({
-      destinations: ["all", "swe", "ml"],
+      destinations: ["all", "swe", "aiml"],
       details: { [scaleAi.id]: { description: null } },
       verdicts: () => ({
         verdict: { ...MAYBE_RELEVANT, categories: ["data", "swe"] },
@@ -506,7 +506,7 @@ describe("Loop.runCycle", () => {
         .map((d) => d.key)
         .filter((k) => !k.startsWith("scale ai|")),
     );
-    expect(to("ml")).toEqual([]);
+    expect(to("aiml")).toEqual([]);
     expect(to("data")).toEqual([]);
     expect(h.notifier.send).not.toHaveBeenCalledWith(expect.anything(), "data");
     // Channels get the same tags as the group.
@@ -520,28 +520,28 @@ describe("Loop.runCycle", () => {
 
   it("an unready channel waits while the group and other channels keep receiving", async () => {
     const h = harness({
-      destinations: ["all", "swe", "ml"],
-      verdicts: () => ({ verdict: { ...YES, categories: ["swe", "ml"] }, error: null }),
+      destinations: ["all", "swe", "aiml"],
+      verdicts: () => ({ verdict: { ...YES, categories: ["swe", "aiml"] }, error: null }),
     });
-    h.notifier.setReady(false, "ml");
+    h.notifier.setReady(false, "aiml");
     const first = await h.loop.runCycle();
     expect(first).toMatchObject({ sent: 2 * FIXTURE_KEYS, failed: 0 });
-    expect(h.deliveries.some((d) => d.dest === "ml")).toBe(false);
+    expect(h.deliveries.some((d) => d.dest === "aiml")).toBe(false);
     const pending = h.store.unsentDeliveries();
     expect(pending).toHaveLength(FIXTURE_KEYS);
-    expect(pending.every((p) => p.destination === "ml")).toBe(true);
+    expect(pending.every((p) => p.destination === "aiml")).toBe(true);
     const waits = h.log.warn.mock.calls.filter(([, msg]) => msg?.startsWith("notifier not ready"));
-    expect(waits).toEqual([[{ destination: "ml" }, expect.any(String)]]);
+    expect(waits).toEqual([[{ destination: "aiml" }, expect.any(String)]]);
     expect(h.loop.status()).toMatchObject({
       status: "notifier_down",
-      notifierReady: { all: true, swe: true, ml: false },
+      notifierReady: { all: true, swe: true, aiml: false },
     });
 
-    h.notifier.setReady(true, "ml");
+    h.notifier.setReady(true, "aiml");
     h.advance(POLL_MS);
     const second = await h.loop.runCycle();
     expect(second).toMatchObject({ created: 0, sent: FIXTURE_KEYS });
-    expect(h.deliveries.slice(2 * FIXTURE_KEYS).every((d) => d.dest === "ml")).toBe(true);
+    expect(h.deliveries.slice(2 * FIXTURE_KEYS).every((d) => d.dest === "aiml")).toBe(true);
     expect(h.sent).toHaveLength(FIXTURE_KEYS);
     expect(h.store.unsentDeliveries()).toEqual([]);
   });

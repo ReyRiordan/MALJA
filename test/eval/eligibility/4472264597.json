@@ -10,11 +10,9 @@
     "categories": [
       "embedded"
     ],
-    "categoriesAlso": [
-      "research"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Toyota Automated Logistics: relevant yes, 'Software Engineer Intern to join their team for Summer 2027', 'Develop and test software for Autonomous Vehicles and Robots'. degreeOk yes, 'Undergrad or Graduate Program in Computer Science, Computer Engineering'. workAuth no_sponsorship, 'Must be eligible to work in the USA long term without sponsorship'. categories embedded, 'Develop and test software for Autonomous Vehicles and Robots', 'ROS (Robot Operating System) familiarity a plus'; embedded is carved out of swe; also research, 'engage in every stage of the R&D process'."
+  "note": "Toyota Automated Logistics: relevant yes, 'Software Engineer Intern to join their team for Summer 2027', 'Develop and test software for Autonomous Vehicles and Robots'. degreeOk yes, 'Undergrad or Graduate Program in Computer Science, Computer Engineering'. workAuth no_sponsorship, 'Must be eligible to work in the USA long term without sponsorship'. categories embedded, 'Develop and test software for Autonomous Vehicles and Robots', 'ROS (Robot Operating System) familiarity a plus'; a mainly robotics role, so swe is not acceptable."
 }

@@ -11,10 +11,10 @@
       "infra"
     ],
     "categoriesAlso": [
-      "ml"
+      "aiml"
     ],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "TikTok: relevant yes, 'Machine Learning MLOps Intern (Global SRE) - 2027 Summer'. degreeOk unclear, 'Currently pursuing a Bachelor's degree in Computer Science' with no exclusion. workAuth unclear, nothing on sponsorship. categories infra, 'Design, build, and maintain MLOps platforms and automation tools, including quota management, job diagnostics, monitoring and observability'; also ml, 'reliability and operational excellence of offline machine learning training pipelines'."
+  "note": "TikTok: relevant yes, 'Machine Learning MLOps Intern (Global SRE) - 2027 Summer'. degreeOk unclear, 'Currently pursuing a Bachelor's degree in Computer Science' with no exclusion. workAuth unclear, nothing on sponsorship. categories infra, 'Design, build, and maintain MLOps platforms and automation tools, including quota management, job diagnostics, monitoring and observability'; also aiml, the ML context 'offline machine learning training pipelines' with no modelling work assigned."
 }

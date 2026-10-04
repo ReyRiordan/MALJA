@@ -8,13 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "qa"
-    ],
-    "categoriesAlso": [
       "swe"
     ],
+    "categoriesAlso": [],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Southern Glazer's Wine & Spirits: relevant yes, '2027 Summer Internship QA (OneTech)', 'working with the QA team, learning and building skills in software test automation'. degreeOk unclear, 'Must be a minimum Junior in college and graduating the following year, pursuing a degree in: Computer Science' states a floor rather than an exclusion and the graduation timing fits May 2028; no would be defensible as class-standing exclusion. workAuth unclear, nothing on sponsorship. categories qa, 'development and maintenance of automated test scripts, executing manual and automated test cases'; also swe, 'Knowledge in application and software development'."
+  "note": "BORDERLINE: Southern Glazer's Wine & Spirits: relevant yes, '2027 Summer Internship QA (OneTech)', 'working with the QA team, learning and building skills in software test automation'. degreeOk unclear, 'Must be a minimum Junior in college and graduating the following year, pursuing a degree in: Computer Science' states a floor rather than an exclusion and the graduation timing fits May 2028; no would be defensible as class-standing exclusion. workAuth unclear, nothing on sponsorship. categories swe, software test automation, 'development and maintenance of automated test scripts, executing manual and automated test cases'."
 }

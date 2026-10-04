@@ -18,7 +18,7 @@ const sample: Notification = {
     { location: "Greenwood Village, CO", url: "https://www.linkedin.com/jobs/view/4000000001" },
     { location: "Englewood, CO", url: "https://www.linkedin.com/jobs/view/4000000002" },
   ],
-  categories: ["ml", "research"],
+  categories: ["aiml", "perf"],
   tags: [
     { text: "no sponsorship", level: "info" },
     { text: "eligibility unclear", level: "info" },

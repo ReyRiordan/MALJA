@@ -10,11 +10,9 @@
     "categories": [
       "swe"
     ],
-    "categoriesAlso": [
-      "qa"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Navy Federal: relevant yes, 'Summer Associate Program is a 12-week internship program beginning in May 2027', iOS/Android mobile banking development. degreeOk yes, 'currently pursuing a degree' with no level and 'anticipated graduation date of December 2027 or later', which includes May 2028. workAuth unclear, no sponsorship or citizenship statement. categories swe, 'designing, developing, and maintaining mobile banking features for iOS and/or Android applications'; also qa, 'Write and maintain unit and user interface tests'."
+  "note": "Navy Federal: relevant yes, 'Summer Associate Program is a 12-week internship program beginning in May 2027', iOS/Android mobile banking development. degreeOk yes, 'currently pursuing a degree' with no level and 'anticipated graduation date of December 2027 or later', which includes May 2028. workAuth unclear, no sponsorship or citizenship statement. categories swe, 'designing, developing, and maintaining mobile banking features for iOS and/or Android applications' and 'Write and maintain unit and user interface tests'."
 }

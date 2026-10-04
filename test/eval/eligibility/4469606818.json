@@ -11,10 +11,10 @@
       "infra"
     ],
     "categoriesAlso": [
-      "qa"
+      "swe"
     ],
     "degreeOk": "unclear",
     "workAuth": "no_sponsorship"
   },
-  "note": "Insulet: relevant yes, 'Intern, DevOps Engineer: June-August 2027'. degreeOk unclear, 'Pursuing a Bachelor's in Computer Science or Electrical and Computer Engineering' with no exclusion. workAuth no_sponsorship, 'not eligible for employer-based visa sponsorship. Candidates must have authorization to work in the U.S. without current or future sponsorship needs'. categories infra, 'Assist in setup and automation of CI/CD pipelines for product applications and cloud-based services'; also qa, 'software code analysis/code coverage, defect tracking, software metrics'."
+  "note": "Insulet: relevant yes, 'Intern, DevOps Engineer: June-August 2027'. degreeOk unclear, 'Pursuing a Bachelor's in Computer Science or Electrical and Computer Engineering' with no exclusion. workAuth no_sponsorship, 'not eligible for employer-based visa sponsorship. Candidates must have authorization to work in the U.S. without current or future sponsorship needs'. categories infra, 'Assist in setup and automation of CI/CD pipelines for product applications and cloud-based services'; also swe, 'software code analysis/code coverage, defect tracking, software metrics'."
 }

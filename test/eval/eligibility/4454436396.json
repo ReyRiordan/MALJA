@@ -10,11 +10,9 @@
     "categories": [
       "security"
     ],
-    "categoriesAlso": [
-      "ai"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "BORDERLINE: American Express: relevant unclear, a 'Cybersecurity Analyst' internship split between in-scope security engineering ('Collaborate with software development and product teams to learn how security is integrated into the software development lifecycle') and out-of-scope monitoring, documentation and compliance reporting ('Assist with security documentation, assessment findings, remediation tracking, and reporting'). degreeOk yes, 'Must have earned a Master's degree' with a 'graduation date between December 2027 and June 2028' that includes May 2028. workAuth no_sponsorship, 'the company will not pursue visa sponsorship for these positions'. categories security, 'monitoring security systems and events using a variety of tools, alerts, and logs'; also ai, 'Use AI-enabled cybersecurity tools to support threat detection'."
+  "note": "BORDERLINE: American Express: relevant unclear, a 'Cybersecurity Analyst' internship split between in-scope security engineering ('Collaborate with software development and product teams to learn how security is integrated into the software development lifecycle') and out-of-scope monitoring, documentation and compliance reporting ('Assist with security documentation, assessment findings, remediation tracking, and reporting'). degreeOk yes, 'Must have earned a Master's degree' with a 'graduation date between December 2027 and June 2028' that includes May 2028. workAuth no_sponsorship, 'the company will not pursue visa sponsorship for these positions'. categories security, 'monitoring security systems and events using a variety of tools, alerts, and logs'; 'Use AI-enabled cybersecurity tools' is AI as a tool, not aiml."
 }

@@ -61,21 +61,26 @@ relevant: is this a ${facts.term} internship in ${facts.fields}?
 - A title containing "analyst" or "analytics" with no engineer, developer, scientist, ML, or AI wording (for example "Data Analyst Intern", "Business Analyst Intern", "Logistics Analytics Intern") is very likely an analytics role: answer "no" unless the description itself assigns modelling, ML, or software work.
 - "unclear" when the posting is silent or mixed on one of the three, for example a bare "Engineering Intern" with no field named.
 
-categories: what kinds of work does the role do? List every id that fits, or none.
-- "swe": general software engineering (backend, frontend, full-stack, mobile, developer tools). The default for software work that no id below carves out.
-- "infra": DevOps, SRE, cloud, platform, CI/CD, observability, compute infrastructure.
+categories: which skillsets does the role require? List every id the posting requires, or none. An id names the skillset the work needs, not the domain, team, or system the role works on.
+- "swe": general software engineering (backend, frontend, full-stack, mobile, developer tools, software test automation). The default for software work that no id below covers.
+- "aiml": AI and ML skills are core to the work: training or fine-tuning models, ML fundamentals, data science that builds models, computer vision, NLP, or recommender modelling, agents, RAG and retrieval, prompt and context engineering, evals.
+- "infra": DevOps, SRE, cloud, platform, CI/CD, observability, compute infrastructure, networking (network engineering, SDN, cloud networking), and ML platforms, MLOps, and model serving infrastructure.
+- "data": data engineering: pipelines, ETL, warehousing, Spark, Airflow, dbt, streaming.
 - "security": application security, security engineering, detection, offensive security.
-- "qa": QA, test automation, validation and verification.
-- "ai": applied AI built on LLMs or foundation models: agents, RAG, AI tooling, evals.
-- "ml": training or fine-tuning models: recommender systems, computer vision or NLP modelling, ML performance.
-- "data": data engineering, and data science that builds models.
-- "embedded": embedded software, firmware, flight software, robotics and autonomy software.
-- "research": the role is mainly research. It describes the type of role, not the domain, so always list it next to a domain id (for example "research" and "ml"), never alone.
-- "pm": technical product management.
+- "perf": performance engineering on servers and accelerators: GPU and CUDA kernels, ML compilers (LLVM, MLIR, Triton), quantization and inference optimisation, HPC.
+- "embedded": software tied to physical hardware: firmware, RTOS, flight software, device drivers, hardware and firmware validation and verification, robotics and autonomy (ROS, controls, motion planning, SLAM).
 - "solutions": technical customer-facing work: solutions and sales engineering, solutions architecture, forward deployed engineering, customer and implementation engineering, GTM engineering, technical account management.
-- "infra", "security", "qa", "embedded", and "solutions" are carved out of "swe": a role that is mainly that work gets that id instead of "swe".
+- "pm": technical product management.
 - Judge by the work the description assigns, not the title.
-- Categories sort the work; they never decide relevant. Infrastructure, security, QA, embedded, data engineering, and technical customer-facing solutions roles count as software engineering for relevant, so a role that is mainly one of them is still in the fields.
+- List more than one id only when the posting requires more than one skillset.
+- Every other id replaces "swe": a role that is mainly that work gets that id instead of "swe". Add "swe" only when the posting also assigns substantial general product software work.
+- "aiml" versus "swe": AI that the team ships as a feature, a thin API call to a model from ordinary backend code, or AI tools the engineer uses (for example Copilot or Cursor) is "swe". List both only when both kinds of work are substantial.
+- An ML context alone does not add "aiml". A "perf" role, or an ML platform, MLOps, or model serving "infra" role, also gets "aiml" only when the posting assigns modelling work (training, model architecture, evals).
+- Learned perception for robots or vehicles is "embedded" and "aiml".
+- A research role gets the id of the skillset it needs: an ML research intern is "aiml".
+- "solutions" gets another id only when the customer work requires that skillset: building RAG proofs of concept for customers adds "aiml"; demoing a product does not.
+- Analytics, BI reporting, and dashboard work is not "data".
+- Categories sort the work; they never decide relevant. Infrastructure, security, performance engineering, QA and test automation, embedded, data engineering, and technical customer-facing solutions roles count as software engineering for relevant, so a role that is mainly one of them is still in the fields.
 - Answer even when relevant is "no". Use an empty list only when the work fits none of the ids.
 
 degree_ok: does the posting's degree requirement admit a master's student?

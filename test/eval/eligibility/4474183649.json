@@ -9,14 +9,13 @@
     "relevant": "yes",
     "categories": [
       "swe",
-      "ai"
+      "aiml"
     ],
     "categoriesAlso": [
-      "ml",
       "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Microsoft: relevant yes, 'Software Engineer: Intern Opportunities for University Students - CoreAI' on AI/ML projects, 'The target start range for this role is Summer 2027'. degreeOk yes, 'OR currently pursuing Master's Degree in Computer Science or related technical field'. workAuth unclear, citizenship and immigration status appear only in the EEO statement. categories swe + ai, 'As a Software Engineering Intern on AI and ML projects, you will ... build innovative software solutions that leverage AI technologies' for 'AI-powered developer tools' and 'dynamic, agentic applications'; also ml and infra, 'emerging AI and machine learning techniques' with 'developing machine learning models' and improving 'availability, reliability, efficiency, observability'."
+  "note": "BORDERLINE: Microsoft: relevant yes, 'Software Engineer: Intern Opportunities for University Students - CoreAI' on AI/ML projects, 'The target start range for this role is Summer 2027'. degreeOk yes, 'OR currently pursuing Master's Degree in Computer Science or related technical field'. workAuth unclear, citizenship and immigration status appear only in the EEO statement. categories swe + aiml, 'As a Software Engineering Intern on AI and ML projects, you will ... build innovative software solutions that leverage AI technologies' for 'AI-powered developer tools' and 'dynamic, agentic applications', with 'Applies engineering principles and AI techniques'; also infra, improving 'availability, reliability, efficiency, observability'."
 }

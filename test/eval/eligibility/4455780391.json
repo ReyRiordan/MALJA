@@ -10,11 +10,9 @@
     "categories": [
       "embedded"
     ],
-    "categoriesAlso": [
-      "qa"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "Zipline: relevant yes, 'Long Range Platform Embedded Firmware Intern (Summer 2027)', firmware counts as software engineering. degreeOk unclear, 'Pursuing a Bachelor's degree in Computer Science, Computer Engineering, or a related field, ideally in your junior or senior year' with no exclusion wording. workAuth unclear, nothing on sponsorship or export control. categories embedded, 'Design, implement, and test embedded software that supports Zipline's vehicles'; also qa, 'Build automated tests that catch regressions early'."
+  "note": "Zipline: relevant yes, 'Long Range Platform Embedded Firmware Intern (Summer 2027)', firmware counts as software engineering. degreeOk unclear, 'Pursuing a Bachelor's degree in Computer Science, Computer Engineering, or a related field, ideally in your junior or senior year' with no exclusion wording. workAuth unclear, nothing on sponsorship or export control. categories embedded alone, 'Design, implement, and test embedded software that supports Zipline's vehicles' with 'Experience with embedded platforms (i.e. ESP32, STM, Arduino, Raspberry Pi, etc.)' and 'C/C++'."
 }

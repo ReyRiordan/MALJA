@@ -11,13 +11,12 @@
       "swe"
     ],
     "categoriesAlso": [
-      "ai",
-      "ml",
+      "aiml",
       "infra",
       "security"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Glean: relevant yes, 'Software Engineer, Intern (Summer 2027)' shipping production code across backend, infrastructure and ML/search. degreeOk yes, 'Graduating in Fall 2027 or Spring 2028 with a B.S., M.S. or Ph.D. in Computer Science' and May 2028 is Spring 2028. workAuth unclear, the posting is silent. categories swe, 'designing, developing, and maintaining software solutions' and 'Ship production-quality code'; also ai, ml, infra and security, 'contribute across the stack based on your interests - backend services, product engineering, ML/AI/search, infrastructure, security'."
+  "note": "Glean: relevant yes, 'Software Engineer, Intern (Summer 2027)' shipping production code across backend, infrastructure and ML/search. degreeOk yes, 'Graduating in Fall 2027 or Spring 2028 with a B.S., M.S. or Ph.D. in Computer Science' and May 2028 is Spring 2028. workAuth unclear, the posting is silent. categories swe, 'designing, developing, and maintaining software solutions' and 'Ship production-quality code'; also aiml, infra and security, 'contribute across the stack based on your interests - backend services, product engineering, ML/AI/search, infrastructure, security'."
 }

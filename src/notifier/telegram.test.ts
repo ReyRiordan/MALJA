@@ -38,7 +38,7 @@ function harness(replies: Reply[], readyRetryMs = 1) {
   const log = { info: vi.fn(), warn: vi.fn(), error: vi.fn() };
   const notifier = new TelegramNotifier({
     token: "t",
-    chats: { all: "-100123", ml: "-100777", swe: "-100555" },
+    chats: { all: "-100123", aiml: "-100777", swe: "-100555" },
     adminChatId: "42",
     readyRetryMs,
     transformers: [canned],
@@ -59,14 +59,14 @@ describe("TelegramNotifier", () => {
     const { notifier, calls } = harness([ok({ id: 1, username: "malja_bot" })]);
     await notifier.start();
     expect(calls.map((c) => c.method)).toEqual(["getMe"]);
-    expect(notifier.destinations()).toEqual(["all", "swe", "ml"]);
+    expect(notifier.destinations()).toEqual(["all", "swe", "aiml"]);
     expect(notifier.destinations().every((d) => notifier.isReady(d))).toBe(true);
     expect(notifier.isReady("data")).toBe(false);
   });
 
   it("send() maps each destination to its chat id and refuses an unconfigured one", async () => {
     const { notifier, calls } = harness([ok({ message_id: 1 }), ok({ message_id: 2 })]);
-    await notifier.send(SAMPLE, "ml");
+    await notifier.send(SAMPLE, "aiml");
     await notifier.send(SAMPLE, "swe");
     expect(calls.map((c) => c.payload.chat_id)).toEqual(["-100777", "-100555"]);
     await expect(notifier.send(SAMPLE, "data")).rejects.toThrow(
@@ -84,11 +84,11 @@ describe("TelegramNotifier", () => {
       ok({ id: -100777, type: "channel" }),
     ]);
     await notifier.start();
-    await expect(notifier.send(SAMPLE, "ml")).rejects.toThrow(/kicked/);
-    expect(notifier.isReady("ml")).toBe(false);
+    await expect(notifier.send(SAMPLE, "aiml")).rejects.toThrow(/kicked/);
+    expect(notifier.isReady("aiml")).toBe(false);
     expect(notifier.isReady("all")).toBe(true);
     await expect(notifier.send(SAMPLE, "all")).resolves.toEqual({ messageId: "9" });
-    await vi.waitFor(() => expect(notifier.isReady("ml")).toBe(true));
+    await vi.waitFor(() => expect(notifier.isReady("aiml")).toBe(true));
     expect(calls.slice(3).map((c) => [c.method, c.payload.chat_id])).toEqual([
       ["getMe", undefined],
       ["getChat", "-100777"],
@@ -107,7 +107,7 @@ describe("TelegramNotifier", () => {
     );
     await notifier.start();
     await expect(notifier.send(SAMPLE, "all")).rejects.toThrow();
-    await expect(notifier.send(SAMPLE, "ml")).rejects.toThrow();
+    await expect(notifier.send(SAMPLE, "aiml")).rejects.toThrow();
     await notifier.stop();
     await new Promise((r) => setTimeout(r, 100));
     expect(calls).toHaveLength(3);

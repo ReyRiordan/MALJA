@@ -8,15 +8,13 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "aiml"
     ],
     "categoriesAlso": [
-      "research",
-      "ai",
       "data"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Pinterest Master's: relevant yes, 'Master's Machine Learning Internship 2027' with 'May 17, 2027 - August 6, 2027' start dates doing production ML and ranking work. degreeOk yes, 'Working towards a Master's degree in Computer Science, ML, NLP, Statistics'. workAuth unclear, 'US based applicants only' is a location rule, not a citizenship or sponsorship statement. categories ml, 'contribute large-scale recommendation systems', 'hands-on experience with production ML systems, including algorithmic research, infrastructure, data engineering, training, inference'; also research + ai + data, 'cutting-edge research in machine learning and artificial intelligence' and 'Leverage frontier AI tools and agents'."
+  "note": "Pinterest Master's: relevant yes, 'Master's Machine Learning Internship 2027' with 'May 17, 2027 - August 6, 2027' start dates doing production ML and ranking work. degreeOk yes, 'Working towards a Master's degree in Computer Science, ML, NLP, Statistics'. workAuth unclear, 'US based applicants only' is a location rule, not a citizenship or sponsorship statement. categories aiml, 'contribute large-scale recommendation systems', 'hands-on experience with production ML systems, including algorithmic research, infrastructure, data engineering, training, inference'; also data, 'data engineering' as part of the production ML systems."
 }

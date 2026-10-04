@@ -61,6 +61,10 @@
       "label": "research"
     },
     {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(CUDA%20OR%20GPU%20OR%20compiler%20OR%20%22inference%20optimization%22%20OR%20HPC)&geoId=103644278&sortBy=DD",
+      "label": "perf"
+    },
+    {
       "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20intern%20(%22solutions%20engineer%22%20OR%20%22solutions%20architect%22%20OR%20%22sales%20engineer%22%20OR%20%22forward%20deployed%22%20OR%20%22customer%20engineer%22%20OR%20%22GTM%20engineer%22%20OR%20%22technical%20account%22%20OR%20%22implementation%20engineer%22)&geoId=103644278&sortBy=DD",
       "label": "solutions"
     },

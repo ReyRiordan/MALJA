@@ -12,11 +12,10 @@
     ],
     "categoriesAlso": [
       "swe",
-      "embedded",
-      "research"
+      "embedded"
     ],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "REDLattice: relevant yes, 'Summer 2027 Cybersecurity Internship', 'Solve challenging security problems through vulnerability research and software development'. degreeOk yes, 'Currently pursuing a degree in Computer Science, Computer Engineering' with 'Rising junior or senior preferred' only under Desired Skills. workAuth citizen_only, 'Must be eligible to receive US Security Clearance'. categories security, 'reverse engineering, vulnerability analysis, and exploit development'; also swe, 'contribute to the development of new projects', embedded, 'mobile and embedded systems' and 'Low-level system and operating system development', and research, 'Mobile Vulnerability Research'."
+  "note": "REDLattice: relevant yes, 'Summer 2027 Cybersecurity Internship', 'Solve challenging security problems through vulnerability research and software development'. degreeOk yes, 'Currently pursuing a degree in Computer Science, Computer Engineering' with 'Rising junior or senior preferred' only under Desired Skills. workAuth citizen_only, 'Must be eligible to receive US Security Clearance'. categories security, 'reverse engineering, vulnerability analysis, and exploit development'; also swe, 'contribute to the development of new projects', and embedded, 'mobile and embedded systems' and 'Low-level system and operating system development'."
 }

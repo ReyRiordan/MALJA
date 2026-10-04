@@ -11,11 +11,11 @@
       "data"
     ],
     "categoriesAlso": [
-      "ai",
+      "aiml",
       "swe"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Moody's: relevant yes, 'Ratings Technology - Data Engineering Summer Intern' running 'June 7 through August 13, 2027'. degreeOk yes, 'positions are available for undergraduate and select graduate students'; unclear would be defensible since the Education section says only 'Currently pursuing a bachelor's degree' with a graduation window of 'December 2027 and June 2029' that includes May 2028. workAuth unclear, citizenship appears only in the EEO statement. categories data, 'Support software, data engineering, and artificial intelligence initiatives'; also ai, 'Foundational understanding of high-performance computing, large language models, artificial intelligence', and swe, 'basic debugging, testing, and performance tuning'."
+  "note": "BORDERLINE: Moody's: relevant yes, 'Ratings Technology - Data Engineering Summer Intern' running 'June 7 through August 13, 2027'. degreeOk yes, 'positions are available for undergraduate and select graduate students'; unclear would be defensible since the Education section says only 'Currently pursuing a bachelor's degree' with a graduation window of 'December 2027 and June 2029' that includes May 2028. workAuth unclear, citizenship appears only in the EEO statement. categories data, 'Support software, data engineering, and artificial intelligence initiatives'; also aiml, 'Foundational understanding of ... large language models, artificial intelligence', and swe, 'basic debugging, testing, and performance tuning'."
 }

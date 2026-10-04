@@ -8,7 +8,7 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai"
+      "aiml"
     ],
     "categoriesAlso": [
       "data",
@@ -17,5 +17,5 @@
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "Tallgrass: 'enrolled in a bachelor's degree program' with no exclusion language; window Dec 2026 to May 2028 fits; nothing on work auth. 'Intern-AI and Data Solutions', no term named, AI application and data work: relevant yes. categories ai, 'Help prototype and develop AI-enabled internal tools and automations', 'Learn introductory retrieval-augmented generation (RAG) concepts'; also data + swe, 'Contribute to data preparation, quality checks, and simple transformations'."
+  "note": "Tallgrass: 'enrolled in a bachelor's degree program' with no exclusion language; window Dec 2026 to May 2028 fits; nothing on work auth. 'Intern-AI and Data Solutions', no term named, AI application and data work: relevant yes. categories aiml, 'Support evaluation, testing, integration, and documentation of AI system workflows, including ... model prompts' and 'retrieval-augmented generation (RAG) concepts'; also data, 'Contribute to data preparation, quality checks, and simple transformations', and swe, 'Help prototype and develop AI-enabled internal tools and automations'."
 }

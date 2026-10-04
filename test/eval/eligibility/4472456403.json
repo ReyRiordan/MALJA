@@ -8,14 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "qa"
+      "embedded"
     ],
     "categoriesAlso": [
-      "embedded",
+      "swe",
       "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Vertiv: relevant yes, 'Software Engineering Test Intern (Summer 2027)'. degreeOk yes, 'Must be pursuing a degree in Computer Science, Computer Engineering, Software Engineering, or a related field' names no level. workAuth no_sponsorship, 'This is not a position for which sponsorship will be provided. Individuals with temporary visas such as ... F-1 ... are not eligible for hire'. categories qa, 'Develop and maintain automated test cases in Python that validate firmware functionality'; also embedded, 'API-level test automation targeting Redfish/REST interfaces on embedded power and monitoring hardware', and infra, 'Integrate automated tests into CI/CD pipelines (GitLab CI)'."
+  "note": "BORDERLINE: Vertiv: relevant yes, 'Software Engineering Test Intern (Summer 2027)'. degreeOk yes, 'Must be pursuing a degree in Computer Science, Computer Engineering, Software Engineering, or a related field' names no level. workAuth no_sponsorship, 'This is not a position for which sponsorship will be provided. Individuals with temporary visas such as ... F-1 ... are not eligible for hire'. categories embedded, firmware V&V, 'automated test cases in Python that validate firmware functionality' and 'test automation targeting Redfish/REST interfaces on embedded power and monitoring hardware'; also swe, the Python/REST test-automation skills asked, and infra, 'Integrate automated tests into CI/CD pipelines (GitLab CI)'."
 }

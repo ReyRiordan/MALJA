@@ -11,12 +11,10 @@
       "swe"
     ],
     "categoriesAlso": [
-      "embedded",
-      "research",
-      "data"
+      "embedded"
     ],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "Battelle: relevant yes, 'Software Engineer Co-Op for the Spring and/or Summer 2027 semester' building C++/Python/embedded software, so summer 2027 is in scope. degreeOk yes, 'Must be currently pursuing a bachelor's, master's, or doctoral degree'. workAuth citizen_only, 'Applicants must be a Sole U.S. Citizen with the ability to obtain and maintain a security clearance'. categories swe, 'Developing and reviewing code within a large C++ codebase', 'Building and debugging software applications for data processing', and Python; also embedded, one bullet on 'embedded software in an RF lab using oscilloscopes', research, 'in support of fundamental research', and data, 'data processing'."
+  "note": "Battelle: relevant yes, 'Software Engineer Co-Op for the Spring and/or Summer 2027 semester' building C++/Python/embedded software, so summer 2027 is in scope. degreeOk yes, 'Must be currently pursuing a bachelor's, master's, or doctoral degree'. workAuth citizen_only, 'Applicants must be a Sole U.S. Citizen with the ability to obtain and maintain a security clearance'. categories swe, 'Developing and reviewing code within a large C++ codebase', 'Building and debugging software applications', and Python; also embedded, one bullet on 'embedded software in an RF lab using oscilloscopes'."
 }

@@ -8,14 +8,12 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml",
+      "aiml",
       "embedded"
     ],
-    "categoriesAlso": [
-      "research"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Skydio: relevant yes, 'Autonomy Engineer Intern, Computer Vision / Deep Learning, Summer 2027'. degreeOk yes, the only level wording is 'The hourly rate for this position is $47/hr for Undergrad and $53/hr for Graduate students', which admits graduate students; unclear would be defensible since there is no degree requirement. workAuth unclear, only E-Verify and EEO text. categories ml, 'computer vision algorithms that allow drones to understand the world around them' with 'C++ and/or Python and PyTorch', and embedded, 'the next generation of autonomy algorithms'; also research, 'As a Research Intern ... Research, prototype, and generally assess the feasibility of new approaches'."
+  "note": "BORDERLINE: Skydio: relevant yes, 'Autonomy Engineer Intern, Computer Vision / Deep Learning, Summer 2027'. degreeOk yes, the only level wording is 'The hourly rate for this position is $47/hr for Undergrad and $53/hr for Graduate students', which admits graduate students; unclear would be defensible since there is no degree requirement. workAuth unclear, only E-Verify and EEO text. categories aiml, learned perception, 'computer vision algorithms that allow drones to understand the world around them' with 'Python and PyTorch' on a 'computer vision and deep learning team', and embedded, 'the next generation of autonomy algorithms' with 'motion planning, dynamics and controls'."
 }

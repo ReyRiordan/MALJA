@@ -12,10 +12,10 @@
     ],
     "categoriesAlso": [
       "infra",
-      "ai"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "AWS: relevant yes, 'Solutions Architect Intern Cohort, AGS-Tech - 2027' is a 12-week internship starting 'May 24th, 2027' where 'you'll participate in customer calls, build proof-of-concept architectures', asking for Python/C++ and a CS degree. degreeOk yes, 'Currently enrolled in a bachelors or greater degree program in Computer Science ... with a graduation date between December 2027 and September 2028' admits master's and includes May 2028. workAuth unclear, nothing said about sponsorship or citizenship. categories solutions, 'help customers craft highly scalable, flexible and resilient cloud architectures'; also infra, the cloud architectures and 'DevOps' domain it advises on, and ai, 'Experience with AI/ML technologies' and 'a hands-on session building with Amazon Bedrock'."
+  "note": "AWS: relevant yes, 'Solutions Architect Intern Cohort, AGS-Tech - 2027' is a 12-week internship starting 'May 24th, 2027' where 'you'll participate in customer calls, build proof-of-concept architectures', asking for Python/C++ and a CS degree. degreeOk yes, 'Currently enrolled in a bachelors or greater degree program in Computer Science ... with a graduation date between December 2027 and September 2028' admits master's and includes May 2028. workAuth unclear, nothing said about sponsorship or citizenship. categories solutions, 'help customers craft highly scalable, flexible and resilient cloud architectures'; also infra, the cloud architectures and 'DevOps' domain it advises on, and aiml, 'Experience with AI/ML technologies' and 'a hands-on session building with Amazon Bedrock'."
 }

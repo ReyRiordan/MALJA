@@ -8,14 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml",
-      "research"
+      "aiml"
     ],
-    "categoriesAlso": [
-      "ai"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Shure: relevant yes, 'Applied Research Science Intern', 'SUMMER 2027', machine learning research. degreeOk yes, 'In-process of a PhD or advanced Masters in machine learning'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories ml, 'architecture, training, and evaluation of deep neural network models', and research, 'The advanced research team ... prototype and realize novel use cases'; also ai, 'enabled by machine learning and artificial intelligence'."
+  "note": "Shure: relevant yes, 'Applied Research Science Intern', 'SUMMER 2027', machine learning research. degreeOk yes, 'In-process of a PhD or advanced Masters in machine learning'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories aiml, 'architecture, training, and evaluation of deep neural network models'."
 }

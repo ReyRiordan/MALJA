@@ -10,11 +10,9 @@
     "categories": [
       "embedded"
     ],
-    "categoriesAlso": [
-      "qa"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "Swarm Aero: relevant yes, 'Embedded Software Intern (Summer 2027)', 'Develop C or C++ software for embedded avionics'. degreeOk yes, 'Currently pursuing a degree in Computer Science, Computer Engineering, Electrical Engineering' with no level floor. workAuth citizen_only, the ITAR requirement that 'applicant must be a U.S. citizen, lawful permanent resident ... or eligible to obtain the required authorizations'. categories embedded, 'Write drivers, services, diagnostics, simulation components, or hardware-abstraction layers'; also qa, 'Contribute to software-in-the-loop or hardware-in-the-loop testing and verification'."
+  "note": "Swarm Aero: relevant yes, 'Embedded Software Intern (Summer 2027)', 'Develop C or C++ software for embedded avionics'. degreeOk yes, 'Currently pursuing a degree in Computer Science, Computer Engineering, Electrical Engineering' with no level floor. workAuth citizen_only, the ITAR requirement that 'applicant must be a U.S. citizen, lawful permanent resident ... or eligible to obtain the required authorizations'. categories embedded, 'Write drivers, services, diagnostics, simulation components, or hardware-abstraction layers' in C/C++ with 'software-in-the-loop or hardware-in-the-loop testing and verification'; a mainly embedded role, so swe is not acceptable."
 }

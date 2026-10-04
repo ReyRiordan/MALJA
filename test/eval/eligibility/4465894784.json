@@ -9,7 +9,7 @@
     "relevant": "yes",
     "categories": [
       "swe",
-      "ai"
+      "aiml"
     ],
     "categoriesAlso": [
       "data",
@@ -18,5 +18,5 @@
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Envita Solutions: relevant yes, 'Software Engineering Intern, Applied AI' joining 'for the summer' with no year, doing integrations, observability and LLM/RAG feature work. degreeOk yes, \"open to college sophomore, junior, senior, recent grad, or 1st or 2nd master's student\". workAuth unclear, the posting is silent. categories swe + ai, 'This role is software engineering first' with 'Refactor existing code, add automated tests' alongside 'Contribute to LLM-based features such as structured data extraction from documents, retrieval (RAG / vector search), and agent workflows'; also data and infra, 'Profile, clean, deduplicate, and normalize the structured and unstructured datasets' and 'Improve logging, error handling, and monitoring across Python and C# services and data pipelines'."
+  "note": "Envita Solutions: relevant yes, 'Software Engineering Intern, Applied AI' joining 'for the summer' with no year, doing integrations, observability and LLM/RAG feature work. degreeOk yes, \"open to college sophomore, junior, senior, recent grad, or 1st or 2nd master's student\". workAuth unclear, the posting is silent. categories swe + aiml, 'This role is software engineering first' with 'Refactor existing code, add automated tests' alongside 'Contribute to LLM-based features such as structured data extraction from documents, retrieval (RAG / vector search), and agent workflows, including building evaluation and test harnesses'; also data and infra, 'Profile, clean, deduplicate, and normalize the structured and unstructured datasets' and 'Improve logging, error handling, and monitoring across Python and C# services and data pipelines'."
 }

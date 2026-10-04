@@ -1,0 +1,22 @@
+{
+  "id": "4416984831",
+  "title": "Supercomputing Intern",
+  "company": "Etched",
+  "url": "https://www.linkedin.com/jobs/view/4416984831",
+  "source": "perf",
+  "description": "About Etched\n\nEtched is building hardware for frontier intelligence. We co-design chips, racks, software, and manufacturing to deliver best-in-class throughput and latency across both prefill and decode workloads. Our first products are heavily focused on inference. Backed by hundreds of millions from top-tier investors and staffed by leading engineers, Etched is redefining the infrastructure layer for the fastest growing industry in history.\n\nJob Summary\n\nOur supercomputing role focuses on the design, development, and deployment of ML system software required for operating rack-scale systems. Your work will span network performance, telemetry creation and processing pipelines, and analysis of system-level health and performance. Supercomputing is also responsible for the deployment and provisioning of software frameworks and hardware validation, maintaining secure and performant systems for data center scale ML workloads. We are looking for Summer '26, Fall '26, Spring '27, and Summer '27 interns.\n\nYou may be a good fit if you have\n\nProgress towards a Bachelor’s, Master’s, or PhD degree in Computer Science, Engineering, or a related technical field.\nProficiency in C/C++ or Rust\nProficiency in Python\nStrong fundamentals in data structures and algorithms\nStrong understanding of low-level software engineering\nStrong understanding of hardware/software co-design\nExcellent communication and collaboration skills\n\nStrong Candidates May Also Have (Nice To Have Qualifications)\n\nExperience with Linux internals, kernel development, or driver debugging\nExperience with hardware diagnostics or interpreting hardware logs\nExposure to server virtualization or CI/CD pipelines\nExperience with Rust or embedded development\n\nWe encourage you to apply even if you do not believe you meet every qualification.\n\nProgram details\n\n12-week paid internship\nGenerous housing support for those relocating\nDaily lunch and dinner in our office\nBased at our office in San Jose, CA\nDirect mentorship from industry leaders and world-class engineers\nOpportunity to work on one of the most important problems of our time\n\nFor any questions, contact internships@etched.com\n\nHow We’re Different\n\nEtched believes in the Bitter Lesson. We are the first inference-focused frontier AI system. Our addressable market is the entirety of inference, unlike many of our competitors.\n\nWe are a fully in-person team in San Jose (Santana Row), and greatly value engineering skills. We do not have boundaries between engineering and research, and we expect all of our technical staff to contribute to both and work across disciplines as needed.",
+  "expected": {
+    "relevant": "yes",
+    "categories": [
+      "infra"
+    ],
+    "categoriesAlso": [
+      "perf",
+      "embedded",
+      "swe"
+    ],
+    "degreeOk": "yes",
+    "workAuth": "unclear"
+  },
+  "note": "Etched: relevant yes, 'Summer '26, Fall '26, Spring '27, and Summer '27 interns', ML system software for rack-scale systems. degreeOk yes, 'Bachelor's, Master's, or PhD degree'. workAuth unclear, nothing stated. categories infra, 'telemetry creation and processing pipelines', 'deployment and provisioning of software frameworks' for 'data center scale ML workloads'; also perf, 'network performance' on supercomputing systems; embedded, 'hardware validation', 'driver debugging'; swe."
+}

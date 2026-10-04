@@ -8,14 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "aiml",
+      "embedded"
     ],
     "categoriesAlso": [
-      "embedded",
-      "research"
+      "perf"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Zipline: relevant yes, 'Perception Intern (Summer 2027)' hosting 'Summer 2027 interns'. degreeOk yes, 'Master's and PhD students are also eligible'. workAuth unclear, only an EEO statement. categories ml, 'Leverage large datasets ... to train machine learning models' and 'ML model experimentation, evaluation and integration'; also embedded, 'Building autonomous systems that run on the drone', and research, 'look at current research in the field and use that to propose novel solutions'."
+  "note": "BORDERLINE: Zipline: relevant yes, 'Perception Intern (Summer 2027)' hosting 'Summer 2027 interns'. degreeOk yes, 'Master's and PhD students are also eligible'. workAuth unclear, only an EEO statement. categories aiml + embedded, learned perception for an autonomous drone, 'Leverage large datasets ... to train machine learning models' and 'Building autonomous systems that run on the drone'; also perf, 'Optimizing the onboard models into TensorRT engines' and 'model optimization'."
 }

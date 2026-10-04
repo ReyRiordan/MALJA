@@ -11,10 +11,10 @@
       "data"
     ],
     "categoriesAlso": [
-      "ml"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Navy Federal Credit Union: relevant yes, 'Summer Associate Internship (Associate Data Engineer)' beginning May 2027, 'Enable real-time and batch data integration across enterprise systems'. degreeOk yes, 'Currently pursuing a Bachelor's or Master's degree in Computer Science' with 'an anticipated graduation date of December 2027 or later'. workAuth unclear, nothing on citizenship or sponsorship. categories data, 'data integration, data quality, and platform modernization' with 'ETL/ELT processes' and 'Databricks Notebooks'; also ml, 'supporting transformation, data quality, and accessibility efforts that enable AI and machine learning solutions'."
+  "note": "Navy Federal Credit Union: relevant yes, 'Summer Associate Internship (Associate Data Engineer)' beginning May 2027, 'Enable real-time and batch data integration across enterprise systems'. degreeOk yes, 'Currently pursuing a Bachelor's or Master's degree in Computer Science' with 'an anticipated graduation date of December 2027 or later'. workAuth unclear, nothing on citizenship or sponsorship. categories data, 'data integration, data quality, and platform modernization' with 'ETL/ELT processes' and 'Databricks Notebooks'; also aiml, 'supporting transformation, data quality, and accessibility efforts that enable AI and machine learning solutions', an ML context with no modelling work."
 }
