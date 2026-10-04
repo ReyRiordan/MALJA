@@ -11,11 +11,10 @@
       "swe"
     ],
     "categoriesAlso": [
-      "infra",
-      "embedded"
+      "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "Astranis: relevant yes, 'Software Engineer Backend Intern (Summer 2027)' building backend services and infrastructure. degreeOk yes, 'Currently pursuing a B.S. or M.S. in Computer Science'. workAuth citizen_only, export-control requirement that 'applicant must be a U.S. citizen, lawful permanent resident of the United States, or other protected individual' with no sponsorship wording. categories swe, 'Design and build high-performance, reliable, mission-critical software' on the Platform team; also infra, 'working across backend and infrastructure', and embedded, 'services that autonomously control satellites, monitor telemetry for anomalies'."
+  "note": "Astranis: relevant yes, 'Software Engineer Backend Intern (Summer 2027)' building backend services and infrastructure. degreeOk yes, 'Currently pursuing a B.S. or M.S. in Computer Science'. workAuth citizen_only, export-control requirement that 'applicant must be a U.S. citizen, lawful permanent resident of the United States, or other protected individual' with no sponsorship wording. categories swe, 'Design and build high-performance, reliable, mission-critical software' in Python with Postgres and RabbitMQ; also infra, 'working across backend and infrastructure'. The satellite domain does not earn embedded: no firmware or hardware skills asked."
 }

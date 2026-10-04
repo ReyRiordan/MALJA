@@ -8,15 +8,15 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "swe",
-      "ai"
+      "swe"
     ],
     "categoriesAlso": [
+      "aiml",
       "infra",
       "data"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "MISO: relevant yes, '2027 SUMMER INTERNSHIP PROGRAM', '2027 Summer Intern - Software Engineering' shipping code in production applications and building LLM/RAG tooling. degreeOk yes, 'Are you pursuing a graduate level degree in Artificial Intelligence, Computer Science' and 'Masters or better in Computer Science'. workAuth no_sponsorship, 'No VISA sponsorship opportunities, including OPT/CPT'. categories swe + ai, 'Build real features in production applications and services', 'generative AI/LLMs, prompt engineering, RAG, and agent frameworks'; also infra + data, 'data pipelines, observability dashboards, and automated remediation workflows'."
+  "note": "BORDERLINE: MISO: relevant yes, '2027 SUMMER INTERNSHIP PROGRAM', '2027 Summer Intern - Software Engineering' shipping code in production applications and building LLM/RAG tooling. degreeOk yes, 'Are you pursuing a graduate level degree in Artificial Intelligence, Computer Science' and 'Masters or better in Computer Science'. workAuth no_sponsorship, 'No VISA sponsorship opportunities, including OPT/CPT'. categories swe, 'Build real features in production applications and services'; also aiml, 'Explore AI‑enabled engineering: ... prompt engineering, RAG, and agent frameworks to automate tasks, improve developer workflows', and infra + data, 'data pipelines, observability dashboards, and automated remediation workflows'."
 }

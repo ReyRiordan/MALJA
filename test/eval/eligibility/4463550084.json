@@ -10,12 +10,9 @@
     "categories": [
       "swe"
     ],
-    "categoriesAlso": [
-      "research",
-      "qa"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "unclear",
     "workAuth": "citizen_only"
   },
-  "note": "Peraton: relevant yes, 'Summer 2027 Software Engineer Interns' doing Agile software design, development and testing. degreeOk unclear, 'Have completed progress toward a bachelor's degree' and the junior/senior wording is only 'geared toward', with 'strong underclassmen may be considered', so no outright exclusion. workAuth citizen_only, 'U.S. Citizenship' under required qualifications. categories swe, 'software architecture and design, software development, and unit/component testing'; also research + qa, 'support our Internal Research & Development (IRAD) program' and that unit/component testing."
+  "note": "Peraton: relevant yes, 'Summer 2027 Software Engineer Interns' doing Agile software design, development and testing. degreeOk unclear, 'Have completed progress toward a bachelor's degree' and the junior/senior wording is only 'geared toward', with 'strong underclassmen may be considered', so no outright exclusion. workAuth citizen_only, 'U.S. Citizenship' under required qualifications. categories swe, 'software architecture and design, software development, and unit/component testing'; the IRAD research setting and 'unit/component testing' do not add another skillset."
 }

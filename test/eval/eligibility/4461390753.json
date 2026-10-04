@@ -8,7 +8,7 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai"
+      "aiml"
     ],
     "categoriesAlso": [
       "swe"
@@ -16,5 +16,5 @@
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Shure: relevant yes, 'SUMMER 2027' twelve-week internship, 'AI Engineer Intern' building AI agents, RAG pipelines and LLM integrations. degreeOk yes, 'offered to undergraduate and graduate students' and 'In-process of a Bachelor's or Advanced degree in Computer Science'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories ai, 'designing, building, and testing AI agents and agentic workflows', 'Build and evaluate RAG pipelines'; also swe, 'Develop and prototype AI-powered web applications and internal productivity tools'."
+  "note": "Shure: relevant yes, 'SUMMER 2027' twelve-week internship, 'AI Engineer Intern' building AI agents, RAG pipelines and LLM integrations. degreeOk yes, 'offered to undergraduate and graduate students' and 'In-process of a Bachelor's or Advanced degree in Computer Science'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories aiml, 'designing, building, and testing AI agents and agentic workflows', 'Build and evaluate RAG pipelines'; also swe, 'Develop and prototype AI-powered web applications and internal productivity tools'."
 }

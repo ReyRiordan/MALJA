@@ -8,15 +8,13 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai",
-      "ml"
+      "aiml"
     ],
     "categoriesAlso": [
-      "data",
-      "research"
+      "data"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Fervo AI: 'Graduate student or PhD candidate'; PhD preferred, not required; nothing on work auth. 'AI Applications Engineering Intern', 'this summer', no year named, LLM and ML model work: relevant yes. categories ai + ml, 'RAG systems for knowledge management', 'Develop, train, and evaluate advanced AI models (LLMs, ML, time-series, hybrid physics-informed)'; also data, 'Contribute to Fervo’s centralized AI infrastructure and data architecture', and research, 'Demonstrated research experience in one or more of: large language models, time-series analysis, physics-informed ML'."
+  "note": "Fervo AI: 'Graduate student or PhD candidate'; PhD preferred, not required; nothing on work auth. 'AI Applications Engineering Intern', 'this summer', no year named, LLM and ML model work: relevant yes. categories aiml, 'Develop, train, and evaluate advanced AI models (LLMs, ML, time-series, hybrid physics-informed)' and 'RAG systems for knowledge management'; also data, 'Contribute to Fervo’s centralized AI infrastructure and data architecture'."
 }

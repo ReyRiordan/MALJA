@@ -8,7 +8,7 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai"
+      "aiml"
     ],
     "categoriesAlso": [
       "infra"
@@ -16,5 +16,5 @@
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "DV Trading: relevant yes, 'AI Engineer Intern - Summer 2027', 'a project-focused internship' building generative agents and RAG over internal data. degreeOk yes, 'Pursuing a BS or MS in Computer Science' and 'Expected to graduate by Summer 2028' admits a May 2028 graduate. Nothing on sponsorship, so workAuth unclear. categories ai + infra, 'Prototype a generative agent that uses approved observability sources to propose structured mitigation suggestions for alerts', 'Learn our observability stack ... Prometheus, Grafana, Loki, Tempo, Alertmanager, OpenTelemetry'. The observability stack is what the agent works on, not the work, so infra is acceptable rather than required."
+  "note": "DV Trading: relevant yes, 'AI Engineer Intern - Summer 2027', 'a project-focused internship' building generative agents and RAG over internal data. degreeOk yes, 'Pursuing a BS or MS in Computer Science' and 'Expected to graduate by Summer 2028' admits a May 2028 graduate. Nothing on sponsorship, so workAuth unclear. categories aiml, 'Prototype a generative agent that uses approved observability sources to propose structured mitigation suggestions for alerts' and 'Build and iterate on RAG over permissioned internal data sources'; also infra, 'Learn our observability stack ... Prometheus, Grafana, Loki, Tempo, Alertmanager, OpenTelemetry'. The observability stack is what the agent works on, not the work, so infra is acceptable rather than required."
 }

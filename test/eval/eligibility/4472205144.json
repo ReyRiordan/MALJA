@@ -11,11 +11,11 @@
       "swe"
     ],
     "categoriesAlso": [
-      "ai",
+      "aiml",
       "data"
     ],
     "degreeOk": "unclear",
     "workAuth": "no_sponsorship"
   },
-  "note": "Wells Fargo: relevant yes, '2027 Technology Summer Internship - Early Careers (Software Engineering)', 'Program Duration: June 2027 - August 2027', designing and deploying enterprise applications. degreeOk unclear, \"Currently pursuing a bachelor's degree ... with an expected graduation: December 2027 - June 2028\" is bachelor's wording whose window includes May 2028. workAuth no_sponsorship, 'This position is not eligible for Visa sponsorship'. categories swe, 'Design, develop, test, and deploy scalable applications, including enhancements, bug fixes, and new services'; also ai, 'Apply prompt engineering techniques' and 'integrate AI/ML capabilities into applications', and data, 'data modeling, pipeline development, and analytics environments'."
+  "note": "Wells Fargo: relevant yes, '2027 Technology Summer Internship - Early Careers (Software Engineering)', 'Program Duration: June 2027 - August 2027', designing and deploying enterprise applications. degreeOk unclear, \"Currently pursuing a bachelor's degree ... with an expected graduation: December 2027 - June 2028\" is bachelor's wording whose window includes May 2028. workAuth no_sponsorship, 'This position is not eligible for Visa sponsorship'. categories swe, 'Design, develop, test, and deploy scalable applications, including enhancements, bug fixes, and new services', with AI mostly a tool ('Copilot, Devin'); also aiml, 'Apply prompt engineering techniques' and 'integrate AI/ML capabilities into applications', and data, 'data modeling, pipeline development'."
 }

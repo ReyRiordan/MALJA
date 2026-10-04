@@ -11,11 +11,11 @@
       "swe"
     ],
     "categoriesAlso": [
-      "ml",
+      "aiml",
       "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "Raytheon: relevant yes, 'Software Engineering Intern (Summer 2027)' developing satellite ground system software. degreeOk yes, \"Must be pursuing a Bachelor's or Advanced degree in an applicable discipline\" admits master's students. workAuth citizen_only, 'U.S. citizenship is required, as only U.S. citizens are eligible for a security clearance'. categories swe, 'Develop software for satellite ground systems' and 'developing production software as part of an Agile software development team'; also ml and infra, 'implementing AI/ML processing tools' and 'AWS web services, and microservice software design' with 'Modern DevSecOps and Continuous Integration/Continuous Delivery techniques'."
+  "note": "Raytheon: relevant yes, 'Software Engineering Intern (Summer 2027)' developing satellite ground system software. degreeOk yes, \"Must be pursuing a Bachelor's or Advanced degree in an applicable discipline\" admits master's students. workAuth citizen_only, 'U.S. citizenship is required, as only U.S. citizens are eligible for a security clearance'. categories swe, 'Develop software for satellite ground systems' and 'developing production software as part of an Agile software development team'; also aiml and infra, 'implementing AI/ML processing tools' and 'AWS web services, and microservice software design' with 'Modern DevSecOps and Continuous Integration/Continuous Delivery techniques'."
 }

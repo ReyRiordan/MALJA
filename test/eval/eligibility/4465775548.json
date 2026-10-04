@@ -12,10 +12,10 @@
     ],
     "categoriesAlso": [
       "swe",
-      "ai"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Google: relevant yes, 'Customer and Partner Solutions Engineering Intern, BS/MS, Summer 2027' doing technical integration work. degreeOk yes, 'Currently pursuing a Bachelor's or Master's degree in Computer Science'; the 'penultimate academic year' wording is program intent, not a level exclusion, and fits a May 2028 graduate. workAuth unclear, nothing about sponsorship; 'located in the United States for the duration of the internship' is a location rule. categories solutions, 'design, implement, and troubleshoot technical integrations (APIs, SDKs, and platform protocols)' with 'external partners, developers'; also swe, 'build technical innovations and tooling to streamline partner onboarding', and ai, 'Own the Ask Google Help support configuration and agentic workflow integrations' and 'AI support strategies'."
+  "note": "Google: relevant yes, 'Customer and Partner Solutions Engineering Intern, BS/MS, Summer 2027' doing technical integration work. degreeOk yes, 'Currently pursuing a Bachelor's or Master's degree in Computer Science'; the 'penultimate academic year' wording is program intent, not a level exclusion, and fits a May 2028 graduate. workAuth unclear, nothing about sponsorship; 'located in the United States for the duration of the internship' is a location rule. categories solutions, 'design, implement, and troubleshoot technical integrations (APIs, SDKs, and platform protocols)' with 'external partners, developers'; also swe, 'build technical innovations and tooling to streamline partner onboarding', and aiml, 'Own the Ask Google Help support configuration and agentic workflow integrations'."
 }

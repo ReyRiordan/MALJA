@@ -12,11 +12,11 @@
     ],
     "categoriesAlso": [
       "data",
-      "ai",
+      "aiml",
       "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "ENFOS: 'Currently pursuing a degree' with no level; 'subject to work authorization' is bare and excludes nobody. 'Software Engineer Intern (Summer 2027)', Java/Spring/React platform work: relevant yes. categories swe, 'Design, develop, test, and enhance features' with 'React and TypeScript' front ends and 'Java and Spring Boot' APIs; also data, ai and infra, 'work across frontend, backend, APIs, data, AI-enabled features, or platform engineering' including 'document intelligence, natural-language interfaces'."
+  "note": "ENFOS: 'Currently pursuing a degree' with no level; 'subject to work authorization' is bare and excludes nobody. 'Software Engineer Intern (Summer 2027)', Java/Spring/React platform work: relevant yes. categories swe, 'Design, develop, test, and enhance features' with 'React and TypeScript' front ends and 'Java and Spring Boot' APIs; also data, aiml and infra, 'work across frontend, backend, APIs, data, AI-enabled features, or platform engineering' including 'document intelligence, natural-language interfaces'."
 }

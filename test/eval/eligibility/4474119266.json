@@ -8,13 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "qa"
-    ],
-    "categoriesAlso": [
       "swe"
     ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Allegion: relevant yes, 'Summer Intern - Software Engineering, Quality Assurance' with a summer term and no year named. degreeOk yes, 'Pursuing a degree in Computer Science, Computer Engineering, or relevant discipline' with no level. workAuth no_sponsorship, 'The company does not intend to provide sponsorship for employment visa status'. categories qa, 'translating requirements into verification test plans and automated test scripts, contributing to test frameworks, executing CI pipeline tests'; also swe, 'automation testing either on mobile (Android/iOS), API / Microservices, or Web applications'."
+  "note": "Allegion: relevant yes, 'Summer Intern - Software Engineering, Quality Assurance' with a summer term and no year named. degreeOk yes, 'Pursuing a degree in Computer Science, Computer Engineering, or relevant discipline' with no level. workAuth no_sponsorship, 'The company does not intend to provide sponsorship for employment visa status'. categories swe, software test automation: 'translating requirements into verification test plans and automated test scripts, contributing to test frameworks' for 'mobile (Android/iOS), API / Microservices, or Web applications'."
 }

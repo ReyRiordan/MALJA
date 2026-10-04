@@ -11,10 +11,10 @@
       "infra"
     ],
     "categoriesAlso": [
-      "ai"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "DV Trading: relevant yes, 'DevOps Engineer Intern - Summer 2027'. degreeOk yes, 'Pursuing a BS or MS in Computer Science' and 'Expected to graduate by Summer 2028'. workAuth unclear, nothing on sponsorship. categories infra, 'Deploy and operate workloads on Kubernetes' and 'Extend observability: OpenTelemetry ... Prometheus ... Grafana'; also ai, 'Contribute to internal AI-assisted tooling ... help improve safe, tool-based agents'."
+  "note": "DV Trading: relevant yes, 'DevOps Engineer Intern - Summer 2027'. degreeOk yes, 'Pursuing a BS or MS in Computer Science' and 'Expected to graduate by Summer 2028'. workAuth unclear, nothing on sponsorship. categories infra, 'Deploy and operate workloads on Kubernetes' and 'Extend observability: OpenTelemetry ... Prometheus ... Grafana'; also aiml, 'help improve safe, tool-based agents', a side task ('not required to ship ML models')."
 }

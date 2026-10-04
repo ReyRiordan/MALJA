@@ -8,15 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "swe",
-      "ai"
+      "swe"
     ],
     "categoriesAlso": [
-      "data",
-      "research"
+      "aiml",
+      "data"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Gilead CDS AI Research Center: relevant yes, 'seeking a Software Engineering Intern' building backend services and LLM-powered summarisation, 'full-time internship lasting 10-12 consecutive weeks between May and August' with no year named. degreeOk yes, 'Must be enrolled full-time in a Bachelor's, Master's, MBA, JD or PhD program'. workAuth no_sponsorship, 'Must be independently authorized to work in the United States now and in the future (current or future work authorization must not require school or employer sponsorship)'. categories swe + ai, 'Design and build backend services and data-processing components', 'Implement LLM-powered summarization capabilities with structured outputs, validation mechanisms, and operational guardrails'; also data, 'Integrate components into existing workflow orchestration and event-driven processing pipelines', and research, the engineering role sits on the 'AI Research Center (ARC) Clinical Data Science team'."
+  "note": "Gilead CDS AI Research Center: relevant yes, 'seeking a Software Engineering Intern' building backend services and LLM-powered summarisation, 'full-time internship lasting 10-12 consecutive weeks between May and August' with no year named. degreeOk yes, 'Must be enrolled full-time in a Bachelor's, Master's, MBA, JD or PhD program'. workAuth no_sponsorship, 'Must be independently authorized to work in the United States now and in the future (current or future work authorization must not require school or employer sponsorship)'. categories swe, 'Design and build backend services and data-processing components' and 'Design and develop APIs and service interfaces'; also aiml, 'Implement LLM-powered summarization capabilities with structured outputs, validation mechanisms, and operational guardrails', an LLM feature inside backend work, and data, 'Integrate components into existing workflow orchestration and event-driven processing pipelines'."
 }

@@ -11,11 +11,11 @@
       "solutions"
     ],
     "categoriesAlso": [
-      "ai",
+      "aiml",
       "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "BORDERLINE: Intel: relevant unclear, 'Technical Sales - Intern, Graduate' is an internship that includes 'internship starts in Spring and Summer 2027', but the work is split between in-scope technical customer-facing paths ('Technical Sales, Sales Engineering, Solution Architecture, Cloud, AI, Systems, and Platform Solutions', 'Support sales teams, customers, or partners with technical insights and solutions') and out-of-scope selling and GTM ('Contribute to solution selling, sales enablement, and technical messaging', paths 'across sales, marketing, strategy, operations'), with no demos, POCs or integrations assigned. degreeOk yes, 'Currently enrolled in a Master's degree or PhD in Computer Science, Data Science/Analytics, Information Systems, Engineering'. workAuth no_sponsorship, 'This position is not eligible for employment-based visa/immigration sponsorship'. categories solutions, the sales-engineering and solution-architecture work; also ai and infra, since the role only speaks to 'Cloud, AI, Systems, and Platform Solutions' rather than building them."
+  "note": "BORDERLINE: Intel: relevant unclear, 'Technical Sales - Intern, Graduate' is an internship that includes 'internship starts in Spring and Summer 2027', but the work is split between in-scope technical customer-facing paths ('Technical Sales, Sales Engineering, Solution Architecture, Cloud, AI, Systems, and Platform Solutions', 'Support sales teams, customers, or partners with technical insights and solutions') and out-of-scope selling and GTM ('Contribute to solution selling, sales enablement, and technical messaging', paths 'across sales, marketing, strategy, operations'), with no demos, POCs or integrations assigned. degreeOk yes, 'Currently enrolled in a Master's degree or PhD in Computer Science, Data Science/Analytics, Information Systems, Engineering'. workAuth no_sponsorship, 'This position is not eligible for employment-based visa/immigration sponsorship'. categories solutions, the sales-engineering and solution-architecture work; also aiml and infra, since the role only speaks to 'Cloud, AI, Systems, and Platform Solutions' rather than building them."
 }

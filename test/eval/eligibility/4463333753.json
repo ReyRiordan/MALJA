@@ -13,10 +13,10 @@
     "categoriesAlso": [
       "embedded",
       "infra",
-      "ml"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Amazon: relevant yes, 'Software Development Engineer Intern/Co-Op, ROBOTICS - 2027' covering 'summer intern and spring/fall co-op roles', distributed-systems software work. degreeOk yes, 'enrolled in a Bachelor's degree or above'. workAuth unclear, nothing said about sponsorship or citizenship. categories swe, 'Design and develop scalable solutions using cloud-native architectures and microservices'; also embedded + infra + ml, 'software components that interact with fulfillment center technologies, such as robotics, material handling equipment, computer vision' and 'practicing CI/CD principles while participating in operational responsibilities including on-call duties'."
+  "note": "Amazon: relevant yes, 'Software Development Engineer Intern/Co-Op, ROBOTICS - 2027' covering 'summer intern and spring/fall co-op roles', distributed-systems software work. degreeOk yes, 'enrolled in a Bachelor's degree or above'. workAuth unclear, nothing said about sponsorship or citizenship. categories swe, 'Design and develop scalable solutions using cloud-native architectures and microservices'; also embedded + infra + aiml, 'software components that interact with fulfillment center technologies, such as robotics, material handling equipment, computer vision' and 'practicing CI/CD principles while participating in operational responsibilities including on-call duties'."
 }

@@ -8,14 +8,13 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "aiml"
     ],
     "categoriesAlso": [
-      "embedded",
-      "research"
+      "embedded"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Waymo: relevant yes, '2027 Summer Intern, MS/PhD, Perception, Machine Learning'. degreeOk yes, 'enrolled in a master's program with a strong publication record' is accepted alongside PhD. workAuth unclear, nothing stated. categories ml, 'Design and implement state-of-the-art multi-modality ... perception models' and 'Train and evaluate ML models'; also research, 'We conduct our own research to address real-world problems', and embedded, 'optimize models for our onboard and offboard hardware'."
+  "note": "Waymo: relevant yes, '2027 Summer Intern, MS/PhD, Perception, Machine Learning'. degreeOk yes, 'enrolled in a master's program with a strong publication record' is accepted alongside PhD. workAuth unclear, nothing stated. categories aiml, 'Design and implement state-of-the-art multi-modality ... perception models' and 'Train and evaluate ML models'; also embedded, 'optimize models for our onboard and offboard hardware'."
 }

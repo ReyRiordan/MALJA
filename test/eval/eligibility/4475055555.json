@@ -11,12 +11,11 @@
       "infra"
     ],
     "categoriesAlso": [
-      "ml",
-      "ai",
-      "research"
+      "aiml",
+      "perf"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "ByteDance: relevant yes, 'Software Engineer Intern (AI Infra Compute) - 2027 Summer' developing AI training and inference platforms. degreeOk yes, 'Currently pursuing a Master in Software Development, Computer Science, Computer Engineering'. workAuth unclear, nothing on sponsorship or citizenship. categories infra + ml, 'building large-scale and highly available cloud infrastructure', 'key technologies for our AI Infra stack, including AI training and inference platforms'; also ai + research, 'AI Agent infrastructure' and 'Showcase our research findings and products through academic publications'. Building training and inference platforms is infra, so ml is acceptable rather than required."
+  "note": "ByteDance: relevant yes, 'Software Engineer Intern (AI Infra Compute) - 2027 Summer' developing AI training and inference platforms. degreeOk yes, 'Currently pursuing a Master in Software Development, Computer Science, Computer Engineering'. workAuth unclear, nothing on sponsorship or citizenship. categories infra, 'key technologies for our AI Infra stack, including AI training and inference platforms, AI Agent infrastructure'; also aiml, 'Experience in ... LLM training/Inference', and perf, 'verify the functionality and performance of key components' with 'vLLM or SGlang' and 'MLSYS'. Building training and inference platforms is infra with no modelling work assigned, so aiml is acceptable rather than required."
 }

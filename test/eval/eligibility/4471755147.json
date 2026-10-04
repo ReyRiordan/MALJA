@@ -8,7 +8,7 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai",
+      "aiml",
       "infra"
     ],
     "categoriesAlso": [
@@ -17,5 +17,5 @@
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Marvell: relevant yes, 'AI-Native Development Platform Engineer Intern, MS - Summer 2027' shipping production software and MCP tooling. degreeOk yes, \"Currently pursuing a Bachelor's or Master's Degree ... expected graduation date between Fall 2027 - Summer 2028\" and May 2028 fits. workAuth unclear: the EAR paragraph says 'applicants must be eligible to access export-controlled information' but only 'may require' such access and explicitly contemplates 'an export license review process' for non-US persons, so it states no citizenship or sponsorship bar. categories ai + infra, 'Build and ship one feature end-to-end on our agentic AI platform' with 'MCP-based tooling that connect AI agents to real engineering systems', and 'Automate build, test and deployment workflows using CI/CD pipelines (GitHub Actions, Jenkins) and containerized deployments on Kubernetes/EKS'; also swe, 'ship production software that engineers across Marvell use'."
+  "note": "BORDERLINE: Marvell: relevant yes, 'AI-Native Development Platform Engineer Intern, MS - Summer 2027' shipping production software and MCP tooling. degreeOk yes, \"Currently pursuing a Bachelor's or Master's Degree ... expected graduation date between Fall 2027 - Summer 2028\" and May 2028 fits. workAuth unclear: the EAR paragraph says 'applicants must be eligible to access export-controlled information' but only 'may require' such access and explicitly contemplates 'an export license review process' for non-US persons, so it states no citizenship or sponsorship bar. categories aiml + infra, 'Build and ship one feature end-to-end on our agentic AI platform' with 'MCP-based tooling that connect AI agents to real engineering systems' and 'prompt design ... retrieval-augmented generation', and 'Automate build, test and deployment workflows using CI/CD pipelines (GitHub Actions, Jenkins) and containerized deployments on Kubernetes/EKS'; also swe, 'ship production software that engineers across Marvell use'."
 }

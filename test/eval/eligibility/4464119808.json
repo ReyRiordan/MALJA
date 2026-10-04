@@ -13,11 +13,10 @@
     "categoriesAlso": [
       "infra",
       "data",
-      "ai",
-      "ml"
+      "aiml"
     ],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "Kensho (S&P Global): relevant yes, 'Software Engineer - Summer Intern 2027', 'intern opportunities ... as a Software Engineer at Kensho' writing server-side applications on top of ML capabilities. degreeOk unclear, the posting states no degree or enrolment requirement at all. workAuth unclear, nothing on sponsorship and citizenship appears only in the EEO statement. categories swe, 'Write server-side and user-facing applications built on top of our machine learning capabilities' and 'Design interfaces, APIs, and services'; also infra, 'abstractions to enable observability & deployment to our core platform', data, 'Build data ingestion & processing', and ai/ml, teams whose work is 'generative AI applications, agents, data retrieval APIs' and 'machine learning R&D'."
+  "note": "Kensho (S&P Global): relevant yes, 'Software Engineer - Summer Intern 2027', 'intern opportunities ... as a Software Engineer at Kensho' writing server-side applications on top of ML capabilities. degreeOk unclear, the posting states no degree or enrolment requirement at all. workAuth unclear, nothing on sponsorship and citizenship appears only in the EEO statement. categories swe, 'Write server-side and user-facing applications built on top of our machine learning capabilities' and 'Design interfaces, APIs, and services'; also infra, 'abstractions to enable observability & deployment to our core platform', data, 'Build data ingestion & processing', and aiml, teams whose work is 'generative AI applications, agents, data retrieval APIs' and 'machine learning R&D'."
 }

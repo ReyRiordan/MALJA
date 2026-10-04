@@ -8,15 +8,13 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "aiml"
     ],
     "categoriesAlso": [
-      "data",
-      "ai",
-      "research"
+      "data"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Intuit: relevant yes, 'Summer 2027: AI Science Intern', building and training ML models. degreeOk yes, 'a Bachelor's or Master's program with prior relevant experience' as an alternative to a PhD. workAuth unclear, bare 'Must be legally authorized to work in the United States'. categories ml, 'Build, train, and evaluate machine learning and deep learning models'; also data, 'data wrangling and ETL', ai, 'generative AI and LLMs', and research, 'documentation of your research'."
+  "note": "Intuit: relevant yes, 'Summer 2027: AI Science Intern', building and training ML models. degreeOk yes, 'a Bachelor's or Master's program with prior relevant experience' as an alternative to a PhD. workAuth unclear, bare 'Must be legally authorized to work in the United States'. categories aiml, 'Build, train, and evaluate machine learning and deep learning models'; also data, 'your own data wrangling and ETL'."
 }

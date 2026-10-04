@@ -8,14 +8,13 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "perf"
     ],
     "categoriesAlso": [
-      "ai",
-      "infra"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Waymo: relevant yes, '2027 Summer Intern, MS/PhD, AI-driven ML Performance Engineering Intern' writing low-level ML accelerator kernels. degreeOk yes, 'Currently enrolled in an MS or PhD program in Computer Science'. workAuth unclear, nothing said about sponsorship or citizenship. categories ml + ai, 'high performance low-level kernels in a Domain-Specific language for a custom ML accelerator' with 'performance analysis of the kernels', 'Work with AI agents' and 'Develop a custom harness to recursively improve kernel generation'; also infra, 'hardware, compiler, and software frameworks for the ML accelerators'. AI agents are the means and ML performance is the work, so ai is acceptable rather than required."
+  "note": "Waymo: relevant yes, '2027 Summer Intern, MS/PhD, AI-driven ML Performance Engineering Intern' writing low-level ML accelerator kernels. degreeOk yes, 'Currently enrolled in an MS or PhD program in Computer Science'. workAuth unclear, nothing said about sponsorship or citizenship. categories perf, 'high performance low-level kernels in a Domain-Specific language for a custom ML accelerator', 'performance analysis of the kernels' and 'key kernels for transformer inference'; also aiml, 'Work with AI agents' and 'Develop a custom harness to recursively improve kernel generation', which are agents used as a tool, so aiml is not required."
 }

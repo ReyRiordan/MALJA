@@ -11,10 +11,10 @@
       "security"
     ],
     "categoriesAlso": [
-      "ai"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Navy Federal Credit Union: relevant yes, 'Summer Associate Internship (Product Security Engineer)' beginning May 2027, leading with 'Support application, API, and AI security testing efforts'; unclear would be defensible given the metrics, dashboard and governance reporting projects. degreeOk yes, 'Currently enrolled in a bachelor's or master's degree program' with 'an anticipated graduation date of December 2027 or later'. workAuth unclear, nothing on citizenship or sponsorship. categories security, 'execution of application security assessments across web applications, APIs' including 'Dynamic Application Security Testing (DAST)'; also ai, 'AI-assisted vulnerability discovery'."
+  "note": "BORDERLINE: Navy Federal Credit Union: relevant yes, 'Summer Associate Internship (Product Security Engineer)' beginning May 2027, leading with 'Support application, API, and AI security testing efforts'; unclear would be defensible given the metrics, dashboard and governance reporting projects. degreeOk yes, 'Currently enrolled in a bachelor's or master's degree program' with 'an anticipated graduation date of December 2027 or later'. workAuth unclear, nothing on citizenship or sponsorship. categories security, 'execution of application security assessments across web applications, APIs' including 'Dynamic Application Security Testing (DAST)'; also aiml, 'AI-assisted vulnerability discovery' and 'AI application security testing technologies'."
 }

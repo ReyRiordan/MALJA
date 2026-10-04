@@ -11,11 +11,11 @@
       "swe"
     ],
     "categoriesAlso": [
-      "data",
+      "aiml",
       "infra"
     ],
     "degreeOk": "unclear",
     "workAuth": "citizen_only"
   },
-  "note": "CACI: 'Currently pursuing a Bachelor's degree' with no exclusion language, so degreeOk unclear. 'Interns will be required to obtain TS/SCI clearance as a condition of continued employment' is citizen_only. 'Software Developer/Data Scientist Intern - Summer 2027', 'Job Category: Intern/Co-op', web and back-end development work: relevant yes. 'Part-Time On-Call' is the employee type of the internship, not a contract role. categories swe, 'develop and maintain a web-based thin-client software application', 'development and maintenance of back-end services and processing'; also data + infra, the 'Data Scientist' half of the title and 'Docker Containers' with 'CI/CD development philosophies'."
+  "note": "CACI: 'Currently pursuing a Bachelor's degree' with no exclusion language, so degreeOk unclear. 'Interns will be required to obtain TS/SCI clearance as a condition of continued employment' is citizen_only. 'Software Developer/Data Scientist Intern - Summer 2027', 'Job Category: Intern/Co-op', web and back-end development work: relevant yes. 'Part-Time On-Call' is the employee type of the internship, not a contract role. categories swe, 'develop and maintain a web-based thin-client software application', 'development and maintenance of back-end services and processing'; also aiml, the 'Data Scientist' half of the title, and infra, 'Docker Containers' with 'CI/CD development philosophies'."
 }

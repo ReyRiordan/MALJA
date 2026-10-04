@@ -11,13 +11,12 @@
       "swe"
     ],
     "categoriesAlso": [
-      "infra",
-      "ai",
-      "ml",
-      "data"
+      "aiml",
+      "data",
+      "infra"
     ],
     "degreeOk": "unclear",
     "workAuth": "no_sponsorship"
   },
-  "note": "BORDERLINE: American Express Enterprise Technology Services: relevant yes, 'Software Engineer Intern' on a '10-week Summer Internship Program' for 2027, Agile application development. degreeOk unclear, the title says 'Campus Graduate Masters Summer Internship Program' but the stated requirement is 'Currently enrolled in a full-time bachelor's degree program' with 'expected graduation date between December 2027 and June 2028'; bachelor's wording plus a window that includes May 2028 and no exclusion language. workAuth no_sponsorship, 'the company will not pursue visa sponsorship for these positions'. categories swe, 'designing, coding, testing, and improving applications and services'; also infra, ai, ml and data, 'aligned to scrum teams across backend engineering, frontend engineering, cloud engineering, mobile, AI/machine learning, data oriented engineering'."
+  "note": "BORDERLINE: American Express Enterprise Technology Services: relevant yes, 'Software Engineer Intern' on a '10-week Summer Internship Program' for 2027, Agile application development. degreeOk unclear, the title says 'Campus Graduate Masters Summer Internship Program' but the stated requirement is 'Currently enrolled in a full-time bachelor's degree program' with 'expected graduation date between December 2027 and June 2028'; bachelor's wording plus a window that includes May 2028 and no exclusion language. workAuth no_sponsorship, 'the company will not pursue visa sponsorship for these positions'. categories swe, 'designing, coding, testing, and improving applications and services'; also aiml, data and infra, the teams 'aligned to scrum teams across backend engineering, frontend engineering, cloud engineering, mobile, AI/machine learning, data oriented engineering'."
 }

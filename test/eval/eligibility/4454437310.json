@@ -8,15 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai"
+      "aiml"
     ],
     "categoriesAlso": [
       "swe",
-      "ml",
       "data"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "American Express: relevant yes, 'AI Engineer Intern' on a '10-week Summer Internship Program' for 2027, integrating AI/ML models and LLM services. degreeOk yes, 'Currently enrolled in a full-time Master's degree program' with 'expected graduation date between December 2027 and June 2028', which includes May 2028. workAuth no_sponsorship, 'the company will not pursue visa sponsorship for these positions'. categories ai, 'LLM integrations', 'prompt based interactions, evaluation routines, data retrieval pipelines, AI agents, or agentic workflows'; also swe, 'You’ll build software' on scrum teams 'across backend engineering, frontend engineering, cloud engineering', ml, 'basic model training workflows', and data, 'data collection, preprocessing, transformation'."
+  "note": "American Express: relevant yes, 'AI Engineer Intern' on a '10-week Summer Internship Program' for 2027, integrating AI/ML models and LLM services. degreeOk yes, 'Currently enrolled in a full-time Master's degree program' with 'expected graduation date between December 2027 and June 2028', which includes May 2028. workAuth no_sponsorship, 'the company will not pursue visa sponsorship for these positions'. categories aiml, 'LLM integrations', 'prompt based interactions, evaluation routines, data retrieval pipelines, AI agents, or agentic workflows' and 'basic model training workflows'; also swe, 'You’ll build software' on scrum teams 'across backend engineering, frontend engineering, cloud engineering', and data, 'data collection, preprocessing, transformation'."
 }

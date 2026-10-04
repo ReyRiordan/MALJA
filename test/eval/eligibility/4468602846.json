@@ -12,10 +12,10 @@
     ],
     "categoriesAlso": [
       "infra",
-      "ai"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "AWS: relevant yes, 'Solutions Architect Intern, AWSI - 2027' is a 12-week internship doing customer-facing cloud architecture work. degreeOk yes, 'Currently enrolled in a bachelors or greater degree program in Computer Science ... with a graduation date between December 2027 and September 2028' admits master's and the window includes May 2028. workAuth unclear, nothing said about sponsorship or citizenship. categories solutions, 'Create solutions that address customer business problems', 'Develop skills to lead customer engagements as a Solutions Architect'; also infra, 'helping customers build infrastructures and applications at scale using AWS solutions', and ai, 'Experience with Generative AI, Large Language Models (LLMs), Machine Learning (ML)' - both are products advised on rather than built, so neither is required."
+  "note": "AWS: relevant yes, 'Solutions Architect Intern, AWSI - 2027' is a 12-week internship doing customer-facing cloud architecture work. degreeOk yes, 'Currently enrolled in a bachelors or greater degree program in Computer Science ... with a graduation date between December 2027 and September 2028' admits master's and the window includes May 2028. workAuth unclear, nothing said about sponsorship or citizenship. categories solutions, 'Create solutions that address customer business problems', 'Develop skills to lead customer engagements as a Solutions Architect'; also infra, 'helping customers build infrastructures and applications at scale using AWS solutions', and aiml, 'Experience with Generative AI, Large Language Models (LLMs), Machine Learning (ML)' - both are products advised on rather than built, so neither is required."
 }

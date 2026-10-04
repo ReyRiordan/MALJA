@@ -12,10 +12,10 @@
     ],
     "categoriesAlso": [
       "infra",
-      "qa"
+      "swe"
     ],
     "degreeOk": "unclear",
     "workAuth": "citizen_only"
   },
-  "note": "Innovative Defense Technologies: relevant yes, part of 'IDT's Summer Internship Program' with no year named, doing security engineering on software, 'Assess and report on software solutions' and 'Provide feedback to developers to help build cyber secure ... software'. degreeOk unclear, 'Work completed toward a bachelor's degree' with 'Current college juniors/rising seniors preferred' only under 'What Makes You Stand Out'. workAuth citizen_only, 'All applicants must be able to obtain/maintain an active Secret U.S. Security Clearance'. categories security, 'integrating and running SAST and DAST tools ... to identify code and image level vulnerabilities'; also infra, 'Help deploy software solutions through secure DEVSECOPS pipelines', and qa, 'develop test plans for various integrated commercial applicates'."
+  "note": "Innovative Defense Technologies: relevant yes, part of 'IDT's Summer Internship Program' with no year named, doing security engineering on software, 'Assess and report on software solutions' and 'Provide feedback to developers to help build cyber secure ... software'. degreeOk unclear, 'Work completed toward a bachelor's degree' with 'Current college juniors/rising seniors preferred' only under 'What Makes You Stand Out'. workAuth citizen_only, 'All applicants must be able to obtain/maintain an active Secret U.S. Security Clearance'. categories security, 'integrating and running SAST and DAST tools ... to identify code and image level vulnerabilities'; also infra, 'Help deploy software solutions through secure DEVSECOPS pipelines', and swe, 'develop test plans for various integrated commercial applicates and code'."
 }

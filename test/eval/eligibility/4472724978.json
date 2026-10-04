@@ -11,12 +11,11 @@
       "swe"
     ],
     "categoriesAlso": [
-      "research",
-      "ml",
+      "aiml",
       "embedded"
     ],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "MIT Lincoln Laboratory: relevant yes, 'Summer Research Program Intern 2027' with 'designing and implementing algorithms, engineering real-time systems, testing components, and documenting software' plus 'Machine Learning required'. degreeOk yes, 'pursuing a BS or MS degree'. workAuth citizen_only, 'U.S. citizenship is required' and 'must be able to obtain and maintain a Secret level DoD security clearance'. categories swe, 'Summer interns will participate on a product development team ... designing and implementing algorithms, engineering real-time systems, testing components, and documenting software' is engineering work, so research is only acceptable despite the lab's 'Summer Research Program' name; also research, ml and embedded, 'Machine Learning required' and 'engineering real-time systems' for weather and surveillance radar processors."
+  "note": "MIT Lincoln Laboratory: relevant yes, 'Summer Research Program Intern 2027' with 'designing and implementing algorithms, engineering real-time systems, testing components, and documenting software' plus 'Machine Learning required'. degreeOk yes, 'pursuing a BS or MS degree'. workAuth citizen_only, 'U.S. citizenship is required' and 'must be able to obtain and maintain a Secret level DoD security clearance'. categories swe, 'designing and implementing algorithms, engineering real-time systems, testing components, and documenting software' on a product development team; also aiml, 'Machine Learning required', and embedded, 'engineering real-time systems' for weather and surveillance radar processors."
 }

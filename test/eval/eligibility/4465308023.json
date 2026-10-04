@@ -8,15 +8,13 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml",
-      "research"
+      "aiml"
     ],
     "categoriesAlso": [
-      "ai",
       "swe"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Tokyo Electron: relevant yes, 'Software Engineer, AI Research Summer 2027 Intern', AI/ML research and coding at the TTAD lab. degreeOk yes, 'Graduate level (M.S. or Ph.D.) preferred' with bachelor's students also considered. workAuth unclear, the posting is silent. categories ml + research, 'groundbreaking, long-term research and technology development in AI/ML for semiconductor equipment', 'Research and propose solutions to assigned research topics'; also ai, 'High familiarity with current AI approaches and research', and swe, 'Convert ideas to code in a productive and flexible manner'."
+  "note": "Tokyo Electron: relevant yes, 'Software Engineer, AI Research Summer 2027 Intern', AI/ML research and coding at the TTAD lab. degreeOk yes, 'Graduate level (M.S. or Ph.D.) preferred' with bachelor's students also considered. workAuth unclear, the posting is silent. categories aiml, the skillset researched, 'groundbreaking, long-term research and technology development in AI/ML for semiconductor equipment' and 'High familiarity with current AI approaches and research'; also swe, 'Convert ideas to code in a productive and flexible manner'."
 }

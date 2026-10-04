@@ -11,11 +11,10 @@
       "data"
     ],
     "categoriesAlso": [
-      "ml",
-      "research"
+      "aiml"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Shure: relevant yes, 'Data Engineering Intern', 'SUMMER 2027', building data platforms for audio ML. degreeOk yes, 'In progress of completing a Bachelor's or master's degree'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories data, 'help generate new footing for data platforms and pipelines'; also ml, 'research scientists who conduct audio machine learning experiments', and research, 'The research science team seeks a motivated engineer'."
+  "note": "Shure: relevant yes, 'Data Engineering Intern', 'SUMMER 2027', building data platforms for audio ML. degreeOk yes, 'In progress of completing a Bachelor's or master's degree'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories data, 'help generate new footing for data platforms and pipelines'; also aiml, supporting 'research scientists who conduct audio machine learning experiments'."
 }

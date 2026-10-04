@@ -8,8 +8,7 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai",
-      "ml"
+      "aiml"
     ],
     "categoriesAlso": [
       "swe",
@@ -18,5 +17,5 @@
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Bain: 'bachelor's, master's, or PhD'; nothing on work auth. 'AI ENGINEERING INTERN – SUMMER 2027', '10-week internship', GenAI application work: relevant yes. categories ai + ml, 'design and development of GenAI applications ... using modern LLM stacks' with 'Retrieval-Augmented Generation (RAG)' and agent work, plus 'Fine-tuning and parameter-efficient tuning' and 'model selection, and training'; also swe, 'contribute to APIs and services through the full SDLC'; also solutions, 'works with clients to design and deliver AI-powered solutions', though the work itself is building the applications."
+  "note": "Bain: 'bachelor's, master's, or PhD'; nothing on work auth. 'AI ENGINEERING INTERN – SUMMER 2027', '10-week internship', GenAI application work: relevant yes. categories aiml, 'design and development of GenAI applications ... using modern LLM stacks' with 'Retrieval-Augmented Generation (RAG)' and agent work, plus 'Fine-tuning and parameter-efficient tuning' and 'model selection, and training'; also swe, 'contribute to APIs and services through the full SDLC'; also solutions, 'works with clients to design and deliver AI-powered solutions', though the work itself is building the applications."
 }

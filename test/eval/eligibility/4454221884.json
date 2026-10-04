@@ -11,13 +11,12 @@
       "swe"
     ],
     "categoriesAlso": [
-      "ai",
-      "ml",
+      "aiml",
       "data",
       "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "American Express: relevant yes, 'Campus Graduate Masters Summer Internship Program - 2027 Software Engineer', a '10-week Summer Internship Program' writing and testing software. degreeOk yes, 'Currently enrolled in a full-time graduate master's degree program' with 'expected graduation date between December 2027 and June 2028', which includes May 2028. workAuth no_sponsorship, 'the company will not pursue visa sponsorship for these positions'. categories swe, 'designing, coding, testing, and improving applications and services'; also ai + ml + data + infra, 'interns may be aligned to scrum teams across backend engineering, frontend engineering, cloud engineering, mobile, AI/machine learning, data oriented engineering'."
+  "note": "American Express: relevant yes, 'Campus Graduate Masters Summer Internship Program - 2027 Software Engineer', a '10-week Summer Internship Program' writing and testing software. degreeOk yes, 'Currently enrolled in a full-time graduate master's degree program' with 'expected graduation date between December 2027 and June 2028', which includes May 2028. workAuth no_sponsorship, 'the company will not pursue visa sponsorship for these positions'. categories swe, 'designing, coding, testing, and improving applications and services'; also aiml, data and infra, the teams 'interns may be aligned to scrum teams across backend engineering, frontend engineering, cloud engineering, mobile, AI/machine learning, data oriented engineering'."
 }

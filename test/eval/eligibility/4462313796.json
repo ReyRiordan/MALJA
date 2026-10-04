@@ -8,14 +8,13 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ai"
+      "aiml"
     ],
     "categoriesAlso": [
-      "swe",
-      "ml"
+      "swe"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Progress Rail: 'Bachelor's or master's program'; nothing on work auth. 'Summer 2027 AI Intern', LLM integration and software engineering: relevant yes. categories ai, 'Build agents, prompts, and tool-use policies that let LLMs interpret timetables, work orders, speed restrictions'; also swe, 'Package prototypes as services/notebooks with versioned prompts, config, and unit tests', and ml, 'fine tuning/LoRA' plus 'MLOps practices'."
+  "note": "Progress Rail: 'Bachelor's or master's program'; nothing on work auth. 'Summer 2027 AI Intern', LLM integration and software engineering: relevant yes. categories aiml, 'Build agents, prompts, and tool-use policies that let LLMs interpret timetables, work orders, speed restrictions' and LLM evaluation 'accuracy, grounding, latency, cost'; also swe, 'Package prototypes as services/notebooks with versioned prompts, config, and unit tests'."
 }

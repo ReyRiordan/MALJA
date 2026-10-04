@@ -8,15 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "aiml"
     ],
     "categoriesAlso": [
       "swe",
-      "embedded",
-      "qa"
+      "embedded"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "CNH: relevant yes, 'AI Engineer Intern' designing and deploying classical ML and deep learning models, 'Summer interns work full-time (40 hours per week) from May through August' with no year named. degreeOk yes, \"Master's degree in Computer Science ... (or a Bachelor's degree with equivalent relevant experience)\" plus 'currently enrolled college students actively pursuing a degree'. workAuth unclear, only the E-Verify boilerplate 'authorized to work in the U.S.'. categories ml, 'Develop and integrate deep learning models (CNNs, transformers ...) into production software, including training, evaluation, and inference pipelines'; also swe, embedded and qa, 'deliver working, tested software within each sprint', 'model optimization for target hardware through techniques such as quantization, pruning, and format conversion (e.g., ONNX, TensorRT, TFLite)' and 'Build automated test environments, simulation frameworks, and CI/CD pipelines to validate model and system behavior'."
+  "note": "CNH: relevant yes, 'AI Engineer Intern' designing and deploying classical ML and deep learning models, 'Summer interns work full-time (40 hours per week) from May through August' with no year named. degreeOk yes, \"Master's degree in Computer Science ... (or a Bachelor's degree with equivalent relevant experience)\" plus 'currently enrolled college students actively pursuing a degree'. workAuth unclear, only the E-Verify boilerplate 'authorized to work in the U.S.'. categories aiml, 'Develop and integrate deep learning models (CNNs, transformers ...) into production software, including training, evaluation, and inference pipelines'; also swe, 'delivering working, tested software within each sprint' and 'Build automated test environments, simulation frameworks, and CI/CD pipelines', and embedded, 'model optimization for target hardware through techniques such as quantization, pruning, and format conversion (e.g., ONNX, TensorRT, TFLite)' with 'bench testing ... for field deployment'."
 }

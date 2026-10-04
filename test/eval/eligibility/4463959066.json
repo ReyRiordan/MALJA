@@ -11,11 +11,11 @@
       "data"
     ],
     "categoriesAlso": [
-      "ai",
+      "aiml",
       "swe"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Activision: relevant yes, 'Activision 2027 Summer Internships - Analytics Engineering' assigns pipeline engineering, not dashboards: 'you'll contribute to data pipelines, analytics services, and AI-powered data products'. degreeOk yes, 'Currently enrolled in a bachelor's or master's degree program and graduating December 2027 - June 2028'. workAuth unclear, only 'Currently residing in the US or open to relocating oneself to the US', a location rule. categories data, 'data pipelines ... ETL/ELT concepts' with 'Databricks, Spark, Python, and SQL'; also ai, 'agentic systems, and AI-enabled tools', and swe, 'software engineering fundamentals'."
+  "note": "Activision: relevant yes, 'Activision 2027 Summer Internships - Analytics Engineering' assigns pipeline engineering, not dashboards: 'you'll contribute to data pipelines, analytics services, and AI-powered data products'. degreeOk yes, 'Currently enrolled in a bachelor's or master's degree program and graduating December 2027 - June 2028'. workAuth unclear, only 'Currently residing in the US or open to relocating oneself to the US', a location rule. categories data, 'data pipelines ... ETL/ELT concepts' with 'Databricks, Spark, Python, and SQL'; also aiml, 'agentic systems, and AI-enabled tools', and swe, 'software engineering fundamentals'."
 }

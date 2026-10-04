@@ -13,11 +13,11 @@
     "categoriesAlso": [
       "embedded",
       "infra",
-      "ai",
-      "qa"
+      "aiml",
+      "perf"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Intel: relevant yes, 'Software Engineering - Intern, Graduate' designing and developing software, 'This application is for internship starts in Spring and Summer 2027', so summer 2027 is offered. degreeOk yes, 'Currently pursuing a Master's degree or PhD in Computer Engineering, Computer Science ...'. workAuth no_sponsorship, 'This position is not eligible for employment-based visa/immigration sponsorship'. categories swe, 'Design, develop, test, debug, and improve software that enables Intel products and platforms'; also embedded, infra, ai and qa, the listed areas 'Firmware Development Engineer', 'Cloud Software Development Engineer', 'AI Frameworks Engineer', 'System Software Validation Engineer'."
+  "note": "Intel: relevant yes, 'Software Engineering - Intern, Graduate' designing and developing software, 'This application is for internship starts in Spring and Summer 2027', so summer 2027 is offered. degreeOk yes, 'Currently pursuing a Master's degree or PhD in Computer Engineering, Computer Science ...'. workAuth no_sponsorship, 'This position is not eligible for employment-based visa/immigration sponsorship'. categories swe, 'Design, develop, test, debug, and improve software that enables Intel products and platforms'; also embedded, infra, aiml and perf, the listed areas 'Firmware Development Engineer', 'Cloud Software Development Engineer', 'AI Frameworks Engineer', 'GPU Software Development Engineer'."
 }

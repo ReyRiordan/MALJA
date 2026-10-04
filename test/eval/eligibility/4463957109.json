@@ -11,11 +11,11 @@
       "swe"
     ],
     "categoriesAlso": [
-      "ml",
+      "aiml",
       "infra"
     ],
     "degreeOk": "unclear",
     "workAuth": "no_sponsorship"
   },
-  "note": "BORDERLINE: Walmart Global Tech: relevant yes, 'Summer 2027 Intern:: Software Engineer II', an 11-week internship 'during the summer of 2027' doing backend/frontend/full-stack work. degreeOk unclear, 'Undergrad Enrolled in CS, EE, Math, Stats, or related field' with 'Graduating December 2027- August 2028'; undergraduate wording with no exclusion language and a window that includes May 2028. workAuth no_sponsorship, 'IMMIGRATION SPONSORSHIP IS NOT AVAILABLE FOR THIS ROLE'. categories swe, 'looking for Backend, Front end, and Full Stack Software Engineers'; also ml and infra, 'Solid understanding of machine learning fundamentals' with 'Experience implementing ML models from scratch' and 'Design new tools to monitor smart alerts ... Augment existing instrumentation'."
+  "note": "BORDERLINE: Walmart Global Tech: relevant yes, 'Summer 2027 Intern:: Software Engineer II', an 11-week internship 'during the summer of 2027' doing backend/frontend/full-stack work. degreeOk unclear, 'Undergrad Enrolled in CS, EE, Math, Stats, or related field' with 'Graduating December 2027- August 2028'; undergraduate wording with no exclusion language and a window that includes May 2028. workAuth no_sponsorship, 'IMMIGRATION SPONSORSHIP IS NOT AVAILABLE FOR THIS ROLE'. categories swe, 'looking for Backend, Front end, and Full Stack Software Engineers'; also aiml and infra, 'Solid understanding of machine learning fundamentals' with 'Experience implementing ML models from scratch' and 'Design new tools to monitor smart alerts ... Augment existing instrumentation'."
 }

@@ -11,12 +11,11 @@
       "swe"
     ],
     "categoriesAlso": [
-      "ml",
-      "research",
+      "aiml",
       "embedded"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Shure: relevant yes, 'SUMMER 2027' twelve-week internship, 'Software Engineer Intern' on the advanced research team prototyping ML/AI software. degreeOk yes, 'offered to undergraduate and graduate students' and 'Currently pursuing an advanced degree in computer science'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories swe, 'design and develop software applications and libraries to support ongoing research initiatives'; also ml, research and embedded, 'research, prototype, and demonstrate forward-leaning use cases in ... machine learning and artificial intelligence' on 'the advanced research team' and 'embedded software development'."
+  "note": "Shure: relevant yes, 'SUMMER 2027' twelve-week internship, 'Software Engineer Intern' on the advanced research team prototyping ML/AI software. degreeOk yes, 'offered to undergraduate and graduate students' and 'Currently pursuing an advanced degree in computer science'. workAuth no_sponsorship, 'Shure will not sponsor applicants for this position for work visas'. categories swe, 'design and develop software applications and libraries to support ongoing research initiatives'; also aiml and embedded, 'research, prototype, and demonstrate forward-leaning use cases in ... machine learning and artificial intelligence' and 'embedded software development'."
 }

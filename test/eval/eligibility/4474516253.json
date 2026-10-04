@@ -8,13 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "qa"
-    ],
-    "categoriesAlso": [
       "swe"
     ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "Innovative Defense Technologies: relevant yes, 'Software Systems Engineer Intern' in the 'Summer Internship Program' with 'software design, development, and analysis' and 'Model/code testing algorithms in C++, Python, JavaScript, and Java'. degreeOk yes, 'Currently enrolled in an undergraduate or postgraduate degree program'; 'Current college juniors/rising seniors preferred' is a preference, not an exclusion. workAuth citizen_only, 'All applicants must be able to obtain/maintain an active Secret U.S. Security Clearance'. categories qa, 'responsible for developing IDT’s automated test and analysis for tactical systems' and 'Develop automated software analysis solutions for Aegis test events'; also swe, 'software design, development, and analysis' and 'Model/code testing algorithms in C++, Python, JavaScript, and Java'."
+  "note": "Innovative Defense Technologies: relevant yes, 'Software Systems Engineer Intern' in the 'Summer Internship Program' with 'software design, development, and analysis' and 'Model/code testing algorithms in C++, Python, JavaScript, and Java'. degreeOk yes, 'Currently enrolled in an undergraduate or postgraduate degree program'; 'Current college juniors/rising seniors preferred' is a preference, not an exclusion. workAuth citizen_only, 'All applicants must be able to obtain/maintain an active Secret U.S. Security Clearance'. categories swe, 'software design, development, and analysis' and software test automation, 'developing IDT’s automated test and analysis for tactical systems' and 'Model/code testing algorithms in C++, Python, JavaScript, and Java'."
 }

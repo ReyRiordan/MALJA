@@ -8,14 +8,11 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "aiml"
     ],
-    "categoriesAlso": [
-      "ai",
-      "research"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Veeam: relevant yes, 'AI/ML Intern Summer 2027', 'The program takes place from June - August 2027'. degreeOk yes, 'Currently pursuing a Master's degree or PhD in: Computer Science, Artificial Intelligence, Machine Learning'. workAuth unclear, nothing on sponsorship. categories ml, 'Train and improve ML models across a variety of datasets and tasks'; also ai, 'Work on transformer models, fine-tuning workflows, evaluation systems, and generative AI applications', and research, 'Build reusable experimentation, training, and evaluation workflows for ML research'."
+  "note": "Veeam: relevant yes, 'AI/ML Intern Summer 2027', 'The program takes place from June - August 2027'. degreeOk yes, 'Currently pursuing a Master's degree or PhD in: Computer Science, Artificial Intelligence, Machine Learning'. workAuth unclear, nothing on sponsorship. categories aiml, 'Train and improve ML models across a variety of datasets and tasks', 'Work on transformer models, fine-tuning workflows, evaluation systems', and 'Build reusable experimentation, training, and evaluation workflows for ML research'."
 }

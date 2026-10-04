@@ -12,10 +12,10 @@
     ],
     "categoriesAlso": [
       "embedded",
-      "ml"
+      "aiml"
     ],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Waymo: relevant yes, '2027 Summer Intern, BS, Software Engineer, Driver Refinement Foundations'. degreeOk unclear, 'Pursuing a Bachelor's in software engineering or a related field' is bachelor's wording with no 'must'/'only'; no would be defensible given the 'BS' in the title and the 'Hourly Bachelors Pay' band. workAuth unclear, nothing on sponsorship. categories swe, 'Develop robust and performant C++ autolabeler code to mine for useful events from everyday driving'; also embedded, 'Experience with software for autonomous robots', and ml, 'Label ground truth and evaluate autolabeler quality'."
+  "note": "BORDERLINE: Waymo: relevant yes, '2027 Summer Intern, BS, Software Engineer, Driver Refinement Foundations'. degreeOk unclear, 'Pursuing a Bachelor's in software engineering or a related field' is bachelor's wording with no 'must'/'only'; no would be defensible given the 'BS' in the title and the 'Hourly Bachelors Pay' band. workAuth unclear, nothing on sponsorship. categories swe, 'Develop robust and performant C++ autolabeler code to mine for useful events from everyday driving' is offboard tooling, not onboard autonomy software; also embedded, 'Experience with software for autonomous robots', and aiml, 'Label ground truth and evaluate autolabeler quality'."
 }

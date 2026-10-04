@@ -8,16 +8,15 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "ml"
+      "perf"
     ],
     "categoriesAlso": [
+      "aiml",
       "embedded",
-      "infra",
-      "ai",
-      "research"
+      "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Qualcomm: relevant yes, 'Machine Learning & Artificial Intelligence Engineering Internship – Summer 2027'. degreeOk yes, 'enrolled in a bachelor's, master's, or Ph.D. degree program' and 'Expected graduation date of November 2027 or later' fits May 2028. workAuth unclear, hedged export license text. categories ml, 'machine learning tools and frameworks that make models smaller and more efficient for edge devices'; also embedded, 'embedded machine learning platforms', infra, 'distributed inference platforms ... model serving', ai, and research, 'dynamic research environment'."
+  "note": "Qualcomm: relevant yes, 'Machine Learning & Artificial Intelligence Engineering Internship – Summer 2027'. degreeOk yes, 'enrolled in a bachelor's, master's, or Ph.D. degree program' and 'Expected graduation date of November 2027 or later' fits May 2028. workAuth unclear, hedged export license text. categories perf, 'machine learning tools and frameworks that make models smaller and more efficient for edge devices' with 'compiler technologies', 'GPU acceleration' and 'performance optimization'; also aiml, modelling skills like 'deep neural networks' only preferred, embedded, 'mobile and embedded machine learning platforms', and infra, 'distributed inference platforms ... model serving'."
 }

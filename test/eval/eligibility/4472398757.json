@@ -8,14 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "qa"
+      "swe"
     ],
     "categoriesAlso": [
-      "ai",
-      "swe"
+      "aiml",
+      "embedded"
     ],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Philips: relevant yes, 'Intern - System Test Automation Engineer ... Summer 2027'. degreeOk yes, 'currently pursuing an undergraduate (BS) and/or graduate (MS) degree'. workAuth no_sponsorship, 'The company will not consider candidates who require sponsorship for a work-authorized visa, now or in the future'. categories qa, 'Design, develop, and enhance automated test frameworks' and 'Automate system integration and verification procedures'; also ai, 'Support the development of AI agents and explore the application of Generative AI', and swe, 'Develop and maintain automation scripts using modern programming languages'."
+  "note": "Philips: relevant yes, 'Intern - System Test Automation Engineer ... Summer 2027'. degreeOk yes, 'currently pursuing an undergraduate (BS) and/or graduate (MS) degree'. workAuth no_sponsorship, 'The company will not consider candidates who require sponsorship for a work-authorized visa, now or in the future'. categories swe, software test automation, 'Design, develop, and enhance automated test frameworks' in C#/TypeScript/Python; also aiml, 'Support the development of AI agents and explore the application of Generative AI', and embedded, 'Automate system integration and verification procedures' on medical devices with 'software, hardware, and networking configurations'."
 }

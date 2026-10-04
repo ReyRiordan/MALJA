@@ -9,13 +9,11 @@
     "relevant": "yes",
     "categories": [
       "swe",
-      "ai"
+      "aiml"
     ],
-    "categoriesAlso": [
-      "ml"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "no_sponsorship"
   },
-  "note": "Emerson: relevant yes, 'Graduate Software Engineer Intern (Summer 2027)' executing 'a project in AI, Machine Learning, or Control' with API and C#/Go/Python work. degreeOk yes, 'Pursuing a graduate degree in Engineering or Computer Science'. workAuth no_sponsorship, 'This is not a position for which sponsorship will be provided' and F-1 OPT/CPT holders 'are not eligible for hire'. categories swe + ai, 'Build software in C#, Go, and Python' with 'Design and implement APIs', 'Utilize agentic framework, MCP, Ollama LLMs'; also ml, 'Learn about and compare AI and Machine Learning algorithms'."
+  "note": "Emerson: relevant yes, 'Graduate Software Engineer Intern (Summer 2027)' executing 'a project in AI, Machine Learning, or Control' with API and C#/Go/Python work. degreeOk yes, 'Pursuing a graduate degree in Engineering or Computer Science'. workAuth no_sponsorship, 'This is not a position for which sponsorship will be provided' and F-1 OPT/CPT holders 'are not eligible for hire'. categories swe + aiml, 'Build software in C#, Go, and Python' with 'Design and implement APIs', and 'Utilize agentic framework, MCP, Ollama LLMs' with 'Learn about and compare AI and Machine Learning algorithms'."
 }

@@ -13,12 +13,11 @@
     "categoriesAlso": [
       "infra",
       "data",
-      "ai",
-      "ml",
+      "aiml",
       "security"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Dark Wolf: relevant yes, a 'Full-Time Internship' running 'June 2027 - August 2027' whose software and cloud tracks 'Design, develop, and test features using languages such as Python, Java, or Node.js' and do LLM fine-tuning, with cybersecurity only one of three tracks. degreeOk yes, 'Pursuing a Bachelor's or Master's degree in Computer Science'. workAuth unclear, only 'verify identity and eligibility to work in the United States'; no clearance or sponsorship rule. categories swe, 'Design, develop, and test features using languages such as Python, Java, or Node.js'; also infra, 'deploying applications to cloud environments (AWS, Azure, or GCP) and managing CI/CD pipelines', data, 'Build and optimize data pipelines', ai and ml, 'integration of Generative AI and LLMs into existing workflows, performing prompt engineering and model fine-tuning', and security, the 'Cybersecurity Academy' track."
+  "note": "Dark Wolf: relevant yes, a 'Full-Time Internship' running 'June 2027 - August 2027' whose software and cloud tracks 'Design, develop, and test features using languages such as Python, Java, or Node.js' and do LLM fine-tuning, with cybersecurity only one of three tracks. degreeOk yes, 'Pursuing a Bachelor's or Master's degree in Computer Science'. workAuth unclear, only 'verify identity and eligibility to work in the United States'; no clearance or sponsorship rule. categories swe, 'Design, develop, and test features using languages such as Python, Java, or Node.js'; also infra, 'deploying applications to cloud environments (AWS, Azure, or GCP) and managing CI/CD pipelines', data, 'Build and optimize data pipelines', aiml, 'performing prompt engineering and model fine-tuning', and security, the 'Cybersecurity Academy' track."
 }
