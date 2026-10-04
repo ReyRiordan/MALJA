@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { z } from "zod";
+import { CATEGORIES, type Category } from "./classifier/types.ts";
 import { log } from "./log.ts";
 
 const LINKEDIN_HOST = "www.linkedin.com";
@@ -100,6 +101,18 @@ export const ConfigSchema = z
     }),
   }));
 
+/** `TELEGRAM_CHANNEL_SWE` and so on: the env var holding one category channel's chat id. */
+export type ChannelEnvVar = `TELEGRAM_CHANNEL_${Uppercase<Category>}`;
+
+export function channelEnvVar(category: Category): ChannelEnvVar {
+  return `TELEGRAM_CHANNEL_${category.toUpperCase()}` as ChannelEnvVar;
+}
+
+/** One optional chat id per category, generated from `CATEGORIES` so the list cannot drift. */
+const ChannelEnv = Object.fromEntries(
+  CATEGORIES.map((category) => [channelEnvVar(category), z.string().min(1).optional()]),
+) as Record<ChannelEnvVar, z.ZodOptional<z.ZodString>>;
+
 export const EnvSchema = z.object({
   TELEGRAM_BOT_TOKEN: z.string().min(1),
   TELEGRAM_GROUP_CHAT_ID: z.string().min(1),
@@ -110,6 +123,7 @@ export const EnvSchema = z.object({
   LOG_LEVEL: z.enum(["trace", "debug", "info", "warn", "error", "fatal"]).default("info"),
   PORT: z.coerce.number().int().positive().default(3000),
   PROXY_URL: z.url().optional(),
+  ...ChannelEnv,
 });
 
 export type Config = z.output<typeof ConfigSchema>;

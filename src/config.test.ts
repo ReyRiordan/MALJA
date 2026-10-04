@@ -2,7 +2,8 @@ import { describe, expect, it, vi } from "vitest";
 
 vi.mock("./log.ts", () => ({ log: { warn: vi.fn() } }));
 
-import { ConfigError, parseConfig, parseEnv } from "./config.ts";
+import { CATEGORIES } from "./classifier/types.ts";
+import { ConfigError, channelEnvVar, EnvSchema, parseConfig, parseEnv } from "./config.ts";
 import { log } from "./log.ts";
 
 const BASE = "https://www.linkedin.com/jobs/search/";
@@ -192,5 +193,22 @@ describe("env", () => {
   it("coerces PORT and validates PROXY_URL", () => {
     expect(parseEnv({ ...required, PORT: "8080" }).PORT).toBe(8080);
     expect(() => parseEnv({ ...required, PROXY_URL: "nope" })).toThrow(/PROXY_URL/);
+  });
+
+  it("reads one optional channel chat id per category", () => {
+    expect(channelEnvVar("swe")).toBe("TELEGRAM_CHANNEL_SWE");
+    const env = parseEnv({
+      ...required,
+      TELEGRAM_CHANNEL_ML: "-1001",
+      TELEGRAM_CHANNEL_PM: "-1002",
+    });
+    expect(env.TELEGRAM_CHANNEL_ML).toBe("-1001");
+    expect(env.TELEGRAM_CHANNEL_PM).toBe("-1002");
+    expect(env.TELEGRAM_CHANNEL_SWE).toBeUndefined();
+    for (const category of CATEGORIES)
+      expect(channelEnvVar(category) in EnvSchema.shape).toBe(true);
+    expect(() => parseEnv({ ...required, TELEGRAM_CHANNEL_DATA: "" })).toThrow(
+      /TELEGRAM_CHANNEL_DATA/,
+    );
   });
 });
