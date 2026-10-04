@@ -16,7 +16,7 @@ Plain `node:http` on `PORT`, started after the notifier and before the first cyc
   "lastCycleAt": "2026-09-05T12:00:00.000Z",
   "lastSuccessfulCycleAt": "2026-09-05T12:00:00.000Z",
   "pausedUntil": null,
-  "notifierReady": { "all": true, "ml": false },
+  "notifierReady": { "all": true, "aiml": false },
   "uptimeSec": 3612
 }
 ```

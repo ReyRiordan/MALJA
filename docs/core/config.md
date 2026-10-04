@@ -47,7 +47,7 @@ Loaded from the process env. `pnpm dev` passes `--env-file-if-exists=.env`; Rail
 | `TELEGRAM_BOT_TOKEN` | required | Redacted in logs. |
 | `TELEGRAM_GROUP_CHAT_ID` | required | Kept as a string. |
 | `TELEGRAM_ADMIN_CHAT_ID` | required | Kept as a string. |
-| `TELEGRAM_CHANNEL_<ID>` | none | One per category id, uppercased: `TELEGRAM_CHANNEL_SWE`, `_INFRA`, `_SECURITY`, `_QA`, `_AI`, `_ML`, `_DATA`, `_EMBEDDED`, `_RESEARCH`, `_PM`, `_SOLUTIONS`. Generated from `CATEGORIES`. Unset means that category is not routed; empty is an error. See docs/notifier/interface.md. |
+| `TELEGRAM_CHANNEL_<ID>` | none | One per category id, uppercased: `TELEGRAM_CHANNEL_SWE`, `_AIML`, `_INFRA`, `_DATA`, `_SECURITY`, `_PERF`, `_EMBEDDED`, `_SOLUTIONS`, `_PM`. Generated from `CATEGORIES`. Unset means that category is not routed; empty is an error. See docs/notifier/interface.md. |
 | `OPENROUTER_API_KEY` | required | Redacted in logs. |
 | `DATA_DIR` | `./data` | SQLite lives here. |
 | `CONFIG_PATH` | `./config.json` | |

@@ -21,34 +21,37 @@ Students: master's students in Carnegie Mellon's M.S. in Artificial Intelligence
 
 Label categories only on files the label sends (neither `relevant` nor `degreeOk` is "no"). On a file whose label suppresses the job, set `categories` and `categoriesAlso` to null; those files are not scored.
 
-`categories` is the set that must appear: each id a channel follower would clearly want this job for. `categoriesAlso` is the set that may appear without penalty: ids a reasonable reader could also pick. Put an id in exactly one of the two, or neither. `[]` is valid for `categories` when no id fits; an `unclear` relevance often still names the work. The ids:
+`categories` is the set that must appear: each id a channel follower would clearly want this job for. `categoriesAlso` is the set that may appear without penalty: ids a reasonable reader could also pick. Put an id in exactly one of the two, or neither. `[]` is valid for `categories` when no id fits; an `unclear` relevance often still names the work.
 
-- `swe`: general software (backend, frontend, full-stack, mobile, developer tools). The default for software work that no other id carves out.
-- `infra`: DevOps, SRE, cloud, platform, CI/CD, observability, compute infrastructure.
+An id names a skillset a software-only engineer usually lacks. Label the skillset the role requires, not the domain, team, or system it works on: a web dashboard built on an ML team is `swe`, not `aiml`. The ids:
+
+- `swe`: general software (backend, frontend, full-stack, mobile, developer tools, software test automation). The default for software work that no other id covers.
+- `aiml`: AI and ML skills are core to the work: training or fine-tuning models, ML fundamentals, model-building data science, CV/NLP/recommender modelling, agents, RAG and retrieval, prompt and context engineering, evals.
+- `infra`: DevOps, SRE, cloud, platform, CI/CD, observability, compute infrastructure, networking (network engineering, SDN, cloud networking), and ML platforms, MLOps, and model serving infrastructure.
+- `data`: data engineering: pipelines, ETL, warehousing, Spark/Airflow/dbt, streaming.
 - `security`: application security, security engineering, detection, offensive security.
-- `qa`: QA, test automation, validation and verification.
-- `ai`: applied AI on LLMs or foundation models: agents, RAG, AI tooling, evals.
-- `ml`: trains or fine-tunes models: recommender systems, CV/NLP modelling, ML performance.
-- `data`: data engineering, and data science that builds models.
-- `embedded`: embedded software, firmware, flight software, robotics and autonomy software.
-- `research`: the role is mainly research (publishing, novel methods, a research lab or team). Always next to a domain id, never alone.
-- `pm`: technical product management.
+- `perf`: performance engineering on servers and accelerators: GPU/CUDA kernels, ML compilers (LLVM/MLIR/Triton), quantization and inference optimisation, HPC.
+- `embedded`: software tied to physical hardware: firmware, RTOS, flight software, device drivers, hardware/firmware validation and verification, robotics and autonomy (ROS, controls, motion planning, SLAM).
 - `solutions`: technical customer-facing work: solutions and sales engineering, solutions architecture, forward deployed engineering, customer and implementation engineering, GTM engineering, technical account management.
+- `pm`: technical product management.
 
 Rules:
 
 - Judge by the work the description assigns, not the title.
-- `infra`, `security`, `qa`, `embedded`, and `solutions` are carved out of `swe`: a role that is mainly that work gets the carve-out instead of `swe`. For `infra`, `security`, and `qa`, when the role also does substantial general software work, `swe` goes in `categoriesAlso`.
-- For `embedded` the test is the skills asked for, because embedded roles ask for C/C++, RTOS, microcontrollers, and firmware rather than web, backend, cloud, and SQL. A mainly embedded, flight, or autonomy software role gets `embedded` alone, with `swe` not acceptable. A role that asks for both skill sets (an embedded lab that also wants backend services and SQL) gets both required.
-- `solutions` next to a domain id: when the customer work builds something in a domain, that id is required too (building RAG or agent POCs for customers -> `ai` required). When the role only sells or demos a product in that domain, the id goes in `categoriesAlso`.
+- Require more than one id only when the posting requires more than one skillset. Most sendable postings require one.
+- Every other id replaces `swe`: a role that is mainly that work gets that id instead of `swe`. `swe` is required next to it only when the posting also assigns substantial general product software work; when it assigns some, `swe` goes in `categoriesAlso`.
+- `aiml` versus `swe`: `aiml` when AI-specific skills are core (the list above). `swe` when AI is a feature the team ships, a thin API call to a model from ordinary backend code, or a tool the engineer uses (Copilot, Cursor). Both required only when both kinds of work are substantial. A generic "AI/ML" posting is `aiml`.
+- An ML context alone does not earn `aiml`. A `perf` role (CUDA kernels for model inference, an ML compiler) or an ML platform, MLOps, or serving `infra` role gets `aiml` required only when the posting also assigns modelling work (training, model architecture, evals); otherwise `aiml` goes in `categoriesAlso` at most.
+- AI agents used as a tool for other work (agents that write kernels) do not make `aiml` required. An LLM agent built over an observability stack is `aiml`, with `infra` acceptable.
+- `embedded` versus `swe`: the test is the skills asked for. Embedded roles ask for C/C++, RTOS, microcontrollers, and firmware rather than web, backend, cloud, and SQL. A mainly embedded, flight, or autonomy software role gets `embedded` alone, with `swe` not acceptable. A role that asks for both skill sets gets both required.
+- `embedded` versus `perf`: devices versus servers and accelerators. Firmware and robotics are `embedded`; GPU kernels and HPC are `perf`.
+- Robotics and autonomy software (ROS, controls, motion planning, SLAM, simulation for robots) is `embedded`. Learned perception also requires `aiml`.
+- Validation and verification: software test automation is `swe`; hardware or firmware validation and verification is `embedded`.
+- `data` is data engineering only. Model-building data science is `aiml`. Analytics and dashboards are out of scope for relevance and never earn `data`.
+- A research role gets the id of the skillset it researches: an ML research intern is `aiml`.
+- `solutions` next to a domain id: required only when the customer work needs that skillset (building RAG or agent POCs for customers -> `aiml` required). When the role only sells or demos a product in that domain, the id goes in `categoriesAlso`.
 - Forward deployed engineer: `solutions` required, `swe` in `categoriesAlso`.
-- `ai` versus `ml`: building on top of LLMs (prompting, agents, RAG, LLM-backed product features) is `ai`; training, fine-tuning, or optimising models is `ml`. A role that does both gets both. A generic "AI/ML" posting with no detail gets the one the work leans to in `categories` and the other in `categoriesAlso`.
 - A generic software internship that lists several possible teams (backend, ML, infra, ...) is `swe`, with the team ids named prominently in `categoriesAlso`.
-- `research` is required only when research is the main job ("Research Intern", "Research Scientist Intern", a lab doing publishable work). An engineering role on a research team gets `research` in `categoriesAlso`.
-- `data` is data pipelines, warehousing, ETL, or model-building data science. Analytics and dashboards are out of scope for relevance, so they never earn `data` on their own.
-- `embedded` covers robotics and autonomy software (perception, planning, controls software, simulation for robots). Perception model training is `ml` too.
-- Training, pre-training, or fine-tuning LLMs is `ml`; `ai` is then acceptable, not required. AI agents used as a tool for other work (agents that write kernels) do not make `ai` required.
-- The system an AI or software role works on is not its category: an LLM agent over an observability stack is `ai`, with `infra` acceptable. Building platforms that run AI training and inference is `infra`, with `ml` acceptable.
 
 ## degreeOk: does the degree requirement admit a master's student graduating May 2028?
 
