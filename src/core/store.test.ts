@@ -7,7 +7,7 @@ import type { Verdict } from "../classifier/types.ts";
 import type { Job } from "../scraper/types.ts";
 import type { Group } from "./dedupe.ts";
 import { dedupeKey, groupByKey } from "./dedupe.ts";
-import { MIGRATIONS, openStore, type Store } from "./store.ts";
+import { MIGRATIONS, openStore, type PendingDelivery, type Store } from "./store.ts";
 
 const NOW = Date.UTC(2026, 8, 5, 12, 0, 0);
 const DAY = 86_400_000;
@@ -92,6 +92,64 @@ describe("openStore on disk", () => {
     expect(reopened.prepare("PRAGMA user_version").get()).toEqual({
       user_version: MIGRATIONS.length,
     });
+    reopened.close();
+  });
+
+  it("backfills one all delivery per existing notification with its sent state", () => {
+    const path = join(dir, "malja.db");
+    const db = new DatabaseSync(path);
+    for (const sql of MIGRATIONS.slice(0, 3)) db.exec(sql);
+    db.exec("PRAGMA user_version = 3");
+    db.prepare(
+      `INSERT INTO jobs (linkedin_id, dedupe_key, title, company, location, url, first_seen_at,
+         search_label)
+       VALUES ('1', 'acme|swe intern', 'SWE Intern', 'Acme', 'Austin, TX', 'u', ?, 'test')`,
+    ).run(NOW);
+    const insert = db.prepare(
+      `INSERT INTO notifications (dedupe_key, linkedin_ids, created_at, sent_at, message_id)
+       VALUES ('acme|swe intern', '["1"]', ?, ?, ?)`,
+    );
+    insert.run(NOW, NOW + 10, "77");
+    insert.run(NOW + 1, null, null);
+    db.close();
+
+    const store = openStore(path);
+    const pending = store.unsentDeliveries();
+    expect(pending).toHaveLength(1);
+    expect(pending[0]).toMatchObject({ notificationId: 2, destination: "all", createdAt: NOW + 1 });
+    expect(pending[0]?.jobs.map((j) => j.id)).toEqual(["1"]);
+    store.close();
+
+    const reopened = new DatabaseSync(path);
+    expect(
+      reopened
+        .prepare(
+          "SELECT notification_id, destination, sent_at, message_id FROM deliveries ORDER BY id",
+        )
+        .all(),
+    ).toEqual([
+      { notification_id: 1, destination: "all", sent_at: NOW + 10, message_id: "77" },
+      { notification_id: 2, destination: "all", sent_at: null, message_id: null },
+    ]);
+    reopened.close();
+  });
+
+  it("throws on a delivery whose destination is unknown", () => {
+    const path = join(dir, "malja.db");
+    const store = openStore(path);
+    store.insertJobs([job("1")], NOW);
+    store.createNotifications(
+      [{ group: groupByKey([job("1")])[0] as Group, destinations: ["all"] }],
+      NOW,
+    );
+    store.close();
+
+    const db = new DatabaseSync(path);
+    db.exec("UPDATE deliveries SET destination = 'web3'");
+    db.close();
+
+    const reopened = openStore(path);
+    expect(() => reopened.unsentDeliveries()).toThrow(/deliveries row 1: unknown destination web3/);
     reopened.close();
   });
 
@@ -182,7 +240,7 @@ describe("Store", () => {
     const jobs = [job("1"), job("2", { location: "Chicago, IL" })];
     store.insertJobs(jobs, NOW);
     const [group] = groupByKey(jobs) as [Group];
-    store.createNotifications([group], NOW);
+    store.createNotifications([{ group, destinations: ["all", "swe"] }], NOW);
 
     expect(store.keyNotifiedSince(group.key, NOW - 14 * DAY)).toBe(true);
     expect(store.keyNotifiedSince(group.key, NOW)).toBe(true);
@@ -190,26 +248,45 @@ describe("Store", () => {
     expect(store.keyNotifiedSince(dedupeKey({ company: "Other", title: "Intern" }), 0)).toBe(false);
   });
 
-  it("keeps rows pending until markSent covers them", () => {
+  it("keeps each delivery pending until markDelivered covers it", () => {
     const a = [job("1"), job("2", { location: "Chicago, IL" })];
     const b = [job("3", { company: "Globex" })];
     store.insertJobs([...a, ...b], NOW);
-    const groups = groupByKey([...a, ...b]);
-    const ids = store.createNotifications(groups, NOW);
+    const [ga, gb] = groupByKey([...a, ...b]) as [Group, Group];
+    const ids = store.createNotifications(
+      [
+        { group: ga, destinations: ["all", "ml", "swe"] },
+        { group: gb, destinations: ["all"] },
+      ],
+      NOW,
+    );
     expect(ids).toHaveLength(2);
 
-    const pending = store.unsentNotifications();
-    expect(pending.map((p) => p.id)).toEqual(ids);
-    expect(pending[0]).toMatchObject({ key: groups[0]?.key, createdAt: NOW });
-    expect(pending[0]?.jobs.map((j) => j.id)).toEqual(["1", "2"]);
-    expect(pending[1]?.jobs.map((j) => j.id)).toEqual(["3"]);
+    const pending = store.unsentDeliveries();
+    expect(pending.map((p) => [p.notificationId, p.destination])).toEqual([
+      [ids[0], "all"],
+      [ids[0], "ml"],
+      [ids[0], "swe"],
+      [ids[1], "all"],
+    ]);
+    expect(pending[0]).toMatchObject({ key: ga.key, createdAt: NOW });
+    expect(pending[1]?.jobs.map((j) => j.id)).toEqual(["1", "2"]);
+    expect(pending[3]?.jobs.map((j) => j.id)).toEqual(["3"]);
 
-    store.markSent([ids[0] as number], "msg-1", NOW + 1000);
-    expect(store.unsentNotifications().map((p) => p.id)).toEqual([ids[1]]);
+    const [all, ml, swe, other] = pending as [
+      PendingDelivery,
+      PendingDelivery,
+      PendingDelivery,
+      PendingDelivery,
+    ];
+    store.markDelivered(ml.id, "msg-1", NOW + 1000);
+    expect(store.unsentDeliveries().map((p) => p.id)).toEqual([all.id, swe.id, other.id]);
 
-    store.markSent([ids[1] as number], "msg-1", NOW + 1000);
-    expect(store.unsentNotifications()).toEqual([]);
-    expect(store.keyNotifiedSince(groups[0]?.key as string, NOW)).toBe(true);
+    store.markDelivered(all.id, "msg-2", NOW + 1000);
+    store.markDelivered(swe.id, "msg-3", NOW + 1000);
+    store.markDelivered(other.id, "msg-4", NOW + 1000);
+    expect(store.unsentDeliveries()).toEqual([]);
+    expect(store.keyNotifiedSince(ga.key, NOW)).toBe(true);
   });
 
   it("rolls back createNotifications when a group throws mid-transaction", () => {
@@ -227,10 +304,20 @@ describe("Store", () => {
         },
       ],
     };
-    expect(() => store.createNotifications([good, poisoned], NOW)).toThrow("boom");
-    expect(store.unsentNotifications()).toEqual([]);
+    expect(() =>
+      store.createNotifications(
+        [
+          { group: good, destinations: ["all", "swe"] },
+          { group: poisoned, destinations: ["all"] },
+        ],
+        NOW,
+      ),
+    ).toThrow("boom");
+    expect(store.unsentDeliveries()).toEqual([]);
     expect(store.keyNotifiedSince(good.key, 0)).toBe(false);
     // The connection is usable again after the rollback.
-    expect(store.createNotifications([good], NOW)).toHaveLength(1);
+    expect(store.createNotifications([{ group: good, destinations: ["all"] }], NOW)).toHaveLength(
+      1,
+    );
   });
 });

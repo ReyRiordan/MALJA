@@ -1,6 +1,6 @@
 # MALJA
 
-MALJA (Messaging App LinkedIn Job Alerts) polls LinkedIn's public (logged-out) job search for new internship postings that match saved searches, runs each posting through an LLM eligibility check, dedupes it against a persistent store, and posts each new match to a Telegram group of master's students. Delivery sits behind a notifier interface; Telegram is the first adapter, and a WhatsApp or other messaging adapter can be added later.
+MALJA (Messaging App LinkedIn Job Alerts) polls LinkedIn's public (logged-out) job search for new internship postings that match saved searches, runs each posting through an LLM eligibility check, dedupes it against a persistent store, and posts each new match to a Telegram group of master's students, plus a channel per category when configured. Delivery sits behind a notifier interface; Telegram is the first adapter, and a WhatsApp or other messaging adapter can be added later.
 
 ## Codebase
 
@@ -26,7 +26,7 @@ pnpm 10 (`npm i -g pnpm`, then `pnpm install`).
 
 - `pnpm dev` runs `src/index.ts` under `node --watch` with `.env` loaded if present, piped through pino-pretty. Point `TELEGRAM_GROUP_CHAT_ID` in `.env` at a private test group first; `CONFIG_PATH` selects an alternate config.json.
 - `pnpm scrape [--search <label>] [--pages <n>] [--recency <sec>] [--save-fixtures] [--save-eval]` runs one real search against LinkedIn and prints every request and job. With `--save-fixtures` it refreshes test/fixtures/; with `--save-eval` it writes unlabelled classifier eval files to test/eval/eligibility/. See docs/scraper/fixtures.md and docs/classifier/eval.md.
-- `pnpm notify:test` sends one sample notification to the group and one line to the admin chat over real Telegram. Point `TELEGRAM_GROUP_CHAT_ID` at a private test group first.
+- `pnpm notify:test` sends one sample notification to every configured destination (the group and each `TELEGRAM_CHANNEL_<ID>` channel) and one line to the admin chat over real Telegram. Point those chat ids at private test chats first.
 - `pnpm eval:classifier` runs the labelled files in test/eval/eligibility/ through the classifier against real OpenRouter and exits 1 on a wrongly suppressed job or a call error. Costs money; not in CI. See docs/classifier/eval.md.
 - `pnpm harvest:eval --search <label> [--max <n>] [--recency <sec>]` scrapes one search (config.json's or one in scripts/harvest-eval.json) into unlabelled eval files, skipping ids already in the set. Label them per docs/classifier/labeling.md.
 - `pnpm test` runs vitest once. `pnpm lint` runs Biome check. `pnpm format` writes Biome formatting. `pnpm typecheck` runs tsc over src and test.
@@ -45,7 +45,8 @@ Use the GitHub CLI (`gh`) for all GitHub-related tasks. Work is tracked as GitHu
 - **card**: one `<li>` in a search response. Yields id, title, company, location, posted date.
 - **detail**: the job view page fetched per new id for the full description (JSON-LD).
 - **dedupe key**: `normalise(company) + "|" + normalise(title)`, location excluded, so per-city clones of one role collapse.
-- **notification**: one message per dedupe key, with each location linked to its own posting and an optional tag line.
+- **notification**: one row per dedupe key, sent as one identical message to each of its destinations, with each location linked to its own posting and an optional tag line.
+- **destination**: where a notification goes: `all` (the group that gets everything) or a category whose `TELEGRAM_CHANNEL_<ID>` is set. Fixed when the notification row is created; each has its own `deliveries` row, readiness, and retry.
 - **stale**: `skip` reason for a job whose detail timestamp is older than `recencySec`. Stored as seen, never sent.
 - **gone**: `skip` reason for a job whose detail fetch returned 404 or 410. Stored as seen, never sent.
 - **deferred**: an unseen card that got no detail fetch because the cycle budget ran out. Carried in memory and fetched next cycle after that cycle's page cards; lost on restart.
@@ -53,4 +54,4 @@ Use the GitHub CLI (`gh`) for all GitHub-related tasks. Work is tracked as GitHu
 - **category**: one of ten kinds of work a role can be (`swe`, `infra`, `security`, `qa`, `ai`, `ml`, `data`, `embedded`, `research`, `pm`), defined in `src/classifier/prompt.ts`. A verdict carries zero or more; each message shows them as hashtags.
 - **verdict**: the classifier's answer for one group: `relevant`, `categories`, `degreeOk`, `workAuth`, and a one-sentence `reason`. `null` on a row means never classified; `unclear` means the model could not tell or the call failed. `categories: []` means unplaced or the call failed.
 - **cycle_failed**: alert condition for a throw caught at the cycle boundary. The loop keeps running; `/health` reports `stale` until a cycle succeeds.
-- **notifier**: the delivery interface (start, isReady, send, sendAdmin, stop). Telegram is the first adapter.
+- **notifier**: the delivery interface (start, destinations, isReady, send, sendAdmin, stop), per destination. Telegram is the first adapter.

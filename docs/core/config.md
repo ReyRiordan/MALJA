@@ -6,7 +6,7 @@ Two inputs, both validated with zod before anything else runs. Any failure logs 
 
 ## config.json
 
-Pure JSON, no env interpolation. `CONFIG_PATH` selects an alternate file for dev runs, such as one with fewer searches. The Telegram chat ids are env, not config, so a private test group is a matter of `.env`. `searches`, `classifier.model`, `classifier.program`, `classifier.graduation`, `classifier.term`, and `classifier.fields` are required; the rest default.
+Pure JSON, no env interpolation. `CONFIG_PATH` selects an alternate file for dev runs, such as one with fewer searches. The Telegram chat ids, channels included, are env, not config, so a private test group is a matter of `.env`. `searches`, `classifier.model`, `classifier.program`, `classifier.graduation`, `classifier.term`, and `classifier.fields` are required; the rest default.
 
 | Field | Default | Notes |
 | --- | --- | --- |
@@ -47,6 +47,7 @@ Loaded from the process env. `pnpm dev` passes `--env-file-if-exists=.env`; Rail
 | `TELEGRAM_BOT_TOKEN` | required | Redacted in logs. |
 | `TELEGRAM_GROUP_CHAT_ID` | required | Kept as a string. |
 | `TELEGRAM_ADMIN_CHAT_ID` | required | Kept as a string. |
+| `TELEGRAM_CHANNEL_<ID>` | none | One per category id, uppercased: `TELEGRAM_CHANNEL_SWE`, `_INFRA`, `_SECURITY`, `_QA`, `_AI`, `_ML`, `_DATA`, `_EMBEDDED`, `_RESEARCH`, `_PM`. Generated from `CATEGORIES`. Unset means that category is not routed; empty is an error. See docs/notifier/interface.md. |
 | `OPENROUTER_API_KEY` | required | Redacted in logs. |
 | `DATA_DIR` | `./data` | SQLite lives here. |
 | `CONFIG_PATH` | `./config.json` | |

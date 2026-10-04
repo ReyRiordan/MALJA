@@ -3,7 +3,7 @@ import { fixture } from "../../test/helpers/fixture.ts";
 import type { ClassifyInput, ClassifyResult, Verdict } from "../classifier/types.ts";
 import type { Config } from "../config.ts";
 import { Alerter } from "../notifier/alerts.ts";
-import type { Notification, Notifier } from "../notifier/types.ts";
+import type { Destination, Notification, Notifier } from "../notifier/types.ts";
 import { JOB_VIEW_URL } from "../scraper/detail.ts";
 import { type Fetch, type FetchResponse, LinkedInClient } from "../scraper/http.ts";
 import { PAGE_SIZE, parseCards, SEARCH_URL } from "../scraper/search.ts";
@@ -77,6 +77,8 @@ interface HarnessOptions {
   searches?: number;
   verdicts?: (input: ClassifyInput) => ClassifyResult;
   cacheBustSeed?: number;
+  /** What the fake notifier reports as configured. Defaults to the group only. */
+  destinations?: Destination[];
 }
 
 function config(searches: number): Config {
@@ -140,24 +142,36 @@ function harness(opts: HarnessOptions = {}) {
     log,
   });
 
+  /** What reached the group (`all`), in send order. */
   const sent: Notification[] = [];
+  /** Every successful send, to any destination, in send order. */
+  const deliveries: { key: string; dest: Destination }[] = [];
   const admin: string[] = [];
-  let ready = true;
+  const unready = new Set<Destination>();
   let nextMessageId = 1;
-  const notifier: Notifier & { setReady(v: boolean): void; failNext: Error | null } = {
+  const notifier: Notifier & {
+    setReady(v: boolean, dest?: Destination): void;
+    /** Thrown by the next send to `failDest` (any destination when null). */
+    failNext: Error | null;
+    failDest: Destination | null;
+  } = {
     failNext: null,
-    setReady: (v) => {
-      ready = v;
+    failDest: null,
+    setReady: (v, dest = "all") => {
+      if (v) unready.delete(dest);
+      else unready.add(dest);
     },
     start: async () => {},
-    isReady: () => ready,
-    send: vi.fn(async (n: Notification) => {
-      if (notifier.failNext) {
+    destinations: () => opts.destinations ?? ["all"],
+    isReady: (dest) => !unready.has(dest),
+    send: vi.fn(async (n: Notification, dest: Destination) => {
+      if (notifier.failNext && (notifier.failDest === null || notifier.failDest === dest)) {
         const err = notifier.failNext;
         notifier.failNext = null;
         throw err;
       }
-      sent.push(n);
+      if (dest === "all") sent.push(n);
+      deliveries.push({ key: n.key, dest });
       return { messageId: String(nextMessageId++) };
     }),
     sendAdmin: vi.fn(async (text: string) => {
@@ -202,6 +216,7 @@ function harness(opts: HarnessOptions = {}) {
     notifier,
     classify,
     sent,
+    deliveries,
     admin,
     timers,
     cleared,
@@ -250,7 +265,7 @@ describe("Loop.runCycle", () => {
       "Englewood, CO",
     ]);
     expect(h.classify).toHaveBeenCalledTimes(FIXTURE_KEYS);
-    expect(h.store.unsentNotifications()).toEqual([]);
+    expect(h.store.unsentDeliveries()).toEqual([]);
 
     h.advance(POLL_MS);
     const second = await h.loop.runCycle();
@@ -362,7 +377,7 @@ describe("Loop.runCycle", () => {
     const first = await h.loop.runCycle();
     expect(first).toMatchObject({ created: FIXTURE_KEYS, sent: FIXTURE_KEYS - 1, failed: 1 });
     expect(h.admin).toEqual([expect.stringMatching(/^\[send_failed\] .*telegram 500/)]);
-    const unsent = h.store.unsentNotifications();
+    const unsent = h.store.unsentDeliveries();
     expect(unsent).toHaveLength(1);
 
     h.advance(POLL_MS);
@@ -370,7 +385,7 @@ describe("Loop.runCycle", () => {
     expect(second).toMatchObject({ created: 0, sent: 1, failed: 0 });
     expect(h.sent).toHaveLength(FIXTURE_KEYS);
     expect(h.sent.at(-1)?.key).toBe(unsent[0]?.key);
-    expect(h.store.unsentNotifications()).toEqual([]);
+    expect(h.store.unsentDeliveries()).toEqual([]);
   });
 
   it("degreeOk no creates no row, and the verdict lands on the classified job only", async () => {
@@ -443,7 +458,7 @@ describe("Loop.runCycle", () => {
     const first = await h.loop.runCycle();
     expect(first).toMatchObject({ created: FIXTURE_KEYS, sent: 0, failed: 0 });
     expect(h.notifier.send).not.toHaveBeenCalled();
-    expect(h.store.unsentNotifications()).toHaveLength(FIXTURE_KEYS);
+    expect(h.store.unsentDeliveries()).toHaveLength(FIXTURE_KEYS);
     expect(h.loop.status().status).toBe("notifier_down");
 
     h.notifier.setReady(true);
@@ -451,7 +466,7 @@ describe("Loop.runCycle", () => {
     const second = await h.loop.runCycle();
     expect(second).toMatchObject({ created: 0, sent: FIXTURE_KEYS });
     expect(h.sent).toHaveLength(FIXTURE_KEYS);
-    expect(h.store.unsentNotifications()).toEqual([]);
+    expect(h.store.unsentDeliveries()).toEqual([]);
   });
 
   it("stops the drain when the notifier flips not ready mid-way", async () => {
@@ -463,7 +478,94 @@ describe("Loop.runCycle", () => {
     });
     const summary = await h.loop.runCycle();
     expect(summary.sent).toBe(1);
-    expect(h.store.unsentNotifications()).toHaveLength(FIXTURE_KEYS - 1);
+    expect(h.store.unsentDeliveries()).toHaveLength(FIXTURE_KEYS - 1);
+  });
+
+  it("fans each notification out to the group plus its configured category channels", async () => {
+    const [scaleAi] = FIXTURE_CARDS.filter((c) => c.company === "Scale AI");
+    if (!scaleAi) throw new Error("fixture changed");
+    const h = harness({
+      destinations: ["all", "swe", "ml"],
+      details: { [scaleAi.id]: { description: null } },
+      verdicts: () => ({
+        verdict: { ...MAYBE_RELEVANT, categories: ["data", "swe"] },
+        error: null,
+      }),
+    });
+    const summary = await h.loop.runCycle();
+    expect(summary).toMatchObject({
+      created: FIXTURE_KEYS,
+      sent: 2 * FIXTURE_KEYS - 1,
+      failed: 0,
+    });
+    const to = (dest: Destination) => h.deliveries.filter((d) => d.dest === dest);
+    expect(to("all")).toHaveLength(FIXTURE_KEYS);
+    // data has no channel configured; Scale AI has no verdict, so no categories.
+    expect(to("swe").map((d) => d.key)).toEqual(
+      to("all")
+        .map((d) => d.key)
+        .filter((k) => !k.startsWith("scale ai|")),
+    );
+    expect(to("ml")).toEqual([]);
+    expect(to("data")).toEqual([]);
+    expect(h.notifier.send).not.toHaveBeenCalledWith(expect.anything(), "data");
+    // Channels get the same tags as the group.
+    const swe = vi
+      .mocked(h.notifier.send)
+      .mock.calls.filter(([, dest]) => dest === "swe")
+      .map(([n]) => n);
+    expect(swe.every((n) => n.tags.some((t) => t.text === "relevance unclear"))).toBe(true);
+    expect(h.store.unsentDeliveries()).toEqual([]);
+  });
+
+  it("an unready channel waits while the group and other channels keep receiving", async () => {
+    const h = harness({
+      destinations: ["all", "swe", "ml"],
+      verdicts: () => ({ verdict: { ...YES, categories: ["swe", "ml"] }, error: null }),
+    });
+    h.notifier.setReady(false, "ml");
+    const first = await h.loop.runCycle();
+    expect(first).toMatchObject({ sent: 2 * FIXTURE_KEYS, failed: 0 });
+    expect(h.deliveries.some((d) => d.dest === "ml")).toBe(false);
+    const pending = h.store.unsentDeliveries();
+    expect(pending).toHaveLength(FIXTURE_KEYS);
+    expect(pending.every((p) => p.destination === "ml")).toBe(true);
+    const waits = h.log.warn.mock.calls.filter(([, msg]) => msg?.startsWith("notifier not ready"));
+    expect(waits).toEqual([[{ destination: "ml" }, expect.any(String)]]);
+    expect(h.loop.status()).toMatchObject({
+      status: "notifier_down",
+      notifierReady: { all: true, swe: true, ml: false },
+    });
+
+    h.notifier.setReady(true, "ml");
+    h.advance(POLL_MS);
+    const second = await h.loop.runCycle();
+    expect(second).toMatchObject({ created: 0, sent: FIXTURE_KEYS });
+    expect(h.deliveries.slice(2 * FIXTURE_KEYS).every((d) => d.dest === "ml")).toBe(true);
+    expect(h.sent).toHaveLength(FIXTURE_KEYS);
+    expect(h.store.unsentDeliveries()).toEqual([]);
+  });
+
+  it("a failed channel send retries that delivery only", async () => {
+    const h = harness({ destinations: ["all", "swe"] });
+    h.notifier.failNext = new Error("telegram 500");
+    h.notifier.failDest = "swe";
+    const first = await h.loop.runCycle();
+    expect(first).toMatchObject({ sent: 2 * FIXTURE_KEYS - 1, failed: 1 });
+    expect(h.admin).toEqual([expect.stringMatching(/^\[send_failed\] swe .*telegram 500/)]);
+    const failedLine = h.log.error.mock.calls.find(
+      ([, msg]) => msg === "send failed; row stays unsent",
+    );
+    expect(failedLine?.[0]).toMatchObject({ destination: "swe" });
+    const [unsent] = h.store.unsentDeliveries();
+    expect(unsent).toMatchObject({ destination: "swe" });
+
+    h.advance(POLL_MS);
+    const second = await h.loop.runCycle();
+    expect(second).toMatchObject({ created: 0, sent: 1, failed: 0 });
+    expect(h.deliveries.at(-1)).toEqual({ key: unsent?.key, dest: "swe" });
+    expect(h.sent).toHaveLength(FIXTURE_KEYS);
+    expect(h.store.unsentDeliveries()).toEqual([]);
   });
 
   it("the stop flag halts between steps", async () => {
@@ -477,7 +579,7 @@ describe("Loop.runCycle", () => {
     await stop;
     expect(h.classify).toHaveBeenCalledTimes(1);
     expect(summary).toMatchObject({ created: 0, sent: 0 });
-    expect(h.store.unsentNotifications()).toEqual([]);
+    expect(h.store.unsentDeliveries()).toEqual([]);
   });
 
   it("stop() waits for the in-flight cycle and clears the pending timer", async () => {
@@ -669,7 +771,7 @@ describe("Loop.status", () => {
       lastCycleAt: null,
       lastSuccessfulCycleAt: null,
       pausedUntil: null,
-      notifierReady: true,
+      notifierReady: { all: true },
     });
     await h.loop.runCycle();
     expect(h.loop.status()).toMatchObject({

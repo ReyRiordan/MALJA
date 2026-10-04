@@ -24,7 +24,7 @@ describe("startHealthServer", () => {
       lastCycleAt: NOW,
       lastSuccessfulCycleAt: NOW - 1000,
       pausedUntil: null,
-      notifierReady: true,
+      notifierReady: { all: true, ml: false },
     });
     const res = await fetch(`${base}/health`);
     expect(res.status).toBe(200);
@@ -35,7 +35,7 @@ describe("startHealthServer", () => {
       lastCycleAt: "2026-09-05T12:00:00.000Z",
       lastSuccessfulCycleAt: "2026-09-05T11:59:59.000Z",
       pausedUntil: null,
-      notifierReady: true,
+      notifierReady: { all: true, ml: false },
       uptimeSec: expect.any(Number),
     });
   });
@@ -46,7 +46,7 @@ describe("startHealthServer", () => {
       lastCycleAt: null,
       lastSuccessfulCycleAt: null,
       pausedUntil: NOW + 60_000,
-      notifierReady: true,
+      notifierReady: { all: true },
     });
     const res = await fetch(`${base}/health?probe=1`);
     expect(res.status).toBe(200);
@@ -63,7 +63,7 @@ describe("startHealthServer", () => {
       lastCycleAt: null,
       lastSuccessfulCycleAt: null,
       pausedUntil: null,
-      notifierReady: true,
+      notifierReady: { all: true },
     });
     expect((await fetch(`${base}/x`)).status).toBe(404);
     expect((await fetch(`${base}/`)).status).toBe(404);
@@ -76,7 +76,7 @@ describe("startHealthServer", () => {
       lastCycleAt: null,
       lastSuccessfulCycleAt: null,
       pausedUntil: null,
-      notifierReady: true,
+      notifierReady: { all: true },
     });
     const port = Number(new URL(base).port);
     // biome-ignore lint/suspicious/noExplicitAny: partial pino logger
