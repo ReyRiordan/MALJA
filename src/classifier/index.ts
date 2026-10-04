@@ -42,12 +42,14 @@ export {
   VERDICT_JSON_SCHEMA,
   VerdictSchema,
 } from "./prompt.ts";
-export type {
-  Classifier,
-  ClassifyInput,
-  ClassifyResult,
-  DegreeOk,
-  Relevant,
-  Verdict,
-  WorkAuth,
+export {
+  CATEGORIES,
+  type Category,
+  type Classifier,
+  type ClassifyInput,
+  type ClassifyResult,
+  type DegreeOk,
+  type Relevant,
+  type Verdict,
+  type WorkAuth,
 } from "./types.ts";

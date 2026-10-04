@@ -1,7 +1,14 @@
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { DatabaseSync, type StatementSync } from "node:sqlite";
-import type { DegreeOk, Relevant, Verdict, WorkAuth } from "../classifier/types.ts";
+import {
+  CATEGORIES,
+  type Category,
+  type DegreeOk,
+  type Relevant,
+  type Verdict,
+  type WorkAuth,
+} from "../classifier/types.ts";
 import type { Job } from "../scraper/types.ts";
 import { dedupeKey, type Group } from "./dedupe.ts";
 
@@ -53,6 +60,7 @@ export const MIGRATIONS: string[] = [
   );
   CREATE INDEX notifications_key_created ON notifications(dedupe_key, created_at);`,
   "ALTER TABLE jobs ADD COLUMN relevant TEXT",
+  "ALTER TABLE jobs ADD COLUMN categories TEXT",
 ];
 
 interface JobRow {
@@ -68,6 +76,8 @@ interface JobRow {
   skip: "stale" | "gone" | null;
   /** NULL on rows classified before the column existed; read back as "unclear". */
   relevant: Relevant | null;
+  /** JSON array of category ids. NULL on rows classified before the column existed; read back as []. */
+  categories: string | null;
   degree_ok: DegreeOk | null;
   work_auth: WorkAuth | null;
   classifier_reason: string | null;
@@ -125,7 +135,7 @@ export class Store {
     );
     this.#getJob = db.prepare("SELECT * FROM jobs WHERE linkedin_id = ?");
     this.#setVerdict = db.prepare(
-      `UPDATE jobs SET relevant = ?, degree_ok = ?, work_auth = ?, classifier_reason = ?,
+      `UPDATE jobs SET relevant = ?, categories = ?, degree_ok = ?, work_auth = ?, classifier_reason = ?,
          classified_at = ?
        WHERE linkedin_id = ?`,
     );
@@ -197,6 +207,7 @@ export class Store {
   setVerdict(id: string, verdict: Verdict, now: number): void {
     this.#setVerdict.run(
       verdict.relevant,
+      JSON.stringify(verdict.categories),
       verdict.degreeOk,
       verdict.workAuth,
       verdict.reason,
@@ -259,6 +270,7 @@ function toStoredJob(row: JobRow): StoredJob {
         ? null
         : {
             relevant: row.relevant ?? "unclear",
+            categories: parseCategories(row),
             degreeOk: row.degree_ok,
             workAuth: row.work_auth,
             reason: row.classifier_reason ?? "",
@@ -266,6 +278,17 @@ function toStoredJob(row: JobRow): StoredJob {
   };
   if (row.skip !== null) job.skip = row.skip;
   return job;
+}
+
+/** NULL reads as []. A non-array or an unknown id is corruption, not something to skip. */
+function parseCategories(row: JobRow): Category[] {
+  if (row.categories === null) return [];
+  const parsed: unknown = JSON.parse(row.categories);
+  const known: readonly string[] = CATEGORIES;
+  if (!Array.isArray(parsed) || !parsed.every((id) => known.includes(id))) {
+    throw new Error(`jobs row ${row.linkedin_id}: categories is not an array of category ids`);
+  }
+  return parsed;
 }
 
 /** A row whose JSON is not a string array is corruption, not something to skip. */

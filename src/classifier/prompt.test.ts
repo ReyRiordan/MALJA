@@ -7,6 +7,7 @@ import {
   VERDICT_JSON_SCHEMA,
   VerdictSchema,
 } from "./prompt.ts";
+import { CATEGORIES } from "./types.ts";
 
 const FACTS = {
   program: "master's students in the Test Program",
@@ -37,6 +38,13 @@ describe("buildMessages", () => {
     expect(system?.content).toContain("business and data analytics such as BI reporting");
   });
 
+  it("defines every category id and the carve-out and add-on rules", () => {
+    const [system] = buildMessages(FACTS, INPUT);
+    for (const id of CATEGORIES) expect(system?.content).toContain(`- "${id}": `);
+    expect(system?.content).toContain('instead of "swe"');
+    expect(system?.content).toContain("never alone");
+  });
+
   it("truncates the description past the cap with a marker", () => {
     const long = "x".repeat(MAX_DESCRIPTION_CHARS + 500);
     const [, user] = buildMessages(FACTS, { ...INPUT, description: long });
@@ -56,6 +64,7 @@ describe("VERDICT_JSON_SCHEMA", () => {
   it("lists the same enum values as the zod mirror", () => {
     const props = VERDICT_JSON_SCHEMA.schema.properties;
     expect([...props.relevant.enum]).toEqual(VerdictSchema.shape.relevant.options);
+    expect([...props.categories.items.enum]).toEqual([...CATEGORIES]);
     expect([...props.degree_ok.enum]).toEqual(VerdictSchema.shape.degree_ok.options);
     expect([...props.work_auth.enum]).toEqual(VerdictSchema.shape.work_auth.options);
     expect([...VERDICT_JSON_SCHEMA.schema.required]).toEqual(Object.keys(VerdictSchema.shape));
@@ -65,17 +74,24 @@ describe("VERDICT_JSON_SCHEMA", () => {
     expect(Object.keys(VERDICT_JSON_SCHEMA.schema.properties)[0]).toBe("relevant");
     expect(VERDICT_JSON_SCHEMA.schema.required[0]).toBe("relevant");
   });
+
+  it("asks for categories right after relevant, before eligibility", () => {
+    expect(Object.keys(VERDICT_JSON_SCHEMA.schema.properties)[1]).toBe("categories");
+    expect(VERDICT_JSON_SCHEMA.schema.required[1]).toBe("categories");
+  });
 });
 
 describe("parseVerdict", () => {
   const good = {
     relevant: "yes",
+    categories: ["ml", "research"],
     degree_ok: "yes",
     work_auth: "no_sponsorship",
     reason: "Says BS/MS.",
   };
   const expected = {
     relevant: "yes",
+    categories: ["ml", "research"],
     degreeOk: "yes",
     workAuth: "no_sponsorship",
     reason: "Says BS/MS.",
@@ -100,10 +116,30 @@ describe("parseVerdict", () => {
     expect(parseVerdict(JSON.stringify({ ...good, relevant: "maybe" }))).toBeNull();
   });
 
+  it("accepts an empty category list", () => {
+    expect(parseVerdict(JSON.stringify({ ...good, categories: [] }))?.categories).toEqual([]);
+  });
+
+  it("removes duplicate categories, keeping first-seen order", () => {
+    const categories = ["ml", "research", "ml"];
+    expect(parseVerdict(JSON.stringify({ ...good, categories }))?.categories).toEqual([
+      "ml",
+      "research",
+    ]);
+  });
+
+  it("rejects an unknown category id", () => {
+    expect(parseVerdict(JSON.stringify({ ...good, categories: ["ml", "web3"] }))).toBeNull();
+    expect(parseVerdict(JSON.stringify({ ...good, categories: "ml" }))).toBeNull();
+  });
+
   it("rejects a missing key", () => {
     const { relevant, ...noRelevant } = good;
     expect(relevant).toBe("yes");
     expect(parseVerdict(JSON.stringify(noRelevant))).toBeNull();
+    const { categories, ...noCategories } = good;
+    expect(categories).toHaveLength(2);
+    expect(parseVerdict(JSON.stringify(noCategories))).toBeNull();
     expect(parseVerdict(JSON.stringify({ degree_ok: "yes", work_auth: "none" }))).toBeNull();
   });
 
