@@ -1,0 +1,18 @@
+{
+  "id": "4469994651",
+  "title": "DevOps Engineer Intern, Summer 2027",
+  "company": "Tyler Technologies",
+  "url": "https://www.linkedin.com/jobs/view/4469994651",
+  "source": "sre-devops",
+  "description": "Description\n\nTyler Technologies is looking for DevOps Engineer Interns to join our team next summer! The DevOps Engineer Intern plays a critical role in designing, building, and maintaining scalable, secure, and highly available infrastructure and CI/CD pipelines across cloud environments. This position supports the Technical and Cloud Services group in delivering automation-first solutions that enhance the reliability, performance, and efficiency of applications serving courts and public safety organizations. The engineer will collaborate closely with development, QA, and operations teams to streamline deployment processes and ensure seamless delivery of software products.\n\nResponsibilities\n\nDesign, implement, and maintain CI/CD pipelines using tools such as Jenkins, GitHub Actions, or Azure DevOps.\nAutomate infrastructure provisioning and configuration management using Infrastructure as Code (IaC) tools like Terraform and Ansible.\nManage and optimize cloud environments (AWS, Azure, or GCP) to ensure performance, scalability, and cost-efficiency.\nDevelop and maintain monitoring, alerting, and logging systems (e.g., CloudWatch, DataDog, ELK Stack) to proactively detect and resolve issues.\nCollaborate with development teams to integrate DevOps best practices into the software development lifecycle.\nMaintain documentation for infrastructure, processes, and procedures to support knowledge sharing and compliance.\n\nQualifications\n\nRequired:\n\nProficiency in cloud platforms (AWS preferred; Azure or GCP acceptable).\nStrong scripting skills in PowerShell, Bash, or Python.\nExperience with containerization and orchestration (Docker, Kubernetes).\nSolid understanding of networking, security best practices, and system administration (Windows and Linux).\nFamiliarity with Microsoft technologies: Visual Studio, C#, SQL Server, IIS.\nExperience with monitoring and alerting tools (e.g., DataDog, CloudWatch, SolarWinds).\nStrong problem-solving skills and a proactive mindset.\n\nPreferred\n\nExperience with .NET Framework and web development practices.\nFamiliarity with tools like Octopus Deploy, Hangfire, RabbitMQ, and ElasticSearch.\nKnowledge of Agile methodologies and tools (e.g., JIRA, Microsoft CRM).\nExposure to performance tuning and cost optimization strategies in cloud environments.\nStrong analytical and problem-solving skill, with the ability to troubleshoot complex issues and drive resolution in a timely manner.\nExcellent communication and interpersonal skills, with the ability to collaborate effectively with cross-functional teams and stakeholders.\nCreative problem solving with demonstrated pattern of applying creative solutions to bridge the gap between product development and environmental considerations.",
+  "expected": {
+    "relevant": "yes",
+    "categories": [
+      "infra"
+    ],
+    "categoriesAlso": [],
+    "degreeOk": "unclear",
+    "workAuth": "unclear"
+  },
+  "note": "Tyler Technologies: relevant yes, 'DevOps Engineer Intern, Summer 2027'. degreeOk unclear, no degree language at all. workAuth unclear, nothing on sponsorship. categories infra, 'Design, implement, and maintain CI/CD pipelines' and 'Automate infrastructure provisioning ... using Infrastructure as Code (IaC) tools like Terraform and Ansible'."
+}

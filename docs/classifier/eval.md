@@ -12,14 +12,20 @@ Code: `scripts/eval.ts`, `scripts/harvest-eval.ts`, the `--save-eval` flag in `s
   "url": "https://www.linkedin.com/jobs/view/4463646787",
   "source": "prod",
   "description": "...",
-  "expected": { "relevant": "yes", "degreeOk": "yes", "workAuth": "no_sponsorship" },
+  "expected": {
+    "relevant": "yes",
+    "categories": ["swe"],
+    "categoriesAlso": ["infra"],
+    "degreeOk": "yes",
+    "workAuth": "no_sponsorship"
+  },
   "note": "why the label is what it is, quoting the posting"
 }
 ```
 
-`expected` fields are null until someone labels them. A file with any field null is unlabelled: counted, skipped. Labels follow [labeling.md](labeling.md), quoting the deciding phrase in `note`. A note starting `BORDERLINE:` marks a posting where either neighbouring answer is defensible; the pass bar gives those slack. `source` is optional and names the search that captured the posting: `prod` for a config.json search, otherwise a label from `scripts/harvest-eval.json`. It lets the production slice be read on its own, since the off-target searches are not real traffic.
+`expected` fields are null until someone labels them. A file with `relevant`, `degreeOk`, or `workAuth` null is unlabelled: counted, skipped. `categories` must appear in the verdict; `categoriesAlso` may appear without penalty, which absorbs honest ambiguity without a BORDERLINE note. Both are null on a file whose label suppresses the job, and those files are not scored for categories. Exact-set scoring was rejected because it turns ambiguity into mismatches. Labels follow [labeling.md](labeling.md), quoting the deciding phrase in `note`. A note starting `BORDERLINE:` marks a posting where either neighbouring answer is defensible; the pass bar gives those slack. `source` is optional and names the search that captured the posting: `prod` for a config.json search, otherwise a label from `scripts/harvest-eval.json`. It lets the production slice be read on its own, since the off-target searches are not real traffic.
 
-The set has 198 postings. LinkedIn clones (the same description under another id, or the same company and title) are kept once, as the dedupe key would. 59 come from the production search (`source: "prod"`), the rest from deliberately off-target searches (analytics, other engineering, new grad, other terms, PhD-only, undergrad-only, clearance, business and PM roles) so every kind of `no` is represented.
+The set has 263 postings, 138 of which the label sends. LinkedIn clones (the same description under another id, or the same company and title) are kept once, as the dedupe key would. 59 come from the production search (`source: "prod"`). The rest come from two kinds of search in `scripts/harvest-eval.json`. Deliberately off-target searches (analytics, other engineering, new grad, other terms, PhD-only, undergrad-only, clearance, business and PM roles) make sure every kind of `no` is represented. Summer 2027 searches aimed at the small categories (security, qa, sre-devops, data-eng, embedded, robotics, research) give each of `security`, `qa`, `data`, `embedded`, and `research` at least 5 sendable postings that require it.
 
 ## Capturing postings
 
@@ -36,11 +42,13 @@ pnpm harvest:eval --search analytics --max 20
 pnpm eval:classifier
 ```
 
-Runs every labelled file against real OpenRouter with the configured model and reasoning effort, 6 calls at a time, then reports in file order. It is not in CI: it needs the key and spends money per run, about $0.05 and 2 to 3 minutes for the current set. Output goes through pino-pretty: the classifier's line per call, then a `mismatch`, `WRONGLY SUPPRESSED`, or `WRONGLY SUPPRESSED (borderline)` warning with expected, actual, and the model's reason for every miss, a confusion matrix per field (rows expected, columns actual), and a summary with `mismatches`, `falseNo`, `wrongSuppress`, `borderlineSuppress`, and `errors`.
+Runs every labelled file against real OpenRouter with the configured model and reasoning effort, 6 calls at a time, then reports in file order. It is not in CI: it needs the key and spends money per run, about $0.07 and 3 minutes for the current set. Output goes through pino-pretty: the classifier's line per call, then a `mismatch`, `WRONGLY SUPPRESSED`, or `WRONGLY SUPPRESSED (borderline)` warning with expected, actual, and the model's reason for every miss, a `category miss` warning for every job missing a required category, a confusion matrix per field (rows expected, columns actual), a per-category table (recall over required labels, precision over required plus also), and a summary with `mismatches`, `falseNo`, `wrongSuppress`, `borderlineSuppress`, `misses`, `extras`, `uncategorised` (sendable files with no category labels, not scored), and `errors`.
 
 ## Pass bar
 
 A job is wrongly suppressed when its label would send it (neither `relevant` nor `degreeOk` is `no`) and the verdict suppresses it. That is the one outcome the students never see, so it is what gates. Exit 1 on any non-null `error`, on any wrongly suppressed job whose label is not borderline, or on more than one wrongly suppressed borderline job (`BORDERLINE_SLACK`).
+
+Categories are scored only on jobs the label sends. A *miss* is a required category the model left out, so a channel loses the job. An *extra* is a category outside required and also. Exit 1 when misses across the set exceed `CATEGORY_SLACK` (2), which allows for run-to-run noise. Extras are reported, not gated, because gating them would push the prompt toward under-labelling; a duplicate in a channel costs less than a missed job.
 
 Everything else is reported, not gating. `falseNo` counts a `no` on either field where the label is `yes` or `unclear`, including jobs the other field suppresses anyway; it is worth reading but not a failure. A job sent when the label suppresses it is noise in the group, which costs less than a missed internship. An `unclear` where the label is decisive is a mismatch to look at, not a failure, because failing on it would push the prompt toward `no`.
 
