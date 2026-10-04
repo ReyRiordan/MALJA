@@ -10,11 +10,9 @@
     "categories": [
       "embedded"
     ],
-    "categoriesAlso": [
-      "swe"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "unclear",
     "workAuth": "citizen_only"
   },
-  "note": "Astranis: relevant yes, 'Flight Software Intern (Summer 2027)'. degreeOk unclear, 'Currently pursuing a B.S. in Computer Science, Electrical or Computer Engineering' with no exclusion wording. workAuth citizen_only, 'U.S. Citizenship, Lawful Permanent Residency, Or Refugee/Asylee Status Required' to comply with export regulations. categories embedded, 'embedded software running on satellites'; also swe, 'as well as variety of ground control and testing software'."
+  "note": "Astranis: relevant yes, 'Flight Software Intern (Summer 2027)'. degreeOk unclear, 'Currently pursuing a B.S. in Computer Science, Electrical or Computer Engineering' with no exclusion wording. workAuth citizen_only, 'U.S. Citizenship, Lawful Permanent Residency, Or Refugee/Asylee Status Required' to comply with export regulations. categories embedded, 'embedded software running on satellites'; embedded is carved out of swe."
 }

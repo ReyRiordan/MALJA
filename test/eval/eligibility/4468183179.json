@@ -10,11 +10,9 @@
     "categories": [
       "embedded"
     ],
-    "categoriesAlso": [
-      "swe"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Symbotic: relevant yes, 'Intern- Bot Controls' with 'Term: Summer (May-Aug 2027)'. degreeOk yes, 'Pursuing a Bachelor's or Master's degree in Computer Science, Robotics, Engineering'. workAuth unclear, citizenship appears only in the EEO statement. categories embedded, 'Develop path planning algorithms for manipulation and robot navigation' and 'localization algorithms for mobile robots'; also swe, 'real-time high-performance software to control and schedule fleets of mobile robots'."
+  "note": "Symbotic: relevant yes, 'Intern- Bot Controls' with 'Term: Summer (May-Aug 2027)'. degreeOk yes, 'Pursuing a Bachelor's or Master's degree in Computer Science, Robotics, Engineering'. workAuth unclear, citizenship appears only in the EEO statement. categories embedded, 'Develop path planning algorithms for manipulation and robot navigation' and 'localization algorithms for mobile robots'; embedded is carved out of swe."
 }

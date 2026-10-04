@@ -11,11 +11,10 @@
       "embedded"
     ],
     "categoriesAlso": [
-      "swe",
       "qa"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Climactic (LinkedIn clone of the Muon Space posting, same text, same labels): relevant yes, 'Flight Software Engineering Intern (Summer 2027)', 'Develop software for spacecraft or supporting development and test tools'. degreeOk yes, the pay range lists 'Bachelor's students', 'Master's' and 'PhD'. workAuth unclear, the ITAR text is hedged: U.S. person, 'eligible to access ... without a required export authorization', or 'eligible and reasonably likely to obtain the required export authorization'. categories embedded, 'Develop software for spacecraft' as a 'Flight Software Intern to help develop the software that runs on our satellites'; also swe, 'Propose and iterate on software designs' with code reviews, and qa, 'Write automated tests and use simulation or hardware testing to validate your work'."
+  "note": "BORDERLINE: Climactic (LinkedIn clone of the Muon Space posting, same text, same labels): relevant yes, 'Flight Software Engineering Intern (Summer 2027)', 'Develop software for spacecraft or supporting development and test tools'. degreeOk yes, the pay range lists 'Bachelor's students', 'Master's' and 'PhD'. workAuth unclear, the ITAR text is hedged: U.S. person, 'eligible to access ... without a required export authorization', or 'eligible and reasonably likely to obtain the required export authorization'. categories embedded, 'Develop software for spacecraft' as a 'Flight Software Intern'; embedded is carved out of swe; also qa, 'Write automated tests and use simulation or hardware testing to validate your work'."
 }

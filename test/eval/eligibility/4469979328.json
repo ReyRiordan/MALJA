@@ -11,11 +11,10 @@
       "embedded"
     ],
     "categoriesAlso": [
-      "swe",
       "qa"
     ],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "Raytheon: relevant yes, 'Software Engineering Intern (Summer 2027)' developing aircraft embedded software, which counts as software engineering. degreeOk yes, 'Must be pursuing a Bachelor's or Advanced degree'. workAuth citizen_only, 'U.S. citizenship is required, as only U.S. citizens are eligible for a security clearance'. categories swe + embedded, 'support development, test, and other tasks throughout a software life cycle for aircraft embedded software applications' with RTOS and 'embedded avionics and displays' experience preferred; also qa, 'design, development, integration, test' across the lifecycle. Per the embedded precedent, swe is acceptable rather than required."
+  "note": "Raytheon: relevant yes, 'Software Engineering Intern (Summer 2027)' developing aircraft embedded software, which counts as software engineering. degreeOk yes, 'Must be pursuing a Bachelor's or Advanced degree'. workAuth citizen_only, 'U.S. citizenship is required, as only U.S. citizens are eligible for a security clearance'. categories embedded, 'aircraft embedded software applications' with RTOS and 'embedded avionics and displays' experience preferred; embedded is carved out of swe; also qa, 'design, development, integration, test' across the lifecycle."
 }

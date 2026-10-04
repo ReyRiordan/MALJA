@@ -72,9 +72,9 @@ categories: what kinds of work does the role do? List every id that fits, or non
 - "embedded": embedded software, firmware, flight software, robotics and autonomy software.
 - "research": the role is mainly research. It describes the type of role, not the domain, so always list it next to a domain id (for example "research" and "ml"), never alone.
 - "pm": technical product management.
-- "infra", "security", and "qa" are carved out of "swe": a role that is mainly that work gets that id instead of "swe".
+- "infra", "security", "qa", and "embedded" are carved out of "swe": a role that is mainly that work gets that id instead of "swe".
 - Judge by the work the description assigns, not the title.
-- Categories sort the work; they never decide relevant. Infrastructure, security, QA, and data engineering roles count as software engineering for relevant, so a role that is mainly one of them is still in the fields.
+- Categories sort the work; they never decide relevant. Infrastructure, security, QA, embedded, and data engineering roles count as software engineering for relevant, so a role that is mainly one of them is still in the fields.
 - Answer even when relevant is "no". Use an empty list only when the work fits none of the ids.
 
 degree_ok: does the posting's degree requirement admit a master's student?

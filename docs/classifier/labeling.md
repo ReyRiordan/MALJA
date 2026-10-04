@@ -36,13 +36,13 @@ Label categories only on files the label sends (neither `relevant` nor `degreeOk
 Rules:
 
 - Judge by the work the description assigns, not the title.
-- `infra`, `security`, and `qa` are carved out of `swe`: a role that is mainly that work gets the carve-out instead of `swe`. When the role also does substantial general software work, `swe` goes in `categoriesAlso`.
+- `infra`, `security`, `qa`, and `embedded` are carved out of `swe`: a role that is mainly that work gets the carve-out instead of `swe`. For `infra`, `security`, and `qa`, when the role also does substantial general software work, `swe` goes in `categoriesAlso`.
+- For `embedded` the test is the skills asked for, because embedded roles ask for C/C++, RTOS, microcontrollers, and firmware rather than web, backend, cloud, and SQL. A mainly embedded, flight, or autonomy software role gets `embedded` alone, with `swe` not acceptable. A role that asks for both skill sets (an embedded lab that also wants backend services and SQL) gets both required.
 - `ai` versus `ml`: building on top of LLMs (prompting, agents, RAG, LLM-backed product features) is `ai`; training, fine-tuning, or optimising models is `ml`. A role that does both gets both. A generic "AI/ML" posting with no detail gets the one the work leans to in `categories` and the other in `categoriesAlso`.
 - A generic software internship that lists several possible teams (backend, ML, infra, ...) is `swe`, with the team ids named prominently in `categoriesAlso`.
 - `research` is required only when research is the main job ("Research Intern", "Research Scientist Intern", a lab doing publishable work). An engineering role on a research team gets `research` in `categoriesAlso`.
 - `data` is data pipelines, warehousing, ETL, or model-building data science. Analytics and dashboards are out of scope for relevance, so they never earn `data` on their own.
 - `embedded` covers robotics and autonomy software (perception, planning, controls software, simulation for robots). Perception model training is `ml` too.
-- `embedded` is a domain like `ml`, not a carve-out: a role that is mainly embedded, flight, or autonomy software gets `embedded` with `swe` in `categoriesAlso`, not both required.
 - Training, pre-training, or fine-tuning LLMs is `ml`; `ai` is then acceptable, not required. AI agents used as a tool for other work (agents that write kernels) do not make `ai` required.
 - The system an AI or software role works on is not its category: an LLM agent over an observability stack is `ai`, with `infra` acceptable. Building platforms that run AI training and inference is `infra`, with `ml` acceptable.
 

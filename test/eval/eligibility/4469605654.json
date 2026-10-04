@@ -10,11 +10,9 @@
     "categories": [
       "embedded"
     ],
-    "categoriesAlso": [
-      "swe"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Waymo: relevant yes, '2027 Summer Intern, MS/PhD, Software Engineer'. degreeOk yes, 'Currently enrolled in an MS or PhD program'. workAuth unclear, nothing stated. categories embedded, 'Design and implement onboard C++ logic governing how the Waymo Driver interacts with traffic controls'; also swe, 'Write clean, tested, production-grade code'."
+  "note": "Waymo: relevant yes, '2027 Summer Intern, MS/PhD, Software Engineer'. degreeOk yes, 'Currently enrolled in an MS or PhD program'. workAuth unclear, nothing stated. categories embedded, 'Design and implement onboard C++ logic governing how the Waymo Driver interacts with traffic controls'; embedded is carved out of swe."
 }

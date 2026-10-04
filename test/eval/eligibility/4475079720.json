@@ -10,11 +10,9 @@
     "categories": [
       "embedded"
     ],
-    "categoriesAlso": [
-      "swe"
-    ],
+    "categoriesAlso": [],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "General Motors: relevant yes, '2027 Summer Intern - Software Engineer, AV/AI Platform' running May-August 2027. degreeOk yes, 'obtaining a Bachelor's or Master's degree' and 'graduating between December 2027 and August 2029' includes May 2028. workAuth unclear, citizenship appears only in the non-discrimination statement. categories embedded, 'developing low-level platform software, middleware, service interfaces' and 'embedded MCU software' for autonomous vehicles; also swe, 'Develop, test, and deploy production-ready code across components of vehicle platform software'."
+  "note": "General Motors: relevant yes, '2027 Summer Intern - Software Engineer, AV/AI Platform' running May-August 2027. degreeOk yes, 'obtaining a Bachelor's or Master's degree' and 'graduating between December 2027 and August 2029' includes May 2028. workAuth unclear, citizenship appears only in the non-discrimination statement. categories embedded, 'developing low-level platform software, middleware, service interfaces' and 'embedded MCU software' for autonomous vehicles; embedded is carved out of swe."
 }
