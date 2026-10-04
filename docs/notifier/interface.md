@@ -8,6 +8,7 @@ interface Notification {
   title: string;
   company: string;
   postings: { location: string; url: string }[];    // first-appearance order, deduped by location
+  categories: Category[];                           // the verdict's, may be empty
   tags: { text: string; level: "info" | "warn" }[]; // pre-worded, may be empty
 }
 
@@ -29,7 +30,7 @@ There is no digest. Each dedupe key is one `Notification`, one message, and one 
 
 The loop hands over plain data and each adapter owns its rendering. A WhatsApp adapter has no HTML links, so pre-rendered text would be re-rendered anyway, and passing `Group` plus a verdict would tie the notifier to core and classifier vocabulary.
 
-`toNotification` builds it from a `Group` and the group's single verdict. One posting per location, first appearance wins, so each city links to one listing. Tags are worded and levelled here, once, and adapters print them:
+`toNotification` builds it from a `Group` and the group's single verdict. One posting per location, first appearance wins, so each city links to one listing. `categories` is copied from the verdict, or `[]` without one; adapters print it as is. Tags are worded and levelled here, once, and adapters print them:
 
 | Verdict field | Value | Tag | Level |
 | --- | --- | --- | --- |
