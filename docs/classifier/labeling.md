@@ -82,4 +82,6 @@ Keep every other field unchanged. Keep the file as 2-space-indented JSON with a 
 - degreeOk "no" for "must be currently enrolled in a BS/BA program", "must be a rising junior or senior", "PhD students only / working towards a PhD" as the only level, and a required graduation window May 2028 misses even when phrased "you're graduating in Spring 2027". A window only under "Preferred qualifications" is not a requirement.
 - degreeOk "unclear" for bare undergraduate/bachelor's wording without "must"/"only" ("Undergrad enrolled in CS", "current undergraduate pursuing a degree").
 - relevant: a full-time new-grad or early-career role is "no" even when the work is in scope. A multi-role posting dominated by out-of-scope roles is "no".
+- relevant "no" for a multi-year co-op worked during school terms ("1 to 2 year Co-Op"): year-round, not summer.
+- relevant "no" for sales or applications engineering on hardware, telecom equipment, chips, industrial products, or facilities (TI, Emerson, Ericsson RAN presales, data-center colocation sales), even with an engineering degree asked: the customer work is not software. Presales whose demos are only pitches and messaging, with no technical work assigned, is also "no".
 - Duplicated descriptions (LinkedIn clones) get identical labels.

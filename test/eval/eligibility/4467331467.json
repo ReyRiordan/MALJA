@@ -8,13 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "swe"
+      "solutions"
     ],
     "categoriesAlso": [
+      "swe",
       "data"
     ],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "BORDERLINE on degreeOk: Nominal: relevant yes, 'Mission Dev Engineer - Internship (Summer 2027)' doing forward-deployed software engineering, integrations and data pipelines. degreeOk yes, 'students ... on track to graduate in Summer 2028 or sooner' is level-agnostic and the window includes May 2028, with no level requirement anywhere. workAuth citizen_only, ITAR 'applicant must be a (i) U.S. citizen or national, (ii) U.S. lawful, permanent resident ... or be eligible to obtain the required authorizations from the U.S. Department of State' with no sponsorship wording. categories swe, 'build software that helps them move faster' and 'Design and build integrations, data pipelines, and applications'; also data, the same pipelines handling 'high-frequency, high-volume hardware data'."
+  "note": "BORDERLINE on degreeOk: Nominal: relevant yes, 'Mission Dev Engineer - Internship (Summer 2027)' doing forward-deployed software engineering, integrations and data pipelines. degreeOk yes, 'students ... on track to graduate in Summer 2028 or sooner' is level-agnostic and the window includes May 2028, with no level requirement anywhere. workAuth citizen_only, ITAR 'applicant must be a (i) U.S. citizen or national, (ii) U.S. lawful, permanent resident ... or be eligible to obtain the required authorizations from the U.S. Department of State' with no sponsorship wording. categories solutions, 'Mission Dev (forward deployed software engineering) intern', 'Work directly with customer engineers'; also swe, 'Design and build integrations, data pipelines, and applications', and data, the same pipelines handling 'high-frequency, high-volume hardware data'."
 }
