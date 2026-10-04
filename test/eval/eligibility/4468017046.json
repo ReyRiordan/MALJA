@@ -15,8 +15,8 @@
       "infra",
       "ai"
     ],
-    "degreeOk": "yes",
+    "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Together AI: relevant yes, 'Research Intern, Inference (Summer 2027)', inference optimisation for foundation models. degreeOk yes, 'Currently pursuing a final year of Bachelor's, Master's, or Ph.D.' lists master's; a May 2028 graduate is in the final year after the internship, so the final-year wording could also read as an exclusion. workAuth unclear, citizenship only in the EEO statement. categories ml + research, 'speculative decoding', 'KV cache design' and 'Document findings in scientific publications'; also infra, 'large-scale serving architectures', and ai, 'foundation models'."
+  "note": "BORDERLINE: Together AI: relevant yes, 'Research Intern, Inference (Summer 2027)', inference optimisation for foundation models. degreeOk unclear, 'Currently pursuing a final year of Bachelor's, Master's, or Ph.D.' lists master's, but a May 2028 graduate is not in their final year until after the internship; no is defensible, but the wording has no 'only' or 'must'. workAuth unclear, citizenship only in the EEO statement. categories ml + research, 'speculative decoding', 'KV cache design' and 'Document findings in scientific publications'; also infra, 'large-scale serving architectures', and ai, 'foundation models'."
 }
