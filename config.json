@@ -3,6 +3,10 @@
     {
       "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20(SWE%20OR%20%22software%20engineer%22%20OR%20%22machine%20learning%22%20OR%20AI%20OR%20%22solutions%20engineer%22%20OR%20%22solutions%20architect%22%20OR%20%22sales%20engineer%22%20OR%20%22forward%20deployed%22%20OR%20%22GTM%20engineer%22)%20(%22intern%22%20OR%20%22internship%22)&geoId=103644278&sortBy=DD",
       "label": "SWE/ML intern US"
+    },
+    {
+      "url": "https://www.linkedin.com/jobs/search/?keywords=%22summer%202027%22%20(%22intern%22%20OR%20%22internship%22)%20(%22infrastructure%20engineer%22%20OR%20DevOps%20OR%20SRE%20OR%20%22site%20reliability%22%20OR%20%22cloud%20engineer%22%20OR%20cybersecurity%20OR%20%22security%20engineer%22%20OR%20embedded%20OR%20firmware%20OR%20robotics%20OR%20%22systems%20engineer%22%20OR%20%22system%20integration%22%20OR%20%22test%20engineer%22)&geoId=103644278&sortBy=DD",
+      "label": "Infra/security/embedded intern US"
     }
   ],
   "pollIntervalSec": 300,
