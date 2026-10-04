@@ -43,6 +43,7 @@ describe("buildMessages", () => {
     for (const id of CATEGORIES) expect(system?.content).toContain(`- "${id}": `);
     expect(system?.content).toContain('instead of "swe"');
     expect(system?.content).toContain("never alone");
+    expect(system?.content).toContain("they never decide relevant");
   });
 
   it("truncates the description past the cap with a marker", () => {

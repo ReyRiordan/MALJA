@@ -163,6 +163,7 @@ for (const [i, entry] of labelled.entries()) {
           relevant: verdict.relevant,
           degreeOk: verdict.degreeOk,
           workAuth: verdict.workAuth,
+          categories: verdict.categories,
         },
         reason: verdict.reason,
         note: entry.note || undefined,

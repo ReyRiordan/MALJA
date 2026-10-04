@@ -1,12 +1,12 @@
 # Prompt
 
-Code: `src/classifier/prompt.ts` (pure, no I/O), `src/classifier/types.ts`.
+Code: `src/classifier/prompt.ts` (pure, no I/O), `src/classifier/types.ts` (`CATEGORIES`, `Category`).
 
 ```ts
 MAX_DESCRIPTION_CHARS = 12_000
 MAX_REASON_CHARS = 500
 VERDICT_JSON_SCHEMA                                      // strict JSON schema for response_format
-VerdictSchema                                            // zod mirror: relevant, degree_ok, work_auth, reason
+VerdictSchema                                            // zod mirror: relevant, categories, degree_ok, work_auth, reason
 buildMessages(facts: ProgramFacts, input: ClassifyInput): ChatMessage[]
 parseVerdict(content: string): Verdict | null
 ```
@@ -19,7 +19,7 @@ The prompt tells the model who the students are, when they graduate, which term 
 
 ## Rubric
 
-The system prompt opens by asking whether this is a `term` internship that `program` might want to apply to, and if so, whether they are eligible. It then states the three rules in these words. Keep this section and `systemPrompt()` in sync.
+The system prompt opens by asking whether this is a `term` internship that `program` might want to apply to, what kind of work it is, and whether they are eligible. It then states the rules in these words. Keep this section and `systemPrompt()` in sync.
 
 `relevant`: is this a `term` internship in `fields`?
 
@@ -29,6 +29,23 @@ The system prompt opens by asking whether this is a `term` internship that `prog
 - The title is the strongest signal. Employers put "intern", "internship", or "co-op" in the title of nearly every internship, so a title without any of those words (for example "Software Engineer", "AI/ML Engineer", "Junior Developer") is very likely a regular job: answer "no" unless the description itself says it is an internship or co-op.
 - A title containing "analyst" or "analytics" with no engineer, developer, scientist, ML, or AI wording (for example "Data Analyst Intern", "Business Analyst Intern", "Logistics Analytics Intern") is very likely an analytics role: answer "no" unless the description itself assigns modelling, ML, or software work.
 - "unclear" when the posting is silent or mixed on one of the three, for example a bare "Engineering Intern" with no field named.
+
+`categories`: what kinds of work does the role do? List every id that fits, or none.
+
+- "swe": general software engineering (backend, frontend, full-stack, mobile, developer tools). The default for software work that no id below carves out.
+- "infra": DevOps, SRE, cloud, platform, CI/CD, observability, compute infrastructure.
+- "security": application security, security engineering, detection, offensive security.
+- "qa": QA, test automation, validation and verification.
+- "ai": applied AI built on LLMs or foundation models: agents, RAG, AI tooling, evals.
+- "ml": training or fine-tuning models: recommender systems, computer vision or NLP modelling, ML performance.
+- "data": data engineering, and data science that builds models.
+- "embedded": embedded software, firmware, flight software, robotics and autonomy software.
+- "research": the role is mainly research. It describes the type of role, not the domain, so always list it next to a domain id (for example "research" and "ml"), never alone.
+- "pm": technical product management.
+- "infra", "security", and "qa" are carved out of "swe": a role that is mainly that work gets that id instead of "swe".
+- Judge by the work the description assigns, not the title.
+- Categories sort the work; they never decide relevant. Infrastructure, security, QA, and data engineering roles count as software engineering for relevant, so a role that is mainly one of them is still in the fields.
+- Answer even when relevant is "no". Use an empty list only when the work fits none of the ids.
 
 `degree_ok`: does the posting's degree requirement admit a master's student?
 
@@ -51,16 +68,20 @@ The title rule exists because the guest search returns plenty of regular jobs th
 
 The analyst-title rule exists because analytics internships pass every other test: the title says intern, the body mentions "AI-enabled tools" or Python, and the work is reports, dashboards, and SQL. Without the rule the model read those as silent on the field test and answered `unclear`, which reaches the group with a tag. The field is judged on the work the description assigns, so a "Data Analyst Intern" training models still passes and a title with engineer, developer, or scientist wording next to "analyst" (bank-style "Summer Analyst, Software Engineer") is not caught. What counts as data science, and that technical product management is in scope, comes from `classifier.fields` in config, not from the rubric in code.
 
+Categories split up what passes `relevant`; they do not widen it. The search and `classifier.fields` are unchanged, so `embedded` means embedded and robotics software, not hardware. The list is multi-label because a borderline role ("Software Engineer, AI Research") should reach every channel it fits: a missed job costs more than a duplicate. `infra`, `security`, and `qa` replace `swe` rather than sit next to it, so a general-software follower does not get those roles. `research` is a role type, not a domain, so it always comes with one. The ids and definitions live in code next to the rubric, not in config.json, because the schema enum and the eval labels depend on them: changing the list means re-labelling the eval set. Categories are filled even for `relevant = no`, which costs nothing and helps audits. The line saying categories never decide `relevant` exists because without it the model read the carve-out ids as fields outside `classifier.fields` and suppressed QA, SRE, security, and data engineering internships that the relevance rule alone sends.
+
 The degree rule leans permissive on purpose. Missing a job costs more than a tagged message, so bachelor's-only wording without exclusion language is `unclear`, not `no`. A stated graduation window is taken at its word.
 
 ## Inputs and schema
 
 The user message carries the title, the company, and the description. A description longer than `MAX_DESCRIPTION_CHARS` is cut there and ends with `[truncated]`.
 
-The reply is requested as `response_format: { type: "json_schema", strict: true }` with four required keys and no extras. `relevant` is the first property so the model decides it before eligibility. `VerdictSchema` validates whatever comes back, so a model that ignores `json_schema` still works: `parseVerdict` tries the whole string as JSON, then the first `{...}` block for fenced or prose-wrapped replies, then zod. `reason` is cut to `MAX_REASON_CHARS`. Anything that fails returns null and the client turns that into the `unparsable output` cause.
+The reply is requested as `response_format: { type: "json_schema", strict: true }` with five required keys and no extras. `relevant` is the first property so the model decides it before eligibility, and `categories` comes next, before the eligibility fields. `categories` is an array whose items are the `CATEGORIES` enum; `VerdictSchema` rejects an unknown id and removes duplicates, keeping first-seen order. `[]` is valid. `VerdictSchema` validates whatever comes back, so a model that ignores `json_schema` still works: `parseVerdict` tries the whole string as JSON, then the first `{...}` block for fenced or prose-wrapped replies, then zod. `reason` is cut to `MAX_REASON_CHARS`. Anything that fails returns null and the client turns that into the `unparsable output` cause.
 
 ## null versus unclear
 
+The fallback verdict has `categories: []`, which reads the same as a posting the model could not place.
+
 On the job row, `degree_ok = NULL` means never classified: the group had no description anywhere. `unclear` means the model could not tell, or the call failed and the fallback verdict was stored. They stay distinct so the audit row says which.
 
-`relevant = NULL` next to a non-null `degree_ok` is a row classified before the column existed. The store reads it back as `unclear`, so `Verdict` stays total. See docs/core/store.md.
+`relevant = NULL` next to a non-null `degree_ok` is a row classified before the column existed. The store reads it back as `unclear`, and `categories = NULL` as `[]`, so `Verdict` stays total. See docs/core/store.md.
