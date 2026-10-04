@@ -96,9 +96,9 @@ describe("toNotification", () => {
 
   it("copies the verdict's categories, and none without a verdict", () => {
     const g = group(job("1", "Austin, TX"));
-    expect(toNotification(g, verdict({ categories: ["ml", "research"] })).categories).toEqual([
-      "ml",
-      "research",
+    expect(toNotification(g, verdict({ categories: ["aiml", "perf"] })).categories).toEqual([
+      "aiml",
+      "perf",
     ]);
     expect(toNotification(g, null).categories).toEqual([]);
   });
@@ -151,7 +151,7 @@ describe("formatNotification", () => {
   it("puts the hashtag line between the locations and the tag line", () => {
     const n: Notification = {
       ...base,
-      categories: ["ml", "research"],
+      categories: ["aiml", "perf"],
       tags: [{ text: "eligibility unclear", level: "info" }],
     };
     expect(formatNotification(n)).toBe(
@@ -159,7 +159,7 @@ describe("formatNotification", () => {
         "<b>Software Engineer Intern</b>",
         "<i>Spectrum</i>",
         '<a href="https://www.linkedin.com/jobs/view/111">Greenwood Village, CO</a>',
-        "#ml #research",
+        "#aiml #perf",
         "ℹ️ eligibility unclear",
       ].join("\n"),
     );

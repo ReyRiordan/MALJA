@@ -75,6 +75,24 @@ export const MIGRATIONS: string[] = [
   CREATE INDEX deliveries_sent_at ON deliveries(sent_at);
   INSERT INTO deliveries (notification_id, destination, sent_at, message_id)
     SELECT id, 'all', sent_at, message_id FROM notifications ORDER BY id;`,
+  `UPDATE jobs SET categories = (
+    SELECT json_group_array(id) FROM (
+      SELECT CASE value WHEN 'ai' THEN 'aiml' WHEN 'ml' THEN 'aiml' WHEN 'qa' THEN 'swe' ELSE value END AS id,
+        MIN(key) AS pos
+      FROM json_each(jobs.categories) WHERE value <> 'research' GROUP BY 1 ORDER BY pos
+    )
+  )
+  WHERE json_valid(categories) AND json_type(categories) = 'array'
+    AND EXISTS (SELECT 1 FROM json_each(jobs.categories) WHERE value IN ('ai', 'ml', 'qa', 'research'));
+  DELETE FROM deliveries WHERE destination IN ('research', 'qa');
+  DELETE FROM deliveries WHERE destination IN ('ai', 'ml') AND EXISTS (
+    SELECT 1 FROM deliveries o
+    WHERE o.notification_id = deliveries.notification_id AND o.destination IN ('ai', 'ml')
+      AND o.id <> deliveries.id
+      AND ((o.sent_at IS NOT NULL) > (deliveries.sent_at IS NOT NULL)
+        OR ((o.sent_at IS NOT NULL) = (deliveries.sent_at IS NOT NULL) AND o.id < deliveries.id))
+  );
+  UPDATE deliveries SET destination = 'aiml' WHERE destination IN ('ai', 'ml');`,
 ];
 
 const DESTINATIONS: readonly string[] = ["all", ...CATEGORIES];

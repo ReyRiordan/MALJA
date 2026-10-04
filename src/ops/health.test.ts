@@ -24,7 +24,7 @@ describe("startHealthServer", () => {
       lastCycleAt: NOW,
       lastSuccessfulCycleAt: NOW - 1000,
       pausedUntil: null,
-      notifierReady: { all: true, ml: false },
+      notifierReady: { all: true, aiml: false },
     });
     const res = await fetch(`${base}/health`);
     expect(res.status).toBe(200);
@@ -35,7 +35,7 @@ describe("startHealthServer", () => {
       lastCycleAt: "2026-09-05T12:00:00.000Z",
       lastSuccessfulCycleAt: "2026-09-05T11:59:59.000Z",
       pausedUntil: null,
-      notifierReady: { all: true, ml: false },
+      notifierReady: { all: true, aiml: false },
       uptimeSec: expect.any(Number),
     });
   });

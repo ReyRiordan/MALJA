@@ -81,11 +81,11 @@ describe("openStore on disk", () => {
     expect(store.getJobs(["2"])[0]?.verdict).toBeNull();
     store.setVerdict(
       "2",
-      { relevant: "no", categories: ["qa"], degreeOk: "yes", workAuth: "none", reason: "FT" },
+      { relevant: "no", categories: ["infra"], degreeOk: "yes", workAuth: "none", reason: "FT" },
       NOW,
     );
     expect(store.getJobs(["2"])[0]?.verdict?.relevant).toBe("no");
-    expect(store.getJobs(["2"])[0]?.verdict?.categories).toEqual(["qa"]);
+    expect(store.getJobs(["2"])[0]?.verdict?.categories).toEqual(["infra"]);
     store.close();
 
     const reopened = new DatabaseSync(path);
@@ -130,6 +130,58 @@ describe("openStore on disk", () => {
     ).toEqual([
       { notification_id: 1, destination: "all", sent_at: NOW + 10, message_id: "77" },
       { notification_id: 2, destination: "all", sent_at: null, message_id: null },
+    ]);
+    reopened.close();
+  });
+
+  it("rewrites removed category ids in jobs and deliveries of a version-4 file", () => {
+    const path = join(dir, "malja.db");
+    const db = new DatabaseSync(path);
+    for (const sql of MIGRATIONS.slice(0, 4)) db.exec(sql);
+    db.exec("PRAGMA user_version = 4");
+    const insertJob = db.prepare(
+      `INSERT INTO jobs (linkedin_id, dedupe_key, title, company, location, url, first_seen_at,
+         search_label, relevant, categories, degree_ok, work_auth, classifier_reason, classified_at)
+       VALUES (?, ?, 'Intern', 'Acme', 'Austin, TX', 'u', ?, 'test', 'yes', ?, 'yes', 'none', '', ?)`,
+    );
+    insertJob.run("1", "acme|a", NOW, '["ml","research","ai","swe"]', NOW);
+    insertJob.run("2", "acme|b", NOW, '["qa","swe"]', NOW);
+    insertJob.run("3", "acme|c", NOW, '["research"]', NOW);
+    insertJob.run("4", "acme|d", NOW, '["infra","data"]', NOW);
+    insertJob.run("5", "acme|e", NOW, null, NOW);
+    const insertNotification = db.prepare(
+      "INSERT INTO notifications (dedupe_key, linkedin_ids, created_at) VALUES (?, ?, ?)",
+    );
+    insertNotification.run("acme|a", '["1"]', NOW);
+    insertNotification.run("acme|b", '["2"]', NOW);
+    const insertDelivery = db.prepare(
+      "INSERT INTO deliveries (notification_id, destination, sent_at, message_id) VALUES (?, ?, ?, ?)",
+    );
+    insertDelivery.run(1, "all", NOW, "1");
+    insertDelivery.run(1, "ai", null, null);
+    insertDelivery.run(1, "ml", NOW, "2");
+    insertDelivery.run(1, "research", null, null);
+    insertDelivery.run(2, "ml", null, null);
+    insertDelivery.run(2, "qa", NOW, "3");
+    db.close();
+
+    const store = openStore(path);
+    const categories = store.getJobs(["1", "2", "3", "4", "5"]).map((j) => j.verdict?.categories);
+    expect(categories).toEqual([["aiml", "swe"], ["swe"], [], ["infra", "data"], []]);
+    expect(store.unsentDeliveries().map((p) => [p.notificationId, p.destination])).toEqual([
+      [2, "aiml"],
+    ]);
+    store.close();
+
+    const reopened = new DatabaseSync(path);
+    expect(
+      reopened
+        .prepare("SELECT notification_id, destination, message_id FROM deliveries ORDER BY id")
+        .all(),
+    ).toEqual([
+      { notification_id: 1, destination: "all", message_id: "1" },
+      { notification_id: 1, destination: "aiml", message_id: "2" },
+      { notification_id: 2, destination: "aiml", message_id: null },
     ]);
     reopened.close();
   });
@@ -214,7 +266,7 @@ describe("Store", () => {
     store.insertJobs([job("1")], NOW);
     const verdict = {
       relevant: "yes",
-      categories: ["ml", "research"],
+      categories: ["aiml", "perf"],
       degreeOk: "unclear",
       workAuth: "no_sponsorship",
       reason: "PhD preferred",
@@ -255,7 +307,7 @@ describe("Store", () => {
     const [ga, gb] = groupByKey([...a, ...b]) as [Group, Group];
     const ids = store.createNotifications(
       [
-        { group: ga, destinations: ["all", "ml", "swe"] },
+        { group: ga, destinations: ["all", "aiml", "swe"] },
         { group: gb, destinations: ["all"] },
       ],
       NOW,
@@ -265,7 +317,7 @@ describe("Store", () => {
     const pending = store.unsentDeliveries();
     expect(pending.map((p) => [p.notificationId, p.destination])).toEqual([
       [ids[0], "all"],
-      [ids[0], "ml"],
+      [ids[0], "aiml"],
       [ids[0], "swe"],
       [ids[1], "all"],
     ]);
@@ -273,13 +325,13 @@ describe("Store", () => {
     expect(pending[1]?.jobs.map((j) => j.id)).toEqual(["1", "2"]);
     expect(pending[3]?.jobs.map((j) => j.id)).toEqual(["3"]);
 
-    const [all, ml, swe, other] = pending as [
+    const [all, aiml, swe, other] = pending as [
       PendingDelivery,
       PendingDelivery,
       PendingDelivery,
       PendingDelivery,
     ];
-    store.markDelivered(ml.id, "msg-1", NOW + 1000);
+    store.markDelivered(aiml.id, "msg-1", NOW + 1000);
     expect(store.unsentDeliveries().map((p) => p.id)).toEqual([all.id, swe.id, other.id]);
 
     store.markDelivered(all.id, "msg-2", NOW + 1000);

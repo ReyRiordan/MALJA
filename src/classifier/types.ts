@@ -8,21 +8,19 @@ export type DegreeOk = "yes" | "no" | "unclear";
 export type WorkAuth = "none" | "citizen_only" | "no_sponsorship" | "unclear";
 
 /**
- * Kinds of work a relevant role can be, multi-label. Definitions live in the prompt rubric;
+ * Skillsets a relevant role requires, multi-label. Definitions live in the prompt rubric;
  * changing the list means re-labelling the eval set.
  */
 export const CATEGORIES = [
   "swe",
+  "aiml",
   "infra",
-  "security",
-  "qa",
-  "ai",
-  "ml",
   "data",
+  "security",
+  "perf",
   "embedded",
-  "research",
-  "pm",
   "solutions",
+  "pm",
 ] as const;
 export type Category = (typeof CATEGORIES)[number];
 
