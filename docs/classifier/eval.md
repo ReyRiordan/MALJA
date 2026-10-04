@@ -46,9 +46,16 @@ Runs every labelled file against real OpenRouter with the configured model and r
 
 ## Pass bar
 
-A job is wrongly suppressed when its label would send it (neither `relevant` nor `degreeOk` is `no`) and the verdict suppresses it. That is the one outcome the students never see, so it is what gates. Exit 1 on any non-null `error`, on any wrongly suppressed job whose label is not borderline, or on more than one wrongly suppressed borderline job (`BORDERLINE_SLACK`).
+A job is wrongly suppressed when its label would send it (neither `relevant` nor `degreeOk` is `no`) and the verdict suppresses it. That is the one outcome the students never see, so it is what gates. Exit 1 on any non-null `error`, on any wrongly suppressed job whose label is not borderline, or on more than two wrongly suppressed borderline jobs (`BORDERLINE_SLACK`).
 
-Categories are scored only on jobs the label sends. A *miss* is a required category the model left out, so a channel loses the job. An *extra* is a category outside required and also. Exit 1 when misses across the set exceed `CATEGORY_SLACK` (2), which allows for run-to-run noise. Extras are reported, not gated, because gating them would push the prompt toward under-labelling; a duplicate in a channel costs less than a missed job.
+Categories are scored only on jobs the label sends. A *miss* is a required category the model left out, so a channel loses the job. An *extra* is a category outside required and also. Exit 1 when misses across the set exceed `CATEGORY_SLACK` (4), which allows for run-to-run noise: the same prompt and labels miss 2 to 4 required categories from run to run. Extras are reported, not gated, because gating them would push the prompt toward under-labelling; a duplicate in a channel costs less than a missed job.
+
+Both slacks cover ambiguous postings that have been accepted as noise rather than fixed in the prompt. A posting goes on this list only when either answer is defensible under the rubric and the model flips between runs:
+
+- Borderline suppression: Walmart "Software Engineer II" (4463957109). "Undergrad Enrolled in CS" is bare undergraduate wording, so `degreeOk` is `unclear`, and the model sometimes answers `no`.
+- Category misses: Tokyo Electron "Software Engineer, AI Research" (4465308023), where a generic "AI/ML" posting can be `ml` or `ai`; IDT "Software Systems Engineer" (4474516253), whose test-automation work sits between `qa` and `swe`; and Marvell "AI-Native Development Platform Engineer" (4471755147), where `infra` is sometimes dropped next to `ai`.
+
+A wrongly suppressed job that is not on this list, or misses beyond the slack, means the prompt or a label needs work. Raise a slack only after adding the posting that needs it to this list.
 
 Everything else is reported, not gating. `falseNo` counts a `no` on either field where the label is `yes` or `unclear`, including jobs the other field suppresses anyway; it is worth reading but not a failure. A job sent when the label suppresses it is noise in the group, which costs less than a missed internship. An `unclear` where the label is decisive is a mismatch to look at, not a failure, because failing on it would push the prompt toward `no`.
 

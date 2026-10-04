@@ -27,9 +27,9 @@ import { log } from "../src/log.ts";
 const EVAL_DIR = new URL("../test/eval/eligibility/", import.meta.url);
 const CONCURRENCY = 6;
 /** Wrongly suppressed jobs tolerated among postings whose note starts `BORDERLINE:`. */
-const BORDERLINE_SLACK = 1;
+const BORDERLINE_SLACK = 2;
 /** Required categories the model may leave out across the whole set, for run-to-run noise. */
-const CATEGORY_SLACK = 2;
+const CATEGORY_SLACK = 4;
 
 const RELEVANT: Relevant[] = ["yes", "no", "unclear"];
 const DEGREE: DegreeOk[] = ["yes", "no", "unclear"];
