@@ -10,7 +10,13 @@ import {
 import { MAX_REASON_CHARS } from "./prompt.ts";
 
 const INPUT = { title: "SWE Intern", company: "Acme", description: "Pursuing a BS/MS." };
-const GOOD = { relevant: "yes", degree_ok: "yes", work_auth: "none", reason: "Says BS/MS." };
+const GOOD = {
+  relevant: "yes",
+  categories: ["swe"],
+  degree_ok: "yes",
+  work_auth: "none",
+  reason: "Says BS/MS.",
+};
 
 function completion(content: unknown, extra: Record<string, unknown> = {}) {
   return JSON.stringify({
@@ -61,6 +67,7 @@ function harness(replies: (FetchResponse | Error)[]) {
 const UNCLEAR = (cause: string) => ({
   verdict: {
     relevant: "unclear",
+    categories: [],
     degreeOk: "unclear",
     workAuth: "unclear",
     reason: `classifier error: ${cause}`,
@@ -72,7 +79,13 @@ describe("OpenRouterClassifier happy path", () => {
   it("returns the model's verdict with error null", async () => {
     const h = harness([response(200)]);
     await expect(h.classifier.classify(INPUT)).resolves.toEqual({
-      verdict: { relevant: "yes", degreeOk: "yes", workAuth: "none", reason: "Says BS/MS." },
+      verdict: {
+        relevant: "yes",
+        categories: ["swe"],
+        degreeOk: "yes",
+        workAuth: "none",
+        reason: "Says BS/MS.",
+      },
       error: null,
     });
     expect(h.sleeps).toEqual([]);

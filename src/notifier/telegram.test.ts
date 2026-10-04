@@ -20,6 +20,7 @@ const SAMPLE: Notification = {
   title: "Software Engineer Intern",
   company: "Spectrum",
   postings: [{ location: "Austin, TX", url: "https://www.linkedin.com/jobs/view/1" }],
+  categories: [],
   tags: [],
 };
 

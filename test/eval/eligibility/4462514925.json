@@ -1,0 +1,18 @@
+{
+  "id": "4462514925",
+  "title": "Cloud Engineering Internship",
+  "company": "Fervo Energy",
+  "url": "https://www.linkedin.com/jobs/view/4462514925",
+  "source": "sre-devops",
+  "description": "Description\n\nInternship Overview\n\nYou won't be running coffee orders or shuffling paperwork this summer. At Fervo, interns are handed something real: a project of your own, scoped with your manager on day one and yours to drive for the full 12 weeks. You'll work side-by-side with the teams building the next generation of geothermal energy, tackling problems that genuinely move the business forward. At the end of the summer, you'll present your work to our executive leadership team, department leads, and fellow interns, sharing real results with a real audience. This is a real seat at the table — and a real shot at what comes next.\n\nPosition Description\n\nFervo Energy is developing next-generation geothermal power to deliver firm, carbon-free energy at scale, anchored by our flagship Cape Station development in Milford, Utah, one of the largest next-generation geothermal developments in the world. As a Cloud Engineer Intern, you'll join Fervo's IT team to help build and maintain the cloud infrastructure that powers the company's data, applications, and internal tools. You'll work alongside our IT and engineering teams to support cloud architecture, automation, and reliability efforts as Fervo scales its infrastructure to match its growth.\n\nRequirements\n\nResponsibilities\n\nSupport design, deployment, and maintenance of cloud infrastructure (e.g., AWS, Azure, or GCP)\nAssist with infrastructure-as-code and automation efforts\nHelp monitor system performance, reliability, and security\nSupport cloud cost optimization and resource management\nTroubleshoot and resolve infrastructure issues across environments\n\nRequired Qualifications\n\nRising Junior, Senior, Master's/MBA candidate wrapping up within the next year, or PhD candidate — we're building a pipeline toward full-time offers\nPursuing a degree in Computer Science, Information Technology, or a related technical field\nStrong written and verbal communication skills, including comfort presenting to stakeholders and leadership\nEagerness to learn, take initiative, and adapt quickly to new challenges\nFamiliarity with at least one cloud platform (AWS, Azure, or GCP)\n\nPreferred Qualifications\n\nExperience with infrastructure-as-code tools (e.g., Terraform, CloudFormation)\nFamiliarity with containerization (Docker, Kubernetes)\nScripting experience (Python, Bash, or similar)\nInterest in cloud security and cost optimization",
+  "expected": {
+    "relevant": "yes",
+    "categories": [
+      "infra"
+    ],
+    "categoriesAlso": [],
+    "degreeOk": "yes",
+    "workAuth": "unclear"
+  },
+  "note": "BORDERLINE: Fervo Energy: relevant yes, a 12-week summer internship with no year named, 'help build and maintain the cloud infrastructure'. degreeOk yes, 'Rising Junior, Senior, Master's/MBA candidate wrapping up within the next year, or PhD candidate' names master's explicitly; the vague 'wrapping up within the next year' qualifier could also read as unclear. workAuth unclear, nothing stated. categories infra, 'Support design, deployment, and maintenance of cloud infrastructure' and 'Assist with infrastructure-as-code and automation efforts'."
+}

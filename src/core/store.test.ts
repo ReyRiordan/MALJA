@@ -3,6 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import type { Verdict } from "../classifier/types.ts";
 import type { Job } from "../scraper/types.ts";
 import type { Group } from "./dedupe.ts";
 import { dedupeKey, groupByKey } from "./dedupe.ts";
@@ -51,7 +52,7 @@ describe("openStore on disk", () => {
     db.close();
   });
 
-  it("migrates a version-1 file and reads its classified rows as relevant unclear", () => {
+  it("migrates a version-1 file and reads its classified rows as relevant unclear, no categories", () => {
     const path = join(dir, "malja.db");
     const db = new DatabaseSync(path);
     db.exec(MIGRATIONS[0] as string);
@@ -72,17 +73,51 @@ describe("openStore on disk", () => {
     const store = openStore(path);
     expect(store.getJobs(["1"])[0]?.verdict).toEqual({
       relevant: "unclear",
+      categories: [],
       degreeOk: "yes",
       workAuth: "none",
       reason: "Says BS/MS.",
     });
     expect(store.getJobs(["2"])[0]?.verdict).toBeNull();
-    store.setVerdict("2", { relevant: "no", degreeOk: "yes", workAuth: "none", reason: "FT" }, NOW);
+    store.setVerdict(
+      "2",
+      { relevant: "no", categories: ["qa"], degreeOk: "yes", workAuth: "none", reason: "FT" },
+      NOW,
+    );
     expect(store.getJobs(["2"])[0]?.verdict?.relevant).toBe("no");
+    expect(store.getJobs(["2"])[0]?.verdict?.categories).toEqual(["qa"]);
     store.close();
 
     const reopened = new DatabaseSync(path);
-    expect(reopened.prepare("PRAGMA user_version").get()).toEqual({ user_version: 2 });
+    expect(reopened.prepare("PRAGMA user_version").get()).toEqual({
+      user_version: MIGRATIONS.length,
+    });
+    reopened.close();
+  });
+
+  it("throws on a categories value that is not an array of known ids", () => {
+    const path = join(dir, "malja.db");
+    const store = openStore(path);
+    store.insertJobs([job("1"), job("2")], NOW);
+    const verdict: Verdict = {
+      relevant: "yes",
+      categories: ["swe"],
+      degreeOk: "yes",
+      workAuth: "none",
+      reason: "",
+    };
+    store.setVerdict("1", verdict, NOW);
+    store.setVerdict("2", verdict, NOW);
+    store.close();
+
+    const db = new DatabaseSync(path);
+    db.exec(`UPDATE jobs SET categories = '["swe","web3"]' WHERE linkedin_id = '1'`);
+    db.exec(`UPDATE jobs SET categories = '"swe"' WHERE linkedin_id = '2'`);
+    db.close();
+
+    const reopened = openStore(path);
+    expect(() => reopened.getJobs(["1"])).toThrow(/jobs row 1: categories/);
+    expect(() => reopened.getJobs(["2"])).toThrow(/jobs row 2: categories/);
     reopened.close();
   });
 });
@@ -121,11 +156,25 @@ describe("Store", () => {
     store.insertJobs([job("1")], NOW);
     const verdict = {
       relevant: "yes",
+      categories: ["ml", "research"],
       degreeOk: "unclear",
       workAuth: "no_sponsorship",
       reason: "PhD preferred",
-    } as const;
+    } satisfies Verdict;
     store.setVerdict("1", verdict, NOW + 5);
+    expect(store.getJobs(["1"])[0]?.verdict).toEqual(verdict);
+  });
+
+  it("round-trips an empty category list", () => {
+    store.insertJobs([job("1")], NOW);
+    const verdict: Verdict = {
+      relevant: "unclear",
+      categories: [],
+      degreeOk: "unclear",
+      workAuth: "unclear",
+      reason: "classifier error: timeout",
+    };
+    store.setVerdict("1", verdict, NOW);
     expect(store.getJobs(["1"])[0]?.verdict).toEqual(verdict);
   });
 

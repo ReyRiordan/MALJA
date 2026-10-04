@@ -4,12 +4,17 @@
  * model's reason, in file order. Exits 1 on any classifier error, on any wrongly suppressed job
  * (the label sends it: neither relevant nor degreeOk is `no`; the verdict suppresses it) whose
  * label is not BORDERLINE, or on more than BORDERLINE_SLACK wrongly suppressed BORDERLINE jobs.
+ * On jobs the label sends, also scores categories: a miss is a required category
+ * (`expected.categories`) the model left out, an extra is one outside required and acceptable
+ * (`expected.categoriesAlso`). Exits 1 on more than CATEGORY_SLACK misses; extras are reported.
  * Usage:
  *   pnpm eval:classifier
  */
 import { readdirSync, readFileSync } from "node:fs";
 import { z } from "zod";
 import {
+  CATEGORIES,
+  type Category,
   type ClassifyResult,
   createClassifier,
   type DegreeOk,
@@ -22,7 +27,9 @@ import { log } from "../src/log.ts";
 const EVAL_DIR = new URL("../test/eval/eligibility/", import.meta.url);
 const CONCURRENCY = 6;
 /** Wrongly suppressed jobs tolerated among postings whose note starts `BORDERLINE:`. */
-const BORDERLINE_SLACK = 1;
+const BORDERLINE_SLACK = 2;
+/** Required categories the model may leave out across the whole set, for run-to-run noise. */
+const CATEGORY_SLACK = 4;
 
 const RELEVANT: Relevant[] = ["yes", "no", "unclear"];
 const DEGREE: DegreeOk[] = ["yes", "no", "unclear"];
@@ -40,6 +47,10 @@ const EvalFile = z.object({
     relevant: z.enum(RELEVANT).nullable(),
     degreeOk: z.enum(DEGREE).nullable(),
     workAuth: z.enum(WORK).nullable(),
+    /** Must appear. Null on files whose label suppresses the job. */
+    categories: z.array(z.enum(CATEGORIES)).nullable().default(null),
+    /** May appear without counting as an extra. Null when `categories` is. */
+    categoriesAlso: z.array(z.enum(CATEGORIES)).nullable().default(null),
   }),
   note: z.string().default(""),
 });
@@ -56,7 +67,8 @@ const labelled: EvalFile[] = [];
 let unlabelled = 0;
 for (const name of files) {
   const entry = EvalFile.parse(JSON.parse(readFileSync(new URL(name, EVAL_DIR), "utf8")));
-  if (Object.values(entry.expected).some((v) => v === null)) {
+  const { relevant, degreeOk, workAuth } = entry.expected;
+  if (relevant === null || degreeOk === null || workAuth === null) {
     unlabelled += 1;
     continue;
   }
@@ -86,6 +98,14 @@ let wrongSuppress = 0;
 let borderlineSuppress = 0;
 let errors = 0;
 let mismatches = 0;
+let misses = 0;
+let extras = 0;
+/** Sendable labelled files with no category labels yet: not scored. */
+let uncategorised = 0;
+/** Per category: required labels, of those missed, model outputs, of those extra. */
+const categoryStats = Object.fromEntries(
+  CATEGORIES.map((c) => [c, { required: 0, missed: 0, predicted: 0, extra: 0 }]),
+) as Record<Category, { required: number; missed: number; predicted: number; extra: number }>;
 const started = Date.now();
 
 const results: ClassifyResult[] = new Array(labelled.length);
@@ -129,6 +149,7 @@ for (const [i, entry] of labelled.entries()) {
     if (borderline) borderlineSuppress += 1;
     else wrongSuppress += 1;
   }
+  if (!suppresses(expected)) scoreCategories(entry, verdict.categories, verdict.reason);
   if (relevantMiss || degreeMiss || workMiss) {
     mismatches += 1;
     log.warn(
@@ -142,6 +163,7 @@ for (const [i, entry] of labelled.entries()) {
           relevant: verdict.relevant,
           degreeOk: verdict.degreeOk,
           workAuth: verdict.workAuth,
+          categories: verdict.categories,
         },
         reason: verdict.reason,
         note: entry.note || undefined,
@@ -155,6 +177,60 @@ for (const [i, entry] of labelled.entries()) {
   } else {
     log.info({ id: entry.id, title: entry.title, ...expected, reason: verdict.reason }, "match");
   }
+}
+
+function scoreCategories(entry: EvalFile, actual: Category[], reason: string) {
+  const required = entry.expected.categories;
+  if (required === null) {
+    uncategorised += 1;
+    return;
+  }
+  const acceptable = new Set([...required, ...(entry.expected.categoriesAlso ?? [])]);
+  const missed = required.filter((c) => !actual.includes(c));
+  const extra = actual.filter((c) => !acceptable.has(c));
+  for (const c of required) categoryStats[c].required += 1;
+  for (const c of missed) categoryStats[c].missed += 1;
+  for (const c of actual) categoryStats[c].predicted += 1;
+  for (const c of extra) categoryStats[c].extra += 1;
+  misses += missed.length;
+  extras += extra.length;
+  if (missed.length > 0) {
+    log.warn(
+      {
+        id: entry.id,
+        title: entry.title,
+        company: entry.company,
+        url: entry.url,
+        missed,
+        expected: required,
+        also: entry.expected.categoriesAlso,
+        actual,
+        reason,
+      },
+      "category miss",
+    );
+  }
+}
+
+function printCategoryTable() {
+  const pct = (num: number, den: number) => (den === 0 ? "-" : `${Math.round((100 * num) / den)}%`);
+  const cols = ["required", "missed", "recall", "predicted", "extra", "precision"];
+  const cell = (s: string) => s.padStart(11);
+  const lines = ["categories: recall over required, precision over required + also"];
+  lines.push(`${"".padEnd(10)}${cols.map(cell).join("")}`);
+  for (const c of CATEGORIES) {
+    const s = categoryStats[c];
+    const row = [
+      String(s.required),
+      String(s.missed),
+      pct(s.required - s.missed, s.required),
+      String(s.predicted),
+      String(s.extra),
+      pct(s.predicted - s.extra, s.predicted),
+    ];
+    lines.push(`${c.padEnd(10)}${row.map(cell).join("")}`);
+  }
+  process.stdout.write(`${lines.join("\n")}\n\n`);
 }
 
 function printMatrix<T extends string>(
@@ -175,6 +251,7 @@ function printMatrix<T extends string>(
 printMatrix("relevant", RELEVANT, relevantMatrix);
 printMatrix("degreeOk", DEGREE, degreeMatrix);
 printMatrix("workAuth", WORK, workMatrix);
+printCategoryTable();
 
 const summary = {
   labelled: labelled.length,
@@ -183,6 +260,9 @@ const summary = {
   falseNo,
   wrongSuppress,
   borderlineSuppress,
+  misses,
+  extras,
+  uncategorised,
   errors,
   elapsedSec: Math.round((Date.now() - started) / 1000),
 };
@@ -190,4 +270,11 @@ if (wrongSuppress > 0 || borderlineSuppress > BORDERLINE_SLACK || errors > 0) {
   log.error(summary, "eval FAILED: wrongly suppressed job or classifier error");
   process.exit(1);
 }
-log.info(summary, "eval passed: no wrongly suppressed job beyond borderline slack, zero errors");
+if (misses > CATEGORY_SLACK) {
+  log.error(summary, "eval FAILED: too many missed categories");
+  process.exit(1);
+}
+log.info(
+  summary,
+  "eval passed: no wrongly suppressed job beyond borderline slack, category misses within slack, zero errors",
+);

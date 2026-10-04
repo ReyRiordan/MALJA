@@ -16,6 +16,36 @@ Students: master's students in Carnegie Mellon's M.S. in Artificial Intelligence
 - "unclear" when the posting is silent or genuinely mixed on one of the three, e.g. a bare "Engineering Intern" with no field named, or a role split evenly between in-scope and out-of-scope work.
 - Electrical/hardware/embedded: embedded software or firmware work counts as software engineering; circuit design, PCB, or test-bench hardware work is other engineering.
 
+## categories: what kinds of work does the role do?
+
+Label categories only on files the label sends (neither `relevant` nor `degreeOk` is "no"). On a file whose label suppresses the job, set `categories` and `categoriesAlso` to null; those files are not scored.
+
+`categories` is the set that must appear: each id a channel follower would clearly want this job for. `categoriesAlso` is the set that may appear without penalty: ids a reasonable reader could also pick. Put an id in exactly one of the two, or neither. `[]` is valid for `categories` when no id fits; an `unclear` relevance often still names the work. The ids:
+
+- `swe`: general software (backend, frontend, full-stack, mobile, developer tools). The default for software work that no other id carves out.
+- `infra`: DevOps, SRE, cloud, platform, CI/CD, observability, compute infrastructure.
+- `security`: application security, security engineering, detection, offensive security.
+- `qa`: QA, test automation, validation and verification.
+- `ai`: applied AI on LLMs or foundation models: agents, RAG, AI tooling, evals.
+- `ml`: trains or fine-tunes models: recommender systems, CV/NLP modelling, ML performance.
+- `data`: data engineering, and data science that builds models.
+- `embedded`: embedded software, firmware, flight software, robotics and autonomy software.
+- `research`: the role is mainly research (publishing, novel methods, a research lab or team). Always next to a domain id, never alone.
+- `pm`: technical product management.
+
+Rules:
+
+- Judge by the work the description assigns, not the title.
+- `infra`, `security`, `qa`, and `embedded` are carved out of `swe`: a role that is mainly that work gets the carve-out instead of `swe`. For `infra`, `security`, and `qa`, when the role also does substantial general software work, `swe` goes in `categoriesAlso`.
+- For `embedded` the test is the skills asked for, because embedded roles ask for C/C++, RTOS, microcontrollers, and firmware rather than web, backend, cloud, and SQL. A mainly embedded, flight, or autonomy software role gets `embedded` alone, with `swe` not acceptable. A role that asks for both skill sets (an embedded lab that also wants backend services and SQL) gets both required.
+- `ai` versus `ml`: building on top of LLMs (prompting, agents, RAG, LLM-backed product features) is `ai`; training, fine-tuning, or optimising models is `ml`. A role that does both gets both. A generic "AI/ML" posting with no detail gets the one the work leans to in `categories` and the other in `categoriesAlso`.
+- A generic software internship that lists several possible teams (backend, ML, infra, ...) is `swe`, with the team ids named prominently in `categoriesAlso`.
+- `research` is required only when research is the main job ("Research Intern", "Research Scientist Intern", a lab doing publishable work). An engineering role on a research team gets `research` in `categoriesAlso`.
+- `data` is data pipelines, warehousing, ETL, or model-building data science. Analytics and dashboards are out of scope for relevance, so they never earn `data` on their own.
+- `embedded` covers robotics and autonomy software (perception, planning, controls software, simulation for robots). Perception model training is `ml` too.
+- Training, pre-training, or fine-tuning LLMs is `ml`; `ai` is then acceptable, not required. AI agents used as a tool for other work (agents that write kernels) do not make `ai` required.
+- The system an AI or software role works on is not its category: an LLM agent over an observability stack is `ai`, with `infra` acceptable. Building platforms that run AI training and inference is `infra`, with `ml` acceptable.
+
 ## degreeOk: does the degree requirement admit a master's student graduating May 2028?
 
 - "yes" when it explicitly accepts master's or graduate students, lists levels that include master's (BS/MS; bachelor's, master's, or PhD), or only says "pursuing a degree" with no level.
@@ -34,9 +64,9 @@ Students: master's students in Carnegie Mellon's M.S. in Artificial Intelligence
 
 ## Writing the label
 
-Edit the JSON file in place. Set `expected` to all three values and write `note` as one or two sentences quoting the deciding phrase for each field, in the style:
+Edit the JSON file in place. Set `expected` to every value, in the order relevant, categories, categoriesAlso, degreeOk, workAuth, and write `note` as one or two sentences quoting the deciding phrase for each field, in the style:
 
-"Acme: relevant yes, 'Software Engineer Intern, Summer 2027', backend Go work. degreeOk unclear, 'pursuing a Bachelor's degree in CS' with no exclusion. workAuth no_sponsorship, 'will not sponsor now or in the future'."
+"Acme: relevant yes, 'Software Engineer Intern, Summer 2027', backend Go work. degreeOk unclear, 'pursuing a Bachelor's degree in CS' with no exclusion. workAuth no_sponsorship, 'will not sponsor now or in the future'. categories swe, 'build backend services in Go'; also infra, 'deploy on Kubernetes'."
 
 Keep every other field unchanged. Keep the file as 2-space-indented JSON with a trailing newline. If a posting is truly ambiguous even under these rules, pick the best label and start the note with "BORDERLINE:".
 

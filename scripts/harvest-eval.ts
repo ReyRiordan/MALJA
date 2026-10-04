@@ -88,7 +88,13 @@ for (let cycle = 1; cycle <= MAX_CYCLES && written < max; cycle++) {
       url: job.url,
       source,
       description: job.description,
-      expected: { relevant: null, degreeOk: null, workAuth: null },
+      expected: {
+        relevant: null,
+        categories: null,
+        categoriesAlso: null,
+        degreeOk: null,
+        workAuth: null,
+      },
       note: "",
     };
     writeFileSync(new URL(`${job.id}.json`, EVAL_DIR), `${JSON.stringify(entry, null, 2)}\n`);

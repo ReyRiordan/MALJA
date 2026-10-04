@@ -99,6 +99,7 @@ export class OpenRouterClassifier implements Classifier {
     return {
       verdict: {
         relevant: "unclear",
+        categories: [],
         degreeOk: "unclear",
         workAuth: "unclear",
         reason: `classifier error: ${failed.cause}`,
@@ -193,6 +194,7 @@ export class OpenRouterClassifier implements Classifier {
         elapsedMs,
         ...tokens,
         relevant: verdict.relevant,
+        categories: verdict.categories,
         degreeOk: verdict.degreeOk,
         workAuth: verdict.workAuth,
       },

@@ -7,9 +7,29 @@ export type DegreeOk = "yes" | "no" | "unclear";
 /** Work authorisation constraint found in the description. */
 export type WorkAuth = "none" | "citizen_only" | "no_sponsorship" | "unclear";
 
+/**
+ * Kinds of work a relevant role can be, multi-label. Definitions live in the prompt rubric;
+ * changing the list means re-labelling the eval set.
+ */
+export const CATEGORIES = [
+  "swe",
+  "infra",
+  "security",
+  "qa",
+  "ai",
+  "ml",
+  "data",
+  "embedded",
+  "research",
+  "pm",
+] as const;
+export type Category = (typeof CATEGORIES)[number];
+
 /** The classifier's answer for one job. Stored on the job row and read by the loop. */
 export interface Verdict {
   relevant: Relevant;
+  /** Deduped, may be empty: `[]` means unplaced, or the call failed. */
+  categories: Category[];
   degreeOk: DegreeOk;
   workAuth: WorkAuth;
   reason: string;

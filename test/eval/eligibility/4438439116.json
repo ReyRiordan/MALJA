@@ -1,0 +1,22 @@
+{
+  "id": "4438439116",
+  "title": "AI Research Scientist - Intern [2027 Summer]",
+  "company": "Two Sigma",
+  "url": "https://www.linkedin.com/jobs/view/4438439116",
+  "source": "research",
+  "description": "Position Summary\n\nTwo Sigma is a financial sciences company, combining data analysis, invention, and rigorous inquiry to help solve the toughest challenges in investment management, securities, private equity, and venture capital.\n\nOur team of scientists, technologists, and academics looks beyond the traditional to develop creative solutions to some of the world’s most complex economic problems.\n\nWe are looking for creative experts who are interested in applying general Machine Learning and specifically Deep Learning, Large Language Models, and Reinforcement Learning techniques to many types of problems in complex systems, and particularly those with large amounts of noisy data.\n\nThis role is only open to MS with work experience and PhDs, both in their penultimate year of study.\n\nYou Will Take On The Following Responsibilities\n\nDevelop effective techniques and/or infrastructure for a specific project/idea under guidance of an experienced member of the team over a time of roughly 10 weeks during the summer\nIn our research environment, you will write code, use the latest AI and machine learning tools, run experiments, discuss approaches and results with others, and generally develop techniques and processes to help improve our understanding of how financial data influences the world around us\n\nYou Should Possess The Following Qualifications\n\nWorking towards a degree in Computer Science, Engineering, or other STEM field, preferably in a PhD program, or in a Master’s program with some prior work experience\nExcellent programming skills in Python (familiarity with Rust/Java is a plus) and deep knowledge of Tensorflow and/or PyTorch\nInternships/work/course experience using Deep Learning, LLMs and/or Reinforcement Learning\nPreferably practical experience writing and using data pipelines to handle large amounts of noisy data for machine learning problems\nPreferably some relevant research experience (that may have led to publications at NeurIPS, ICML, ICLR or similar)\nUnderstanding of basic statistics\nExperience with cloud computing environments and multi-machine setups\nCuriosity and interest in learning about financial data modeling in a collaborative environment\n\nThe weekly base pay for this role will be between $5,000/Week (MS) and $5,500/Week (PhD) based on academic degree conferred. This role may also be eligible for other forms of compensation and benefits, such as a discretionary bonus, health, dental and other wellness plans and 401(k) contributions. Actual compensation for successful candidates will be carefully determined based on a number of factors, including their skills, qualifications and experience.\n\nWe are proud to be an equal opportunity workplace. We do not discriminate based upon race, religion, color, national origin, sex, sexual orientation, gender identity/expression, age, status as a protected veteran, status as an individual with a disability, or any other applicable legally protected characteristics.",
+  "expected": {
+    "relevant": "yes",
+    "categories": [
+      "ml",
+      "research"
+    ],
+    "categoriesAlso": [
+      "ai",
+      "data"
+    ],
+    "degreeOk": "yes",
+    "workAuth": "unclear"
+  },
+  "note": "Two Sigma: relevant yes, 'AI Research Scientist - Intern [2027 Summer]', deep learning, LLM and RL techniques on financial data. degreeOk yes, 'only open to MS with work experience and PhDs, both in their penultimate year of study' admits master's students. workAuth unclear, silent. categories ml + research, 'run experiments' and 'develop techniques' with Deep Learning and Reinforcement Learning 'in our research environment'; also ai, 'Large Language Models', and data, 'data pipelines to handle large amounts of noisy data'."
+}

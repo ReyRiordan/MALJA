@@ -1,3 +1,5 @@
+import type { Category } from "../classifier/types.ts";
+
 /** One levelled tag. `warn` is reserved for the tag that rules most of the group out. */
 export interface Tag {
   text: string;
@@ -12,6 +14,8 @@ export interface Notification {
   company: string;
   /** First-appearance order, deduped by location. */
   postings: { location: string; url: string }[];
+  /** The verdict's categories, may be empty. Printed as hashtags. */
+  categories: Category[];
   /** Pre-worded and levelled, may be empty. Adapters print them, they do not interpret them. */
   tags: Tag[];
 }

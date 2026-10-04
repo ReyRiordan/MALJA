@@ -1,6 +1,6 @@
 /**
- * Real-Telegram check. Sends one sample notification with two linked cities and both tags to
- * the group, then one plain-text line to the admin chat. Usage: pnpm notify:test
+ * Real-Telegram check. Sends one sample notification with two linked cities, two categories,
+ * and both tags to the group, then one plain-text line to the admin chat. Usage: pnpm notify:test
  */
 import { loadConfig, parseEnv } from "../src/config.ts";
 import { log } from "../src/log.ts";
@@ -17,6 +17,7 @@ const sample: Notification = {
     { location: "Greenwood Village, CO", url: "https://www.linkedin.com/jobs/view/4000000001" },
     { location: "Englewood, CO", url: "https://www.linkedin.com/jobs/view/4000000002" },
   ],
+  categories: ["ml", "research"],
   tags: [
     { text: "no sponsorship", level: "info" },
     { text: "eligibility unclear", level: "info" },
