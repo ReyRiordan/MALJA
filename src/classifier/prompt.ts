@@ -55,7 +55,7 @@ Read the posting and answer: is this a ${facts.term} internship that ${facts.pro
 
 relevant: is this a ${facts.term} internship in ${facts.fields}?
 - "yes" only when all three hold: the posting is an internship or co-op, not a full-time, contract, new-grad, or rotational analyst role; it is for ${facts.term}, or names no term at all; and the work is in ${facts.fields}.
-- "no" when the posting states a mismatch on any of the three: it is a full-time, contract, new-grad, or rotational analyst role; it names a different term (for example fall, spring, or year-round only); or the work is in another field (for example mechanical, civil, chemistry, marketing, finance, or business and data analytics such as BI reporting and dashboard work), even if it mentions Python.
+- "no" when the posting states a mismatch on any of the three: it is a full-time, contract, new-grad, or rotational analyst role; it names a different term (for example fall, spring, or year-round only); or the work is in another field (for example mechanical, civil, chemistry, marketing, sales such as account executive or sales and business development, go-to-market strategy, finance, or business and data analytics such as BI reporting and dashboard work), even if it mentions Python.
 - Judge the field by the work the description assigns, not the title. A "Data Analyst Intern" whose work is training models is in scope; a "Data Science Intern" whose work is dashboards, SQL reports, and Excel, Tableau, or Power BI is analytics, which is another field.
 - The title is the strongest signal. Employers put "intern", "internship", or "co-op" in the title of nearly every internship, so a title without any of those words (for example "Software Engineer", "AI/ML Engineer", "Junior Developer") is very likely a regular job: answer "no" unless the description itself says it is an internship or co-op.
 - A title containing "analyst" or "analytics" with no engineer, developer, scientist, ML, or AI wording (for example "Data Analyst Intern", "Business Analyst Intern", "Logistics Analytics Intern") is very likely an analytics role: answer "no" unless the description itself assigns modelling, ML, or software work.
@@ -72,9 +72,10 @@ categories: what kinds of work does the role do? List every id that fits, or non
 - "embedded": embedded software, firmware, flight software, robotics and autonomy software.
 - "research": the role is mainly research. It describes the type of role, not the domain, so always list it next to a domain id (for example "research" and "ml"), never alone.
 - "pm": technical product management.
-- "infra", "security", "qa", and "embedded" are carved out of "swe": a role that is mainly that work gets that id instead of "swe".
+- "solutions": technical customer-facing work: solutions and sales engineering, solutions architecture, forward deployed engineering, customer and implementation engineering, GTM engineering, technical account management.
+- "infra", "security", "qa", "embedded", and "solutions" are carved out of "swe": a role that is mainly that work gets that id instead of "swe".
 - Judge by the work the description assigns, not the title.
-- Categories sort the work; they never decide relevant. Infrastructure, security, QA, embedded, and data engineering roles count as software engineering for relevant, so a role that is mainly one of them is still in the fields.
+- Categories sort the work; they never decide relevant. Infrastructure, security, QA, embedded, data engineering, and technical customer-facing solutions roles count as software engineering for relevant, so a role that is mainly one of them is still in the fields.
 - Answer even when relevant is "no". Use an empty list only when the work fits none of the ids.
 
 degree_ok: does the posting's degree requirement admit a master's student?

@@ -20,7 +20,7 @@ Pure JSON, no env interpolation. `CONFIG_PATH` selects an alternate file for dev
 | `classifier.program` | required | Who the students are, in prose. Goes into the prompt verbatim. See docs/classifier/prompt.md. |
 | `classifier.graduation` | required | Expected graduation, e.g. `"May 2028"`. Goes into the prompt verbatim. |
 | `classifier.term` | required | The internship term the searches target, e.g. `"summer 2027"`. Goes into the prompt verbatim; a posting naming a different term is suppressed. |
-| `classifier.fields` | required | The fields a posting must be in, in prose. Inserted verbatim into two rubric sentences ("is this a `term` internship in `fields`?" and "the work is in `fields`"), so the prose can carry carve-outs such as which kind of data science counts or what makes a product management role technical. A posting in another field is suppressed. |
+| `classifier.fields` | required | The fields a posting must be in, in prose. Inserted verbatim into two rubric sentences ("is this a `term` internship in `fields`?" and "the work is in `fields`"), so the prose can carry carve-outs such as which kind of data science counts or what makes a product management or customer-facing role technical. A posting in another field is suppressed. |
 | `classifier.reasoningEffort` | `"low"` | OpenRouter `reasoning.effort`: `none`, `minimal`, `low`, `medium`, `high`, `xhigh`. config.json sets `medium`; see docs/classifier/client.md. |
 | `dedupe.windowDays` | 14 | |
 | `notifier` | `"telegram"` | Enum with the one value. |
@@ -47,7 +47,7 @@ Loaded from the process env. `pnpm dev` passes `--env-file-if-exists=.env`; Rail
 | `TELEGRAM_BOT_TOKEN` | required | Redacted in logs. |
 | `TELEGRAM_GROUP_CHAT_ID` | required | Kept as a string. |
 | `TELEGRAM_ADMIN_CHAT_ID` | required | Kept as a string. |
-| `TELEGRAM_CHANNEL_<ID>` | none | One per category id, uppercased: `TELEGRAM_CHANNEL_SWE`, `_INFRA`, `_SECURITY`, `_QA`, `_AI`, `_ML`, `_DATA`, `_EMBEDDED`, `_RESEARCH`, `_PM`. Generated from `CATEGORIES`. Unset means that category is not routed; empty is an error. See docs/notifier/interface.md. |
+| `TELEGRAM_CHANNEL_<ID>` | none | One per category id, uppercased: `TELEGRAM_CHANNEL_SWE`, `_INFRA`, `_SECURITY`, `_QA`, `_AI`, `_ML`, `_DATA`, `_EMBEDDED`, `_RESEARCH`, `_PM`, `_SOLUTIONS`. Generated from `CATEGORIES`. Unset means that category is not routed; empty is an error. See docs/notifier/interface.md. |
 | `OPENROUTER_API_KEY` | required | Redacted in logs. |
 | `DATA_DIR` | `./data` | SQLite lives here. |
 | `CONFIG_PATH` | `./config.json` | |

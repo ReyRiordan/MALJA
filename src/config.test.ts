@@ -201,9 +201,11 @@ describe("env", () => {
       ...required,
       TELEGRAM_CHANNEL_ML: "-1001",
       TELEGRAM_CHANNEL_PM: "-1002",
+      TELEGRAM_CHANNEL_SOLUTIONS: "-1003",
     });
     expect(env.TELEGRAM_CHANNEL_ML).toBe("-1001");
     expect(env.TELEGRAM_CHANNEL_PM).toBe("-1002");
+    expect(env.TELEGRAM_CHANNEL_SOLUTIONS).toBe("-1003");
     expect(env.TELEGRAM_CHANNEL_SWE).toBeUndefined();
     for (const category of CATEGORIES)
       expect(channelEnvVar(category) in EnvSchema.shape).toBe(true);

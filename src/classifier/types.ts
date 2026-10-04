@@ -22,6 +22,7 @@ export const CATEGORIES = [
   "embedded",
   "research",
   "pm",
+  "solutions",
 ] as const;
 export type Category = (typeof CATEGORIES)[number];
 

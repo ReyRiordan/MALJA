@@ -29,7 +29,7 @@ Railway mounts the volume owned by root while the Dockerfile switches to the `no
 | `TELEGRAM_BOT_TOKEN` | Secret. |
 | `TELEGRAM_GROUP_CHAT_ID` | The real group. Changes to a `-100` id if the group becomes a supergroup. |
 | `TELEGRAM_ADMIN_CHAT_ID` | The admin's chat with the bot. |
-| `TELEGRAM_CHANNEL_<ID>` | Optional, one per category (`TELEGRAM_CHANNEL_SWE` ... `TELEGRAM_CHANNEL_PM`; list in docs/core/config.md). The channel's `-100`-prefixed id. The bot must be an admin of the channel with the right to post messages. Unset means that category has no channel, so channels can be added one at a time. A channel added later gets only notifications created after the redeploy. |
+| `TELEGRAM_CHANNEL_<ID>` | Optional, one per category (`TELEGRAM_CHANNEL_SWE` ... `TELEGRAM_CHANNEL_SOLUTIONS`; list in docs/core/config.md). The channel's `-100`-prefixed id. The bot must be an admin of the channel with the right to post messages. Unset means that category has no channel, so channels can be added one at a time. A channel added later gets only notifications created after the redeploy. |
 | `OPENROUTER_API_KEY` | Secret. Put a monthly limit on the key; that is the spend cap. |
 | `DATA_DIR` | `/data`. |
 | `RAILWAY_RUN_UID` | `0`. Runs the container as root so the volume is writable; see Volume above. |
