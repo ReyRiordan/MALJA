@@ -1,6 +1,7 @@
 /**
  * Real-Telegram check. Sends one sample notification with two linked cities, two categories,
- * and both tags to the group, then one plain-text line to the admin chat. Usage: pnpm notify:test
+ * and both tags to every configured destination (the group plus each category channel set in
+ * env), then one plain-text line to the admin chat. Usage: pnpm notify:test
  */
 import { loadConfig, parseEnv } from "../src/config.ts";
 import { log } from "../src/log.ts";
@@ -26,8 +27,17 @@ const sample: Notification = {
 
 const notifier = createNotifier(config, env);
 await notifier.start();
-const { messageId } = await notifier.send(sample);
-log.info({ messageId, chatId: env.TELEGRAM_GROUP_CHAT_ID }, "group message sent");
+let failed = false;
+for (const destination of notifier.destinations()) {
+  try {
+    const { messageId } = await notifier.send(sample, destination);
+    log.info({ destination, messageId }, "message sent");
+  } catch (err) {
+    failed = true;
+    log.error({ destination, err }, "message failed");
+  }
+}
 await notifier.sendAdmin("MALJA notify:test: admin alerts work");
 log.info({ chatId: env.TELEGRAM_ADMIN_CHAT_ID }, "admin message sent");
 await notifier.stop();
+if (failed) process.exitCode = 1;

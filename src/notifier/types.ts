@@ -20,14 +20,22 @@ export interface Notification {
   tags: Tag[];
 }
 
+/**
+ * Where a notification goes: `all` is the group that gets everything, a category is that
+ * category's channel. Only the adapter maps a destination to a chat.
+ */
+export type Destination = "all" | Category;
+
 /** Delivery interface. Telegram is the first adapter. */
 export interface Notifier {
   /** Verifies credentials once. A bad token is a boot error. Does not start receiving updates. */
   start(): Promise<void>;
-  /** False after a send failed because the bot lost the group, true again once a retry probe passes. */
-  isReady(): boolean;
-  /** Sends one notification to the group. Throws when it cannot; the loop retries next cycle. */
-  send(n: Notification): Promise<{ messageId: string }>;
+  /** The configured destinations, `all` first, then categories in `CATEGORIES` order. */
+  destinations(): Destination[];
+  /** False after a send failed because the bot lost that chat, true again once its probe passes. */
+  isReady(dest: Destination): boolean;
+  /** Sends one notification to one destination. Throws when it cannot; the loop retries next cycle. */
+  send(n: Notification, dest: Destination): Promise<{ messageId: string }>;
   /** Plain-text alert to the admin. Never throws. */
   sendAdmin(text: string): Promise<void>;
   /** Releases any held connection. A no-op for Telegram. */

@@ -4,7 +4,7 @@ import type { Config } from "../config.ts";
 import { log as rootLog } from "../log.ts";
 import type { Alerter } from "../notifier/alerts.ts";
 import { toNotification } from "../notifier/format.ts";
-import type { Notifier } from "../notifier/types.ts";
+import type { Destination, Notifier } from "../notifier/types.ts";
 import type { LinkedInClient } from "../scraper/http.ts";
 import { CACHE_BUST_RANGE_SEC, scrapeSearch } from "../scraper/search.ts";
 import type { Card, Job } from "../scraper/types.ts";
@@ -65,7 +65,8 @@ export interface LoopStatus {
   lastCycleAt: number | null;
   lastSuccessfulCycleAt: number | null;
   pausedUntil: number | null;
-  notifierReady: boolean;
+  /** `isReady` for each configured destination, `all` first. */
+  notifierReady: Partial<Record<Destination, boolean>>;
 }
 
 /**
@@ -135,11 +136,13 @@ export class Loop {
   status(): LoopStatus {
     const now = this.now();
     const pausedUntil = this.client.pausedUntil()?.getTime() ?? null;
-    const notifierReady = this.notifier.isReady();
+    const notifierReady: LoopStatus["notifierReady"] = {};
+    for (const dest of this.notifier.destinations())
+      notifierReady[dest] = this.notifier.isReady(dest);
     const reference = this.lastSuccessfulCycleAt ?? this.startedAt;
     const stale = now - reference > STALE_INTERVALS * this.config.pollIntervalSec * 1000;
     let status: LoopStatus["status"] = "ok";
-    if (!notifierReady) status = "notifier_down";
+    if (Object.values(notifierReady).includes(false)) status = "notifier_down";
     else if (pausedUntil !== null) status = "paused";
     else if (stale) status = "stale";
     return {
@@ -317,12 +320,12 @@ export class Loop {
 
   /** Sends every unsent row in id order, so retries from earlier cycles go out first. */
   private async drain(now: number, summary: CycleSummary): Promise<void> {
-    if (!this.notifier.isReady()) {
+    if (!this.notifier.isReady("all")) {
       this.log.warn("notifier not ready; unsent rows wait for a later cycle");
       return;
     }
     for (const row of this.store.unsentNotifications()) {
-      if (this.stopping || !this.notifier.isReady()) return;
+      if (this.stopping || !this.notifier.isReady("all")) return;
       const group = groupByKey(row.jobs)[0];
       if (!group) {
         this.log.error({ id: row.id, key: row.key }, "notification row has no jobs; skipped");
@@ -331,7 +334,7 @@ export class Loop {
       const verdict: Verdict | null = row.jobs.find((j) => j.verdict !== null)?.verdict ?? null;
       let messageId: string;
       try {
-        ({ messageId } = await this.notifier.send(toNotification(group, verdict)));
+        ({ messageId } = await this.notifier.send(toNotification(group, verdict), "all"));
       } catch (err) {
         summary.failed += 1;
         this.log.error({ err, id: row.id, key: row.key }, "send failed; row stays unsent");

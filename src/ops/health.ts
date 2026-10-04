@@ -14,7 +14,7 @@ export interface HealthBody {
   lastCycleAt: string | null;
   lastSuccessfulCycleAt: string | null;
   pausedUntil: string | null;
-  notifierReady: boolean;
+  notifierReady: LoopStatus["notifierReady"];
   uptimeSec: number;
 }
 

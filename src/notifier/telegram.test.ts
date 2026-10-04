@@ -38,7 +38,7 @@ function harness(replies: Reply[], readyRetryMs = 1) {
   const log = { info: vi.fn(), warn: vi.fn(), error: vi.fn() };
   const notifier = new TelegramNotifier({
     token: "t",
-    groupChatId: "-100123",
+    chats: { all: "-100123", ml: "-100777", swe: "-100555" },
     adminChatId: "42",
     readyRetryMs,
     transformers: [canned],
@@ -52,19 +52,70 @@ describe("TelegramNotifier", () => {
   it("start() rejects when getMe fails and stays not ready", async () => {
     const { notifier } = harness([fail(401, "Unauthorized")]);
     await expect(notifier.start()).rejects.toThrow(/Unauthorized/);
-    expect(notifier.isReady()).toBe(false);
+    expect(notifier.isReady("all")).toBe(false);
   });
 
-  it("start() calls getMe once and becomes ready", async () => {
+  it("start() calls getMe once and makes every configured destination ready", async () => {
     const { notifier, calls } = harness([ok({ id: 1, username: "malja_bot" })]);
     await notifier.start();
     expect(calls.map((c) => c.method)).toEqual(["getMe"]);
-    expect(notifier.isReady()).toBe(true);
+    expect(notifier.destinations()).toEqual(["all", "swe", "ml"]);
+    expect(notifier.destinations().every((d) => notifier.isReady(d))).toBe(true);
+    expect(notifier.isReady("data")).toBe(false);
+  });
+
+  it("send() maps each destination to its chat id and refuses an unconfigured one", async () => {
+    const { notifier, calls } = harness([ok({ message_id: 1 }), ok({ message_id: 2 })]);
+    await notifier.send(SAMPLE, "ml");
+    await notifier.send(SAMPLE, "swe");
+    expect(calls.map((c) => c.payload.chat_id)).toEqual(["-100777", "-100555"]);
+    await expect(notifier.send(SAMPLE, "data")).rejects.toThrow(
+      /no chat configured for destination data/,
+    );
+    expect(calls).toHaveLength(2);
+  });
+
+  it("losing one channel pauses only that destination and probes only its chat", async () => {
+    const { notifier, calls } = harness([
+      ok({ id: 1 }),
+      fail(403, "Forbidden: bot was kicked from the channel chat"),
+      ok({ message_id: 9 }),
+      ok({ id: 1 }),
+      ok({ id: -100777, type: "channel" }),
+    ]);
+    await notifier.start();
+    await expect(notifier.send(SAMPLE, "ml")).rejects.toThrow(/kicked/);
+    expect(notifier.isReady("ml")).toBe(false);
+    expect(notifier.isReady("all")).toBe(true);
+    await expect(notifier.send(SAMPLE, "all")).resolves.toEqual({ messageId: "9" });
+    await vi.waitFor(() => expect(notifier.isReady("ml")).toBe(true));
+    expect(calls.slice(3).map((c) => [c.method, c.payload.chat_id])).toEqual([
+      ["getMe", undefined],
+      ["getChat", "-100777"],
+    ]);
+    await notifier.stop();
+  });
+
+  it("stop() clears every pending probe", async () => {
+    const { notifier, calls } = harness(
+      [
+        ok({ id: 1 }),
+        fail(403, "Forbidden: bot was kicked from the group chat"),
+        fail(400, "Bad Request: chat not found"),
+      ],
+      50,
+    );
+    await notifier.start();
+    await expect(notifier.send(SAMPLE, "all")).rejects.toThrow();
+    await expect(notifier.send(SAMPLE, "ml")).rejects.toThrow();
+    await notifier.stop();
+    await new Promise((r) => setTimeout(r, 100));
+    expect(calls).toHaveLength(3);
   });
 
   it("send() posts HTML to the group with previews off and returns the message id", async () => {
     const { notifier, calls } = harness([ok({ message_id: 77 })]);
-    await expect(notifier.send(SAMPLE)).resolves.toEqual({ messageId: "77" });
+    await expect(notifier.send(SAMPLE, "all")).resolves.toEqual({ messageId: "77" });
     expect(calls[0]?.method).toBe("sendMessage");
     expect(calls[0]?.payload).toMatchObject({
       chat_id: "-100123",
@@ -79,7 +130,7 @@ describe("TelegramNotifier", () => {
       fail(429, "Too Many Requests: retry after 0", 0),
       ok({ message_id: 5 }),
     ]);
-    await expect(notifier.send(SAMPLE)).resolves.toEqual({ messageId: "5" });
+    await expect(notifier.send(SAMPLE, "all")).resolves.toEqual({ messageId: "5" });
     expect(calls).toHaveLength(2);
   });
 
@@ -87,7 +138,7 @@ describe("TelegramNotifier", () => {
     const { notifier, calls } = harness(
       Array.from({ length: 5 }, () => fail(429, "Too Many Requests: retry after 0", 0)),
     );
-    await expect(notifier.send(SAMPLE)).rejects.toThrow(/Too Many Requests/);
+    await expect(notifier.send(SAMPLE, "all")).rejects.toThrow(/Too Many Requests/);
     expect(calls).toHaveLength(4);
   });
 
@@ -99,9 +150,9 @@ describe("TelegramNotifier", () => {
       ok({ id: -100123, type: "supergroup" }),
     ]);
     await notifier.start();
-    await expect(notifier.send(SAMPLE)).rejects.toThrow(/kicked/);
-    expect(notifier.isReady()).toBe(false);
-    await vi.waitFor(() => expect(notifier.isReady()).toBe(true));
+    await expect(notifier.send(SAMPLE, "all")).rejects.toThrow(/kicked/);
+    expect(notifier.isReady("all")).toBe(false);
+    await vi.waitFor(() => expect(notifier.isReady("all")).toBe(true));
     expect(calls.slice(2).map((c) => c.method)).toEqual(["getMe", "getChat"]);
     await notifier.stop();
   });
@@ -116,9 +167,9 @@ describe("TelegramNotifier", () => {
       ok({ id: -100123 }),
     ]);
     await notifier.start();
-    await expect(notifier.send(SAMPLE)).rejects.toThrow(/chat not found/);
-    expect(notifier.isReady()).toBe(false);
-    await vi.waitFor(() => expect(notifier.isReady()).toBe(true));
+    await expect(notifier.send(SAMPLE, "all")).rejects.toThrow(/chat not found/);
+    expect(notifier.isReady("all")).toBe(false);
+    await vi.waitFor(() => expect(notifier.isReady("all")).toBe(true));
     expect(log.warn).toHaveBeenCalledTimes(1);
     await notifier.stop();
   });
@@ -126,8 +177,8 @@ describe("TelegramNotifier", () => {
   it("other send errors throw without touching readiness", async () => {
     const { notifier } = harness([ok({ id: 1 }), fail(400, "Bad Request: message is too long")]);
     await notifier.start();
-    await expect(notifier.send(SAMPLE)).rejects.toThrow(/too long/);
-    expect(notifier.isReady()).toBe(true);
+    await expect(notifier.send(SAMPLE, "all")).rejects.toThrow(/too long/);
+    expect(notifier.isReady("all")).toBe(true);
   });
 
   it("sendAdmin uses no parse mode and swallows errors", async () => {

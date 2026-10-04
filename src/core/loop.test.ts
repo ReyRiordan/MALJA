@@ -3,7 +3,7 @@ import { fixture } from "../../test/helpers/fixture.ts";
 import type { ClassifyInput, ClassifyResult, Verdict } from "../classifier/types.ts";
 import type { Config } from "../config.ts";
 import { Alerter } from "../notifier/alerts.ts";
-import type { Notification, Notifier } from "../notifier/types.ts";
+import type { Destination, Notification, Notifier } from "../notifier/types.ts";
 import { JOB_VIEW_URL } from "../scraper/detail.ts";
 import { type Fetch, type FetchResponse, LinkedInClient } from "../scraper/http.ts";
 import { PAGE_SIZE, parseCards, SEARCH_URL } from "../scraper/search.ts";
@@ -77,6 +77,8 @@ interface HarnessOptions {
   searches?: number;
   verdicts?: (input: ClassifyInput) => ClassifyResult;
   cacheBustSeed?: number;
+  /** What the fake notifier reports as configured. Defaults to the group only. */
+  destinations?: Destination[];
 }
 
 function config(searches: number): Config {
@@ -140,24 +142,36 @@ function harness(opts: HarnessOptions = {}) {
     log,
   });
 
+  /** What reached the group (`all`), in send order. */
   const sent: Notification[] = [];
+  /** Every successful send, to any destination, in send order. */
+  const deliveries: { key: string; dest: Destination }[] = [];
   const admin: string[] = [];
-  let ready = true;
+  const unready = new Set<Destination>();
   let nextMessageId = 1;
-  const notifier: Notifier & { setReady(v: boolean): void; failNext: Error | null } = {
+  const notifier: Notifier & {
+    setReady(v: boolean, dest?: Destination): void;
+    /** Thrown by the next send to `failDest` (any destination when null). */
+    failNext: Error | null;
+    failDest: Destination | null;
+  } = {
     failNext: null,
-    setReady: (v) => {
-      ready = v;
+    failDest: null,
+    setReady: (v, dest = "all") => {
+      if (v) unready.delete(dest);
+      else unready.add(dest);
     },
     start: async () => {},
-    isReady: () => ready,
-    send: vi.fn(async (n: Notification) => {
-      if (notifier.failNext) {
+    destinations: () => opts.destinations ?? ["all"],
+    isReady: (dest) => !unready.has(dest),
+    send: vi.fn(async (n: Notification, dest: Destination) => {
+      if (notifier.failNext && (notifier.failDest === null || notifier.failDest === dest)) {
         const err = notifier.failNext;
         notifier.failNext = null;
         throw err;
       }
-      sent.push(n);
+      if (dest === "all") sent.push(n);
+      deliveries.push({ key: n.key, dest });
       return { messageId: String(nextMessageId++) };
     }),
     sendAdmin: vi.fn(async (text: string) => {
@@ -202,6 +216,7 @@ function harness(opts: HarnessOptions = {}) {
     notifier,
     classify,
     sent,
+    deliveries,
     admin,
     timers,
     cleared,
@@ -669,7 +684,7 @@ describe("Loop.status", () => {
       lastCycleAt: null,
       lastSuccessfulCycleAt: null,
       pausedUntil: null,
-      notifierReady: true,
+      notifierReady: { all: true },
     });
     await h.loop.runCycle();
     expect(h.loop.status()).toMatchObject({
