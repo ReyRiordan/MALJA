@@ -45,11 +45,15 @@ export function toNotification(group: Group, verdict: Verdict | null): Notificat
     title: group.title,
     company: group.company,
     postings,
+    categories: verdict?.categories ?? [],
     tags: tagsFor(verdict),
   };
 }
 
-/** Telegram HTML: bold title, italic company, one linked location per posting, optional tag line. */
+/**
+ * Telegram HTML: bold title, italic company, one linked location per posting, then an optional
+ * hashtag line and an optional tag line.
+ */
 export function formatNotification(n: Notification): string {
   const lines = [
     `<b>${escapeHtml(n.title)}</b>`,
@@ -58,6 +62,7 @@ export function formatNotification(n: Notification): string {
       .map((p) => `<a href="${escapeHtml(p.url)}">${escapeHtml(p.location)}</a>`)
       .join(" · "),
   ];
+  if (n.categories.length > 0) lines.push(n.categories.map((c) => `#${c}`).join(" "));
   if (n.tags.length > 0) {
     const glyph = n.tags.some((t) => t.level === "warn") ? "⚠️" : "ℹ️";
     lines.push(`${glyph} ${n.tags.map((t) => t.text).join(" · ")}`);

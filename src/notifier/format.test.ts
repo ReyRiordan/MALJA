@@ -93,6 +93,15 @@ describe("toNotification", () => {
     const n = toNotification(group(job("1", "Austin, TX")), v === null ? null : verdict(v));
     expect(n.tags).toEqual(tags);
   });
+
+  it("copies the verdict's categories, and none without a verdict", () => {
+    const g = group(job("1", "Austin, TX"));
+    expect(toNotification(g, verdict({ categories: ["ml", "research"] })).categories).toEqual([
+      "ml",
+      "research",
+    ]);
+    expect(toNotification(g, null).categories).toEqual([]);
+  });
 });
 
 describe("formatNotification", () => {
@@ -103,10 +112,11 @@ describe("formatNotification", () => {
     postings: [
       { location: "Greenwood Village, CO", url: "https://www.linkedin.com/jobs/view/111" },
     ],
+    categories: [],
     tags: [],
   };
 
-  it("renders one posting with no tag line", () => {
+  it("renders one posting with no hashtag or tag line", () => {
     expect(formatNotification(base)).toBe(
       [
         "<b>Software Engineer Intern</b>",
@@ -134,6 +144,23 @@ describe("formatNotification", () => {
         "<i>Spectrum</i>",
         '<a href="https://www.linkedin.com/jobs/view/111">Greenwood Village, CO</a> · <a href="https://www.linkedin.com/jobs/view/222">Englewood, CO</a>',
         "ℹ️ no sponsorship · eligibility unclear",
+      ].join("\n"),
+    );
+  });
+
+  it("puts the hashtag line between the locations and the tag line", () => {
+    const n: Notification = {
+      ...base,
+      categories: ["ml", "research"],
+      tags: [{ text: "eligibility unclear", level: "info" }],
+    };
+    expect(formatNotification(n)).toBe(
+      [
+        "<b>Software Engineer Intern</b>",
+        "<i>Spectrum</i>",
+        '<a href="https://www.linkedin.com/jobs/view/111">Greenwood Village, CO</a>',
+        "#ml #research",
+        "ℹ️ eligibility unclear",
       ].join("\n"),
     );
   });
