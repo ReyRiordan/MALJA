@@ -31,10 +31,11 @@ describe("buildMessages", () => {
     expect(user?.content).toContain("Build things.");
   });
 
-  it("states the analyst-title rule and judges the field by the assigned work", () => {
+  it("states the analyst-title rule and judges the field by the required skills", () => {
     const [system] = buildMessages(FACTS, INPUT);
     expect(system?.content).toContain('A title containing "analyst" or "analytics"');
-    expect(system?.content).toContain("Judge the field by the work the description assigns");
+    expect(system?.content).toContain("Judge the field by the skills the work requires");
+    expect(system?.content).toContain("electrical or hardware design (circuits, PCBs, FPGAs)");
     expect(system?.content).toContain("business and data analytics such as BI reporting");
   });
 
