@@ -8,15 +8,15 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "perf"
+      "perf",
+      "aiml"
     ],
     "categoriesAlso": [
-      "aiml",
       "embedded",
       "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Qualcomm: relevant yes, 'Machine Learning & Artificial Intelligence Engineering Internship – Summer 2027'. degreeOk yes, 'enrolled in a bachelor's, master's, or Ph.D. degree program' and 'Expected graduation date of November 2027 or later' fits May 2028. workAuth unclear, hedged export license text. categories perf, 'machine learning tools and frameworks that make models smaller and more efficient for edge devices' with 'compiler technologies', 'GPU acceleration' and 'performance optimization'; also aiml, modelling skills like 'deep neural networks' only preferred, embedded, 'mobile and embedded machine learning platforms', and infra, 'distributed inference platforms ... model serving'."
+  "note": "Qualcomm: relevant yes, 'Machine Learning & Artificial Intelligence Engineering Internship – Summer 2027'. degreeOk yes, 'enrolled in a bachelor's, master's, or Ph.D. degree program' and 'Expected graduation date of November 2027 or later' fits May 2028. workAuth unclear, hedged export license text. categories perf, 'machine learning tools and frameworks that make models smaller and more efficient for edge devices' with 'compiler technologies', 'GPU acceleration' and 'performance optimization'; also aiml, modelling skills like 'deep neural networks' only preferred, embedded, 'mobile and embedded machine learning platforms', and infra, 'distributed inference platforms ... model serving'. Preferred qualifications are mainly modelling: 'deep neural networks, machine learning algorithms, and architectures', 'ML frameworks like TensorFlow, TFLite, PyTorch', 'reinforcement learning, neural architecture search', so aiml is required next to perf."
 }

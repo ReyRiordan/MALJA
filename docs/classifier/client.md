@@ -54,7 +54,7 @@ Any failure returns `{ relevant: "unclear", degreeOk: "unclear", workAuth: "uncl
 
 | Cause | Meaning |
 | --- | --- |
-| `timeout` | the fetch aborted at `REQUEST_TIMEOUT_MS` |
+| `timeout` | the request, including reading the response body, aborted at `REQUEST_TIMEOUT_MS` |
 | `network` | the fetch threw for any other reason |
 | `http <status>` | a non-200 status, or the code from a 200 error body |
 | `unparsable output` | the body was not JSON, or the content failed `parseVerdict` |

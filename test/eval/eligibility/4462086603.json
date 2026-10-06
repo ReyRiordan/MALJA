@@ -8,13 +8,12 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "swe"
-    ],
-    "categoriesAlso": [
+      "swe",
       "infra"
     ],
+    "categoriesAlso": [],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "Motion: relevant yes, 'Cloud Developer Intern' working 'throughout the summer' with no year named, 'developing cloud-native services and integrations'. degreeOk unclear, 'Working on a BS degree in a computer related field' is bare bachelor's wording with no exclusion. workAuth unclear, citizenship appears only in the GPC equal-opportunity statement. categories swe, 'Participate on an Agile development team developing cloud-native services and integrations' and 'design, develop, test, and monitor solutions'; also infra, 'Support deployment pipeline of products to production' with 'DevSecOps processes and tools (e.g. Git, CI/CD pipelines)'."
+  "note": "Motion: relevant yes, 'Cloud Developer Intern' working 'throughout the summer' with no year named, 'developing cloud-native services and integrations'. degreeOk unclear, 'Working on a BS degree in a computer related field' is bare bachelor's wording with no exclusion. workAuth unclear, citizenship appears only in the GPC equal-opportunity statement. categories swe, 'Participate on an Agile development team developing cloud-native services and integrations' and 'design, develop, test, and monitor solutions'; also infra, 'Support deployment pipeline of products to production' with 'DevSecOps processes and tools (e.g. Git, CI/CD pipelines)'. Qualifications are mainly infra: 'cloud platforms and technologies (Google Cloud preferred)', 'DevSecOps processes and tools (e.g. Git, CI/CD pipelines)', 'Linux shell', so infra is required next to swe."
 }

@@ -8,14 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "perf"
+      "perf",
+      "aiml"
     ],
     "categoriesAlso": [
-      "infra",
-      "aiml"
+      "infra"
     ],
     "degreeOk": "unclear",
     "workAuth": "unclear"
   },
-  "note": "BORDERLINE: Together AI: relevant yes, 'Research Intern, Inference (Summer 2027)', inference optimisation for foundation models. degreeOk unclear, 'Currently pursuing a final year of Bachelor's, Master's, or Ph.D.' lists master's, but a May 2028 graduate is not in their final year until after the internship; no is defensible, but the wording has no 'only' or 'must'. workAuth unclear, citizenship only in the EEO statement. categories perf, 'compiler-aware optimization', 'speculative decoding', 'KV cache design' and 'deep hardware optimization' for inference; also infra, 'large-scale serving architectures', and aiml, 'Strong knowledge of Machine Learning and Deep Learning fundamentals', with no training or modelling work assigned."
+  "note": "BORDERLINE: Together AI: relevant yes, 'Research Intern, Inference (Summer 2027)', inference optimisation for foundation models. degreeOk unclear, 'Currently pursuing a final year of Bachelor's, Master's, or Ph.D.' lists master's, but a May 2028 graduate is not in their final year until after the internship; no is defensible, but the wording has no 'only' or 'must'. workAuth unclear, citizenship only in the EEO statement. categories perf, 'compiler-aware optimization', 'speculative decoding', 'KV cache design' and 'deep hardware optimization' for inference; also infra, 'large-scale serving architectures', and aiml, 'Strong knowledge of Machine Learning and Deep Learning fundamentals', with no training or modelling work assigned. Qualifications are mainly ML: 'Machine Learning and Deep Learning fundamentals', 'deep learning frameworks (PyTorch, JAX, etc.)', 'Transformer architectures', so aiml is required next to perf."
 }

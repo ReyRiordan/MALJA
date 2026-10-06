@@ -44,6 +44,8 @@ describe("buildMessages", () => {
     for (const id of CATEGORIES) expect(system?.content).toContain(`- "${id}": `);
     expect(system?.content).toContain('instead of "swe"');
     expect(system?.content).toContain('An ML context alone does not add "aiml"');
+    expect(system?.content).toContain("at least three of their items");
+    expect(system?.content).toContain("An id added from the qualifications sits next to");
     expect(system?.content).toContain("they never decide relevant");
   });
 

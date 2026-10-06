@@ -12,10 +12,11 @@
     ],
     "categoriesAlso": [
       "security",
-      "embedded"
+      "embedded",
+      "infra"
     ],
     "degreeOk": "yes",
     "workAuth": "citizen_only"
   },
-  "note": "Collins Aerospace: relevant yes, 'Software Engineer Intern ( Summer 2027)' developing and testing cross-domain solution software in C/C++/Rust. degreeOk yes, 'Must be pursuing a Bachelor's or Advanced degree in an applicable discipline'. workAuth citizen_only, 'U.S. citizenship is required' and 'Active and transferable SECRET clearance is required prior to start date'. categories swe, 'maintain, enhance, and develop software that aligns with customer requirements' in 'C, C++, Rust'; also security, the 'Software Based Cross-Domain Solution' that 'enables secure transition of data across security levels' with a 'Security focused mindset' required, and embedded, 'Experience working with embedded software' preferred."
+  "note": "Collins Aerospace: relevant yes, 'Software Engineer Intern ( Summer 2027)' developing and testing cross-domain solution software in C/C++/Rust. degreeOk yes, 'Must be pursuing a Bachelor's or Advanced degree in an applicable discipline'. workAuth citizen_only, 'U.S. citizenship is required' and 'Active and transferable SECRET clearance is required prior to start date'. categories swe, 'maintain, enhance, and develop software that aligns with customer requirements' in 'C, C++, Rust'; also security, the 'Software Based Cross-Domain Solution' that 'enables secure transition of data across security levels' with a 'Security focused mindset' required, and embedded, 'Experience working with embedded software' preferred. Also infra: preferred 'virtualization', 'microservices, containers and orchestrators', 'DevSecOps and CI/CD'."
 }

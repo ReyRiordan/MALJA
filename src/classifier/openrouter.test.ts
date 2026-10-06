@@ -179,6 +179,19 @@ describe("OpenRouterClassifier retry", () => {
     expect(h.log.warn).toHaveBeenCalledTimes(2);
   });
 
+  it("a timeout while reading the body gives timeout instead of throwing", async () => {
+    const abort = () => new DOMException("The operation was aborted", "TimeoutError");
+    const slowBody = (): FetchResponse => ({
+      status: 200,
+      text: async () => {
+        throw abort();
+      },
+    });
+    const h = harness([slowBody(), slowBody()]);
+    await expect(h.classifier.classify(INPUT)).resolves.toEqual(UNCLEAR("timeout"));
+    expect(h.fetch).toHaveBeenCalledTimes(2);
+  });
+
   it("a network error gives network", async () => {
     const h = harness([new TypeError("fetch failed"), new TypeError("fetch failed")]);
     await expect(h.classifier.classify(INPUT)).resolves.toEqual(UNCLEAR("network"));
