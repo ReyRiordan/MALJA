@@ -8,14 +8,14 @@
   "expected": {
     "relevant": "yes",
     "categories": [
-      "swe"
+      "swe",
+      "infra"
     ],
     "categoriesAlso": [
-      "infra",
       "security"
     ],
     "degreeOk": "yes",
     "workAuth": "unclear"
   },
-  "note": "Ricoh: relevant yes, 'SW Engineer - Microservice Developer Intern' joining 'during the summer of 2027' to build 'API based serverless cloud-native (AWS, Lambda, SNS) microservices'. degreeOk yes, 'Working towards - B.S., M.S., or PhD. degree in Computer Science'. workAuth unclear, nothing stated beyond the EEO line. categories swe, 'New API based serverless cloud-native (AWS, Lambda, SNS) microservices will be developed and deployed'; also infra + security, 'CI/CD (Gitlab, Jenkins)' and 'explore best practices for early security vulnerability identification'."
+  "note": "Ricoh: relevant yes, 'SW Engineer - Microservice Developer Intern' joining 'during the summer of 2027' to build 'API based serverless cloud-native (AWS, Lambda, SNS) microservices'. degreeOk yes, 'Working towards - B.S., M.S., or PhD. degree in Computer Science'. workAuth unclear, nothing stated beyond the EEO line. categories swe, 'New API based serverless cloud-native (AWS, Lambda, SNS) microservices will be developed and deployed'; also infra + security, 'CI/CD (Gitlab, Jenkins)' and 'explore best practices for early security vulnerability identification'. Preferred skills are mainly infra: AWS, Docker, Jenkins, AWS Lambda, so infra is required next to swe."
 }

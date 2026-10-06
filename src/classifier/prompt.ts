@@ -71,10 +71,10 @@ categories: which skillsets does the role require? List every id the posting req
 - "embedded": software tied to physical hardware: firmware, RTOS, flight software, device drivers, hardware and firmware validation and verification, robotics and autonomy (ROS, controls, motion planning, SLAM).
 - "solutions": technical customer-facing work: solutions and sales engineering, solutions architecture, forward deployed engineering, customer and implementation engineering, GTM engineering, technical account management.
 - "pm": technical product management.
-- Judge by the work the description assigns, not the title.
+- Judge by the work the description assigns and the skills its qualifications, required or preferred, ask for, not the title or the company's domain. Qualifications add an id when at least three of their items, or most of the list, ask for that id's specific skills, even when the assigned work is another id's. One or two items never add an id, however specific: "experience with cloud computing", "MLOps for models in production", "familiarity with Docker", "ML a plus". AI coding tools in the qualifications are "swe", as in the work.
 - List more than one id only when the posting requires more than one skillset.
-- Every other id replaces "swe": a role that is mainly that work gets that id instead of "swe". Add "swe" only when the posting also assigns substantial general product software work.
-- "aiml" versus "swe": AI that the team ships as a feature, a thin API call to a model from ordinary backend code, or AI tools the engineer uses (for example Copilot or Cursor) is "swe". List both only when both kinds of work are substantial.
+- Every other id replaces "swe": a role that is mainly that work gets that id instead of "swe". Add "swe" only when the posting also assigns substantial general product software work. An id added from the qualifications sits next to the id the assigned work gets, not in place of it.
+- "aiml" versus "swe": AI that the team ships as a feature, a thin API call to a model from ordinary backend code, or AI tools the engineer uses (for example Copilot or Cursor) is "swe". List both only when both skillsets are substantial in the work or the qualifications.
 - An ML context alone does not add "aiml". A "perf" role, or an ML platform, MLOps, or model serving "infra" role, also gets "aiml" only when the posting assigns modelling work (training, model architecture, evals).
 - Learned perception for robots or vehicles is "embedded" and "aiml".
 - A research role gets the id of the skillset it needs: an ML research intern is "aiml".

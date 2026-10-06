@@ -117,9 +117,10 @@ export class OpenRouterClassifier implements Classifier {
       title: input.title,
       company: input.company,
     };
-    let res: FetchResponse;
+    let status: number;
+    let text: string;
     try {
-      res = await this.fetch(OPENROUTER_URL, {
+      const res = await this.fetch(OPENROUTER_URL, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${this.apiKey}`,
@@ -136,6 +137,9 @@ export class OpenRouterClassifier implements Classifier {
         }),
         signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       });
+      // The timeout also covers the body, so read it inside the try.
+      status = res.status;
+      text = await res.text();
     } catch (err) {
       const cause: FailureCause = isAbort(err) ? "timeout" : "network";
       this.log.info(
@@ -146,13 +150,12 @@ export class OpenRouterClassifier implements Classifier {
     }
 
     const elapsedMs = this.now() - started;
-    const status = res.status;
     if (status !== 200) {
       this.log.info({ ...base, status, elapsedMs }, "openrouter request");
       return { ok: false, cause: `http ${status}`, retry: status === 429 || status >= 500 };
     }
 
-    const body = parseBody(await res.text());
+    const body = parseBody(text);
     if (body === null) {
       this.log.info({ ...base, status, elapsedMs }, "openrouter request");
       return { ok: false, cause: "unparsable output", retry: false };
